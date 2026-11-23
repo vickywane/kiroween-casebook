@@ -2,29 +2,41 @@
 
 import type { GeocodeConfidence } from "@/lib/mock-data";
 
-const LABELS: Record<GeocodeConfidence, string> = {
-  exact: "Exact address",
-  street: "Street",
-  area: "Area",
+const LEVEL: Record<GeocodeConfidence, { n: number; word: string; basis: string }> = {
+  exact: { n: 3, word: "high", basis: "exact address" },
+  street: { n: 2, word: "medium", basis: "street" },
+  area: { n: 1, word: "low", basis: "area" },
 };
 
-const STYLES: Record<GeocodeConfidence, string> = {
-  exact: "bg-emerald-900/40 text-emerald-400 ring-1 ring-emerald-700",
-  street: "bg-yellow-900/30 text-yellow-400 ring-1 ring-yellow-700",
-  area: "bg-zinc-700/40 text-zinc-400 ring-1 ring-zinc-600",
-};
-
+/** Three gold bars + "Location match: high". Basis is in the tooltip. */
 export function ConfidenceBadge({
   confidence,
 }: {
   confidence: GeocodeConfidence;
 }) {
+  const { n, word, basis } = LEVEL[confidence];
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium ${STYLES[confidence]}`}
+      className="inline-flex items-center gap-2"
+      title={`Matched to ${basis}`}
     >
-      <span aria-hidden="true">📍</span>
-      {LABELS[confidence]}
+      <span className="flex gap-0.5" aria-hidden="true">
+        {[1, 2, 3].map((i) => (
+          <span
+            key={i}
+            className="h-1.5 w-3"
+            style={{
+              background: i <= n ? "var(--cb-gold)" : "var(--cb-border)",
+            }}
+          />
+        ))}
+      </span>
+      <span
+        className="cb-mono text-[12px]"
+        style={{ color: "var(--cb-muted)" }}
+      >
+        Location match: {word} ({basis})
+      </span>
     </span>
   );
 }

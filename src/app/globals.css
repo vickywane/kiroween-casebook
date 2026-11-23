@@ -1,28 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  /* Historical layer palette */
-  --hist-bg: #1a1a1a;
-  --hist-card: #2a2419;
-  --hist-card-border: #4a3f2f;
-  --hist-amber: #c9922a;
-  --hist-amber-light: #e8b84b;
-  --hist-sepia: #d4b483;
-  --hist-text: #e8dcc8;
-  --hist-muted: #8a7a63;
-
-  /* Recent layer palette */
-  --recent-bg: #ffffff;
-  --recent-card: #f8f9fa;
-  --recent-border: #e5e7eb;
-  --recent-text: #111827;
-  --recent-muted: #6b7280;
-  --recent-accent: #374151;
+  /* Casebook palette (Figma) */
+  --cb-ink: #1a1a17;
+  --cb-text: #3b3a35;
+  --cb-muted: #6b6a62;
+  --cb-paper: #ffffff;
+  --cb-stone: #f3f2ee;
+  --cb-border: #e4e2db;
+  --cb-crimson: #7a1c17;
+  --cb-gold: #8f6418;
+  --cb-note-bg: #f6efdc;
+  --cb-note-border: #a77a1c;
+  --cb-blue: #3d5a80;
+  --cb-info-bg: #eef1f2;
 }
 
 @theme inline {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+  --font-mono: var(--font-plex-mono);
 }
 
 html,
@@ -54,3 +51,31 @@ body {
   font-size: 10px;
 }
 
+
+body {
+  background: var(--cb-paper);
+  color: var(--cb-ink);
+}
+
+.cb-serif {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.cb-mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@keyframes cb-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.cb-skeleton {
+  background: var(--cb-stone);
+  border-radius: 6px;
+  animation: cb-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-skeleton { animation: none; }
+}

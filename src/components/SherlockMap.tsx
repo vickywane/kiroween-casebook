@@ -9,15 +9,24 @@ import * as maplibregl from "maplibre-gl";
 import {
   MOCK_HISTORICAL_CASES,
   MOCK_RECENT_COUNTS,
-  MOCK_THEN_AND_NOW,
+  MOCK_RECENT_CASES,
   type HistoricalCase,
   type RecentAreaCount,
+  type RecentConcludedCase,
 } from "@/lib/mock-data";
+import { FLEET_STREET, formatMetres, isInLondon, metresBetween } from "@/lib/geo";
+import { detectCity, type City } from "@/lib/cities";
+import { CityMenu } from "./CityMenu";
 import { buildMapIconHtml } from "@/lib/crime-icons";
-import { LayerControls } from "./LayerControls";
+import { LayerControls, type LayerFilter } from "./LayerControls";
 import { HistoricCasePanel } from "./HistoricCasePanel";
 import { RecentCasePanel } from "./RecentCasePanel";
-import { ThenAndNowPanel } from "./ThenAndNowPanel";
+import { ComparePanel } from "./ComparePanel";
+import { SettingsPanel, type Settings } from "./SettingsPanel";
+import { BottomNav, TopNav, type Tab } from "./AppNav";
+import { NearbyList, StatsChip } from "./NearbyList";
+import { OfflineScreen } from "./OfflineScreen";
+import { HistoricCaseCard } from "./CaseCard";
 
 // ── Leaflet icon fix ──────────────────────────────────────────────────────────
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)
@@ -217,13 +226,45 @@ function LeafletSyncBridge({
 type Panel =
   | { type: "historic"; data: HistoricalCase }
   | { type: "recent"; data: RecentAreaCount }
-  | { type: "thenandnow" }
+  | { type: "recent-case"; data: RecentConcludedCase }
   | null;
 
+const DEFAULT_SETTINGS: Settings = {
+  historic: true,
+  recent: true,
+  stats: true,
+  overlay: false,
+  units: "mi",
+};
+
 // ── Main component ────────────────────────────────────────────────────────────
-export function SherlockMap() {
-  const [historicalOn, setHistoricalOn] = useState(true);
-  const [recentOn, setRecentOn] = useState(true);
+export function SherlockMap({
+  city,
+  detectedCity = null,
+  onCityChange,
+  initialCityMenuOpen = false,
+}: {
+  city: City;
+  /** City matched during onboarding; refreshed below from live location. */
+  detectedCity?: City | null;
+  onCityChange: (c: City) => void;
+  initialCityMenuOpen?: boolean;
+}) {
+  const [cityMenuOpen, setCityMenuOpen] = useState(initialCityMenuOpen);
+  const [tab, setTab] = useState<Tab>("map");
+  const [filter, setFilter] = useState<LayerFilter>("both");
+  const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
+  const [radius, setRadius] = useState(500);
+  const [loading, setLoading] = useState(true);
+  const [online, setOnline] = useState(() => navigator.onLine);
+  const [wide, setWide] = useState(true);
+  const [savedIds, setSavedIds] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("casebook.saved") ?? "[]");
+    } catch {
+      return [];
+    }
+  });
   const [userPos, setUserPos] = useState<[number, number] | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
   const [libreMap, setLibreMap] = useState<maplibregl.Map | null>(null);
@@ -243,7 +284,14 @@ export function SherlockMap() {
 
     const map = new maplibregl.Map({
       container: libreContainerRef.current,
-      style: "https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json",
+      // Stadia only serves tiles without a key on localhost. A deployed site
+      // needs NEXT_PUBLIC_STADIA_API_KEY (or its domain added in the Stadia
+      // dashboard), otherwise the map renders blank.
+      style: `https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json${
+        process.env.NEXT_PUBLIC_STADIA_API_KEY
+          ? `?api_key=${process.env.NEXT_PUBLIC_STADIA_API_KEY}`
+          : ""
+      }`,
       bounds: CASE_BOUNDS,
       fitBoundsOptions: { padding: 60, maxZoom: toLibreZoom(DEFAULT_ZOOM) },
       attributionControl: false,
@@ -284,10 +332,98 @@ export function SherlockMap() {
     };
   }, []);
 
-  const panelOpen = panel !== null;
+  // ── Casebook UI state (does not touch the map) ──────────────────────────────
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 900);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    const on = () => setOnline(true);
+    const off = () => setOnline(false);
+    window.addEventListener("online", on);
+    window.addEventListener("offline", off);
+    return () => {
+      window.removeEventListener("online", on);
+      window.removeEventListener("offline", off);
+    };
+  }, []);
+
+  const toggleSaved = (id: string) =>
+    setSavedIds((prev) => {
+      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      localStorage.setItem("casebook.saved", JSON.stringify(next));
+      return next;
+    });
+
+  const showHistoric = settings.historic && filter !== "recent";
+  const showRecentCases = settings.recent && filter !== "historic";
+  // Map marker layers (consumed by the unchanged map JSX below)
+  const historicalOn = showHistoric;
+  const recentOn = settings.stats && filter !== "historic";
+
+  const ref: [number, number] = userPos ?? FLEET_STREET;
+  const outsideLondon = userPos !== null && !isInLondon(userPos);
+  const fmt = (m: number) => formatMetres(m, settings.units);
+  const detected = userPos ? detectCity(userPos) : detectedCity;
+
+  const historicNearby = MOCK_HISTORICAL_CASES.map((c) => ({
+    c,
+    m: metresBetween(ref, [c.lat, c.lon]),
+  })).sort((a, b) => a.m - b.m);
+  const recentNearby = MOCK_RECENT_CASES.map((c) => ({
+    c,
+    m: metresBetween(ref, [c.lat, c.lon]),
+  })).sort((a, b) => a.m - b.m);
+  const nearestM = Math.min(
+    ...historicNearby.map((x) => x.m),
+    ...recentNearby.map((x) => x.m),
+  );
+  const listHistoric = showHistoric
+    ? historicNearby.filter((x) => x.m <= radius).map((x) => ({ c: x.c, distance: fmt(x.m) }))
+    : [];
+  const listRecent = showRecentCases
+    ? recentNearby.filter((x) => x.m <= radius).map((x) => ({ c: x.c, distance: fmt(x.m) }))
+    : [];
+  const savedCases = MOCK_HISTORICAL_CASES.filter((c) => savedIds.includes(c.id));
+  const area = outsideLondon ? "Near you" : "Fleet Street, London EC4";
+  const distanceOf = (lat: number, lon: number) => fmt(metresBetween(ref, [lat, lon]));
+
+  const listProps = (variant: "row" | "card") => ({
+    variant,
+    historic: listHistoric,
+    recent: listRecent,
+    radiusLabel: fmt(radius),
+    loading,
+    outsideLondon,
+    nearestLabel: Number.isFinite(nearestM) ? fmt(nearestM) : null,
+    showStats: settings.stats,
+    onWiden: () => setRadius(2000),
+    onNearest: () => setRadius(Math.ceil(nearestM / 500) * 500 + 500),
+    onOpenHistoric: (c: HistoricalCase) => {
+      setTab("map");
+      setPanel({ type: "historic", data: c });
+    },
+    onOpenRecent: (c: RecentConcludedCase) => {
+      setTab("map");
+      setPanel({ type: "recent-case", data: c });
+    },
+  });
+
+  const pageOpen = tab === "compare" || tab === "settings" || tab === "saved" || tab === "nearby";
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="flex h-full w-full flex-col overflow-hidden bg-white">
+      <TopNav
+        city={city}
+        onOpenCities={() => setCityMenuOpen(true)}
+        tab={tab}
+        onChange={(t) => {
+          setPanel(null);
+          setTab(t);
+        }}
+      />
+      <div className="relative min-h-0 flex-1 overflow-hidden">
 
       {/* ── Layer 1: MapLibre GL canvas (base map) ── */}
       {/*
@@ -382,51 +518,155 @@ export function SherlockMap() {
         }
       `}</style>
 
-      {/* ── Layer controls ── */}
-      <LayerControls
-        historical={historicalOn}
-        recent={recentOn}
-        onToggleHistorical={() => setHistoricalOn((v) => !v)}
-        onToggleRecent={() => setRecentOn((v) => !v)}
-        onThenAndNow={() => setPanel({ type: "thenandnow" })}
-      />
-
-      {/* ── Side panel ── */}
-      {panelOpen && (
-        <>
-          <div
-            className="absolute inset-0 z-[1001] bg-black/40 md:hidden"
-            onClick={() => setPanel(null)}
-          />
-          <div
-            className={[
-              "absolute z-[1002] overflow-hidden",
-              "bottom-0 left-0 right-0 max-h-[75vh] rounded-t-2xl",
-              "md:bottom-0 md:right-0 md:top-0 md:left-auto md:w-96 md:max-h-full md:rounded-none",
-            ].join(" ")}
-            style={{ boxShadow: "-4px 0 32px rgba(0,0,0,.5)" }}
-          >
-            {panel?.type === "historic" && (
-              <HistoricCasePanel
-                caseRecord={panel.data}
-                onClose={() => setPanel(null)}
-              />
-            )}
-            {panel?.type === "recent" && (
-              <RecentCasePanel
-                count={panel.data}
-                onClose={() => setPanel(null)}
-              />
-            )}
-            {panel?.type === "thenandnow" && (
-              <ThenAndNowPanel
-                rows={MOCK_THEN_AND_NOW}
-                onClose={() => setPanel(null)}
-              />
-            )}
-          </div>
-        </>
+      {/* ── Casebook overlays ── */}
+      {tab === "map" && !panel && (
+        <LayerControls
+          value={filter}
+          onChange={setFilter}
+          area={area}
+          onOpenSettings={() => setTab("settings")}
+          onOpenCities={() => setCityMenuOpen(true)}
+        />
       )}
+
+      {tab === "map" && !panel && settings.stats && !outsideLondon && !loading && (
+        <div className="pointer-events-none absolute left-1/2 top-[120px] z-[1000] hidden -translate-x-1/2 md:block lg:left-[calc(50%+220px)]">
+          <StatsChip label="47 violent offences · 1 mi · police.uk" />
+        </div>
+      )}
+
+      {/* Nearby list: bottom sheet (mobile), floating card (tablet), side column (desktop) */}
+      {tab === "map" && !panel && (
+        <div
+          className={[
+            "absolute z-[1050] overflow-y-auto bg-white px-4 pb-24 pt-3",
+            "inset-x-0 bottom-0 max-h-[55%] rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,.14)]",
+            "md:inset-x-auto md:left-4 md:top-4 md:bottom-24 md:max-h-none md:w-[380px] md:rounded-3xl md:pb-6 md:shadow-xl",
+            "lg:left-0 lg:top-0 lg:bottom-0 lg:w-[440px] lg:rounded-none lg:px-6 lg:pb-6 lg:shadow-none lg:border-r",
+          ].join(" ")}
+          style={{ borderColor: "var(--cb-border)" }}
+        >
+          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full md:hidden" style={{ background: "var(--cb-border)" }} />
+          <div className="mb-4 hidden md:block">
+            <LayerControls
+              inline
+              value={filter}
+              onChange={setFilter}
+              area={area}
+              onOpenSettings={() => setTab("settings")}
+              onOpenCities={() => setCityMenuOpen(true)}
+            />
+          </div>
+          <NearbyList {...listProps("row")} variant="row" />
+        </div>
+      )}
+
+      {/* Case panel: sheet (mobile/tablet), side column (desktop) */}
+      {tab === "map" && panel && (
+        <div
+          className={[
+            "absolute z-[1050] overflow-y-auto bg-white shadow-[0_-8px_30px_rgba(0,0,0,.14)]",
+            "inset-x-0 bottom-0 top-[190px] rounded-t-3xl md:top-[260px]",
+            "lg:inset-x-auto lg:left-0 lg:top-0 lg:w-[520px] lg:rounded-none lg:border-r lg:shadow-none",
+          ].join(" ")}
+          style={{ borderColor: "var(--cb-border)" }}
+        >
+          {panel.type === "historic" && (
+            <HistoricCasePanel
+              caseRecord={panel.data}
+              distanceLabel={`${distanceOf(panel.data.lat, panel.data.lon)} from you`}
+              saved={savedIds.includes(panel.data.id)}
+              onToggleSave={() => toggleSaved(panel.data.id)}
+              onClose={() => setPanel(null)}
+              onCompare={() => {
+                setPanel(null);
+                setTab("compare");
+              }}
+            />
+          )}
+          {panel.type === "recent" && (
+            <RecentCasePanel kind="count" data={panel.data} onClose={() => setPanel(null)} />
+          )}
+          {panel.type === "recent-case" && (
+            <RecentCasePanel kind="case" data={panel.data} onClose={() => setPanel(null)} />
+          )}
+        </div>
+      )}
+
+      {/* Full-page tabs */}
+      {pageOpen && (
+        <div className="absolute inset-0 z-[1050] overflow-y-auto bg-white">
+          {tab === "nearby" && (
+            <div className="mx-auto max-w-[640px] px-5 pb-28 pt-8 md:px-6">
+              <NearbyList {...listProps("card")} variant="card" />
+            </div>
+          )}
+          {tab === "compare" && (
+            <ComparePanel
+              street="Fleet Street, London"
+              wide={wide}
+              onToggleWide={setWide}
+              tooFew={!wide}
+            />
+          )}
+          {tab === "settings" && <SettingsPanel value={settings} onChange={setSettings} />}
+          {tab === "saved" && (
+            <div className="mx-auto max-w-[640px] px-5 pb-28 pt-8 md:px-6">
+              <h1 className="cb-serif text-[32px] font-bold">Saved</h1>
+              <div className="mt-4 space-y-3">
+                {savedCases.length === 0 && (
+                  <p className="text-[15px]" style={{ color: "var(--cb-muted)" }}>
+                    Nothing saved yet. Tap the bookmark on a case file to keep it here.
+                  </p>
+                )}
+                {savedCases.map((c) => (
+                  <HistoricCaseCard
+                    key={c.id}
+                    c={c}
+                    distance={distanceOf(c.lat, c.lon)}
+                    onOpen={() => {
+                      setTab("map");
+                      setPanel({ type: "historic", data: c });
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {!online && (
+        <div className="absolute inset-0 z-[1200] overflow-y-auto bg-white">
+          <OfflineScreen
+            saved={savedCases}
+            onRetry={() => setOnline(navigator.onLine)}
+            onOpen={(c) => {
+              setTab("map");
+              setPanel({ type: "historic", data: c });
+            }}
+          />
+        </div>
+      )}
+
+      <BottomNav
+        tab={tab}
+        onChange={(t) => {
+          setPanel(null);
+          setTab(t);
+        }}
+      />
+      </div>
+      <CityMenu
+        open={cityMenuOpen}
+        city={city}
+        detected={detected}
+        onSelect={(c) => {
+          onCityChange(c);
+          setCityMenuOpen(false);
+        }}
+        onClose={() => setCityMenuOpen(false)}
+      />
     </div>
   );
 }

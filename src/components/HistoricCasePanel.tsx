@@ -1,226 +1,203 @@
 "use client";
 
-import { useState } from "react";
-import { X, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft,
+  Bookmark,
+  BookOpen,
+  ChevronRight,
+  ExternalLink,
+  Info,
+  Quote,
+  Share2,
+  ArrowLeftRight,
+} from "lucide-react";
 import type { HistoricalCase } from "@/lib/mock-data";
-import { VerdictBadge } from "./VerdictBadge";
 import { ConfidenceBadge } from "./ConfidenceBadge";
-import { ContentNote } from "./ContentNote";
-import { CrimeIcon } from "@/lib/crime-icons";
+import { VerdictBadge } from "./VerdictBadge";
+import { ContentNote, Eyebrow, RoundButton, SecondaryButton } from "./ui";
 
 interface Props {
   caseRecord: HistoricalCase;
+  distanceLabel: string;
+  saved: boolean;
+  onToggleSave: () => void;
   onClose: () => void;
+  onCompare: () => void;
 }
 
-export function HistoricCasePanel({ caseRecord, onClose }: Props) {
-  const [testimonyOpen, setTestimonyOpen] = useState(false);
-
-  const categoryLabel = caseRecord.offence_category;
+/**
+ * HistoricCasePanel — M5 / D2 / T2. Casebook tone: serif title, mono labels,
+ * crimson accents. Verdict, source and location confidence are always shown.
+ */
+export function HistoricCasePanel({
+  caseRecord: c,
+  distanceLabel,
+  saved,
+  onToggleSave,
+  onClose,
+  onCompare,
+}: Props) {
+  const testimonies =
+    c.testimonies ?? [{ speaker: "From the trial record", text: c.testimony_excerpt }];
+  const share = () => {
+    if (navigator.share) {
+      void navigator.share({ title: c.title ?? "Casebook", url: c.source_url });
+    } else {
+      void navigator.clipboard?.writeText(c.source_url);
+    }
+  };
 
   return (
-    /*
-     * Historical layer — casebook / detective styling.
-     * Dark background, aged-paper card, Playfair Display serif, amber accents.
-     */
-    <div
-      className="flex flex-col overflow-y-auto"
-      style={{
-        background: "var(--hist-bg)",
-        color: "var(--hist-text)",
-        fontFamily: "var(--font-sans)",
-      }}
-    >
-      {/* Top bar */}
-      <div
-        className="sticky top-0 z-10 flex items-center justify-between border-b px-4 py-3"
-        style={{
-          background: "var(--hist-bg)",
-          borderColor: "var(--hist-card-border)",
-        }}
-      >
-        <span
-          className="text-xs font-semibold uppercase tracking-widest"
-          style={{ color: "var(--hist-amber)" }}
-        >
-          Case File
-        </span>
+    <div className="bg-white">
+      <div className="flex items-center justify-between px-5 pb-2 pt-4 md:px-6">
         <button
           onClick={onClose}
-          aria-label="Close case file"
-          className="rounded p-1 transition-colors hover:bg-white/10"
+          className="flex items-center gap-2 text-sm font-medium"
         >
-          <X className="h-4 w-4" style={{ color: "var(--hist-muted)" }} />
+          <ArrowLeft className="h-4 w-4" />
+          Nearby
         </button>
+        <div className="flex gap-2">
+          <RoundButton
+            label={saved ? "Remove from saved" : "Save case file"}
+            onClick={onToggleSave}
+            className="!h-10 !w-10 border"
+          >
+            <Bookmark
+              className="h-4 w-4"
+              fill={saved ? "var(--cb-crimson)" : "none"}
+              style={{ color: saved ? "var(--cb-crimson)" : undefined }}
+            />
+          </RoundButton>
+          <RoundButton label="Share" onClick={share} className="!h-10 !w-10 border">
+            <Share2 className="h-4 w-4" />
+          </RoundButton>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-5 p-4">
-        {/* Content note for violent cases */}
-        {caseRecord.is_violent && <ContentNote />}
-
-        {/* Title block */}
-        <div className="flex items-start gap-4">
-          {/* Category icon — panel size */}
-          <div
-            className="shrink-0 flex h-14 w-14 items-center justify-center rounded-xl"
-            style={{ background: "var(--hist-card)", border: "1px solid var(--hist-card-border)" }}
-          >
-            <CrimeIcon
-              category={caseRecord.offence_category}
-              size="panel"
-              color="var(--hist-amber)"
-            />
-          </div>
-          <div className="flex flex-col gap-1 pt-1">
-            <h2
-              className="font-serif text-2xl font-bold italic leading-tight"
-              style={{
-                fontFamily: "var(--font-playfair), Georgia, serif",
-                color: "var(--hist-sepia)",
-              }}
-            >
-              {categoryLabel}
-            </h2>
-            <p className="text-sm" style={{ color: "var(--hist-muted)" }}>
-              Old Bailey, {caseRecord.year}
-            </p>
-          </div>
-        </div>
-
-        {/* Verdict — always shown prominently */}
-        <div className="flex flex-col gap-1">
-          <span
-            className="text-xs uppercase tracking-widest"
-            style={{ color: "var(--hist-muted)" }}
-          >
-            Verdict
-          </span>
-          <VerdictBadge verdict={caseRecord.verdict} />
-        </div>
-
-        {/* Parties */}
-        <div
-          className="rounded-lg border p-3"
-          style={{
-            background: "var(--hist-card)",
-            borderColor: "var(--hist-card-border)",
-          }}
-        >
-          <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-            {caseRecord.defendant_name && (
-              <>
-                <dt style={{ color: "var(--hist-muted)" }}>
-                  {caseRecord.verdict.toLowerCase() === "not guilty"
-                    ? "Acquitted"
-                    : "Defendant"}
-                </dt>
-                <dd style={{ color: "var(--hist-text)" }}>
-                  {caseRecord.defendant_name}
-                  {caseRecord.verdict.toLowerCase() === "not guilty" && (
-                    <span
-                      className="ml-1 text-xs"
-                      style={{ color: "var(--hist-muted)" }}
-                    >
-                      (found not guilty)
-                    </span>
-                  )}
-                </dd>
-              </>
-            )}
-            {caseRecord.victim_name && (
-              <>
-                <dt style={{ color: "var(--hist-muted)" }}>Victim</dt>
-                <dd style={{ color: "var(--hist-text)" }}>
-                  {caseRecord.victim_name}
-                </dd>
-              </>
-            )}
-            <dt style={{ color: "var(--hist-muted)" }}>Location</dt>
-            <dd style={{ color: "var(--hist-text)" }}>
-              {caseRecord.location_raw}
-            </dd>
-          </dl>
-        </div>
-
-        {/* Location confidence */}
-        <div className="flex flex-col gap-1">
-          <span
-            className="text-xs uppercase tracking-widest"
-            style={{ color: "var(--hist-muted)" }}
-          >
-            Location match
-          </span>
-          <ConfidenceBadge confidence={caseRecord.geocode_confidence} />
-        </div>
-
-        {/* AI Summary */}
-        <div className="flex flex-col gap-2">
-          <span
-            className="text-xs uppercase tracking-widest"
-            style={{ color: "var(--hist-muted)" }}
-          >
-            Summary
-          </span>
-          <p
-            className="text-sm leading-relaxed"
-            style={{ color: "var(--hist-text)" }}
-          >
-            {caseRecord.summary}
+      <div className="space-y-5 px-5 pb-10 pt-2 md:px-6">
+        <div>
+          <p className="cb-mono text-[12px] uppercase tracking-[0.12em]" style={{ color: "var(--cb-crimson)" }}>
+            Case file · {c.ref ?? c.id.toUpperCase()} · {distanceLabel}
           </p>
-        </div>
-
-        {/* Testimony excerpt — collapsible */}
-        <div
-          className="rounded-lg border"
-          style={{ borderColor: "var(--hist-card-border)" }}
-        >
-          <button
-            onClick={() => setTestimonyOpen((o) => !o)}
-            className="flex w-full items-center justify-between px-3 py-2 text-left transition-colors hover:bg-white/5"
-          >
-            <span
-              className="text-xs font-semibold uppercase tracking-widest"
-              style={{ color: "var(--hist-amber)" }}
-            >
-              Original Testimony
+          <h1 className="cb-serif mt-3 text-[32px] font-bold leading-[1.15]">
+            {c.title ?? `${c.offence_category} · ${c.location_raw}`}
+          </h1>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <VerdictBadge verdict={c.verdict} />
+            <span className="cb-mono text-xs" style={{ color: "var(--cb-muted)" }}>
+              {c.date_label ?? c.year}
             </span>
-            {testimonyOpen ? (
-              <ChevronUp
-                className="h-4 w-4"
-                style={{ color: "var(--hist-muted)" }}
-              />
-            ) : (
-              <ChevronDown
-                className="h-4 w-4"
-                style={{ color: "var(--hist-muted)" }}
-              />
+          </div>
+          <div className="mt-3">
+            <ConfidenceBadge confidence={c.geocode_confidence} />
+            {c.match_basis && (
+              <p className="mt-1 text-sm" style={{ color: "var(--cb-muted)" }}>
+                {c.match_basis}
+              </p>
             )}
-          </button>
-          {testimonyOpen && (
-            <blockquote
-              className="border-t px-3 py-3 font-serif text-sm italic leading-relaxed"
-              style={{
-                fontFamily: "var(--font-playfair), Georgia, serif",
-                borderColor: "var(--hist-card-border)",
-                color: "var(--hist-sepia)",
-              }}
-            >
-              &ldquo;{caseRecord.testimony_excerpt}&rdquo;
-            </blockquote>
-          )}
+          </div>
         </div>
 
-        {/* Source link */}
-        <a
-          href={caseRecord.source_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs transition-colors hover:underline"
-          style={{ color: "var(--hist-amber)" }}
+        {c.is_violent && <ContentNote />}
+
+        {c.timeline && (
+          <section>
+            <Eyebrow>Timeline</Eyebrow>
+            <ol className="mt-3">
+              {c.timeline.map((t, i) => (
+                <li key={i} className="relative pb-4 pl-7 last:pb-0">
+                  {i < c.timeline!.length - 1 && (
+                    <span className="absolute left-[4px] top-3 h-full w-px" style={{ background: "var(--cb-border)" }} />
+                  )}
+                  <span className="absolute left-0 top-1.5 h-[9px] w-[9px] rounded-full" style={{ background: "var(--cb-crimson)" }} />
+                  <p className="cb-mono text-xs" style={{ color: "var(--cb-muted)" }}>{t.date}</p>
+                  <p className="text-[17px] font-semibold leading-snug">{t.title}</p>
+                  {t.detail && (
+                    <p className="text-sm" style={{ color: "var(--cb-muted)" }}>{t.detail}</p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        <section
+          className="rounded-2xl p-5 text-white"
+          style={{ background: "var(--cb-ink)" }}
         >
-          <ExternalLink className="h-3 w-3" />
-          View original record — Old Bailey Online (CC BY 4.0)
+          <p className="cb-mono text-[11px] uppercase tracking-[0.14em] text-white/70">
+            Plain-English summary · AI
+          </p>
+          <p className="mt-3 text-lg leading-relaxed">{c.summary}</p>
+          <p className="mt-3 text-sm text-white/75">
+            Written by AI (Amazon Bedrock) from the trial record. Check it
+            against the testimony below.
+          </p>
+        </section>
+
+        {c.outcome && (
+          <section>
+            <Eyebrow>Outcome</Eyebrow>
+            <p className="mt-1 font-semibold">{c.outcome}</p>
+          </section>
+        )}
+
+        <section>
+          <Eyebrow>Original testimony</Eyebrow>
+          <div className="mt-3 space-y-4">
+            {testimonies.map((t, i) => (
+              <blockquote key={i} className="border-l-[3px] pl-5" style={{ borderColor: "var(--cb-crimson)" }}>
+                <p className="cb-mono flex items-center gap-2 text-[11px] uppercase tracking-[0.12em]" style={{ color: "var(--cb-muted)" }}>
+                  <Quote className="h-3 w-3" style={{ color: "var(--cb-crimson)" }} />
+                  {t.speaker} · sworn
+                </p>
+                <p className="mt-2 text-xl italic leading-relaxed">“{t.text}”</p>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+
+        <a href={c.source_url} target="_blank" rel="noreferrer" className="block">
+          <SecondaryButton type="button">Read the full transcript</SecondaryButton>
         </a>
+
+        <button
+          onClick={onCompare}
+          className="flex w-full items-center gap-4 rounded-2xl p-4 text-left"
+          style={{ background: "var(--cb-stone)" }}
+        >
+          <ArrowLeftRight className="h-5 w-5 shrink-0" style={{ color: "var(--cb-crimson)" }} />
+          <span className="flex-1">
+            <span className="block font-semibold">Compare this street</span>
+            <span className="block text-sm" style={{ color: "var(--cb-muted)" }}>
+              Old Bailey trials alongside modern police counts
+            </span>
+          </span>
+          <ChevronRight className="h-5 w-5" />
+        </button>
+
+        <a
+          href={c.source_url}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-4 rounded-2xl p-4"
+          style={{ background: "var(--cb-stone)" }}
+        >
+          <BookOpen className="h-5 w-5 shrink-0" />
+          <span className="flex-1">
+            <Eyebrow>Source</Eyebrow>
+            <span className="block text-sm">
+              Old Bailey Proceedings Online, {c.ref?.toLowerCase() ?? c.id} (CC BY 4.0)
+            </span>
+          </span>
+          <ExternalLink className="h-4 w-4" style={{ color: "var(--cb-crimson)" }} />
+        </a>
+
+        <p className="flex items-center gap-2 text-sm" style={{ color: "var(--cb-muted)" }}>
+          <Info className="h-4 w-4" />
+          Spotted a mistake? Check the source record above.
+        </p>
       </div>
     </div>
   );
