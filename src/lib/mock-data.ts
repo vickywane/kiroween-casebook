@@ -21,6 +21,14 @@ export interface HistoricalCase {
   source_url: string;
   testimony_excerpt: string;
   is_violent: boolean;
+  /** Display fields used by the case-file panel (optional on older mocks). */
+  ref?: string;
+  title?: string;
+  date_label?: string;
+  outcome?: string;
+  match_basis?: string;
+  timeline?: { date: string; title: string; detail?: string }[];
+  testimonies?: { speaker: string; text: string }[];
 }
 
 export interface RecentAreaCount {
@@ -45,6 +53,81 @@ export interface ThenAndNowRow {
 // ── Historical cases ───────────────────────────────────────────────────────────
 
 export const MOCK_HISTORICAL_CASES: HistoricalCase[] = [
+  {
+    id: "t17850112-12",
+    year: 1785,
+    offence_category: "Robbery",
+    verdict: "Guilty",
+    defendant_name: "Thomas Wilkes",
+    victim_name: "John Hawkins",
+    location_raw: "Fleet Street, near Temple Bar",
+    lat: 51.5139,
+    lon: -0.1093,
+    geocode_confidence: "exact",
+    summary:
+      "Thomas Wilkes was indicted for assaulting John Hawkins, a hackney coachman, on the King's highway near Temple Bar, and taking from him a silver watch, value 40 shillings.",
+    source_url: "https://www.oldbaileyonline.org/record/t17850112-12",
+    testimony_excerpt:
+      "I was driving up Fleet Street about eleven at night, when the prisoner laid hold of my horse's head and bid me stand. He put his hand into my fob and took my watch.",
+    is_violent: true,
+    ref: "T17850112-12",
+    title: "Highway robbery on Fleet Street",
+    date_label: "12 January 1785",
+    outcome: "Guilty. Transported for seven years.",
+    match_basis: "Fleet Street is named in the transcript and matched to Rocque's 1746 map.",
+    timeline: [
+      { date: "Before 12 Jan 1785", title: "Coachman robbed near Temple Bar", detail: "A silver watch, value 40 shillings, was taken." },
+      { date: "12 Jan 1785", title: "Tried at the Old Bailey", detail: "Two witnesses gave sworn evidence." },
+      { date: "12 Jan 1785", title: "Verdict: guilty" },
+      { date: "12 Jan 1785", title: "Sentenced to transportation", detail: "Seven years." },
+    ],
+    testimonies: [
+      { speaker: "John Hawkins, coachman", text: "I was driving up Fleet Street about eleven at night, when the prisoner laid hold of my horse's head and bid me stand. He put his hand into my fob and took my watch." },
+      { speaker: "Mary Allen", text: "I saw the prisoner run past my door towards Shoe Lane, with something shining in his hand." },
+    ],
+  },
+  {
+    id: "t17630223-41",
+    year: 1763,
+    offence_category: "Theft",
+    verdict: "Guilty",
+    defendant_name: "Elizabeth Marsh",
+    victim_name: null,
+    location_raw: "Ludgate Hill",
+    lat: 51.5139,
+    lon: -0.1010,
+    geocode_confidence: "street",
+    summary:
+      "A silk handkerchief was taken in the crowd on Ludgate Hill. The accused was seized by a passer-by and found guilty at the Old Bailey.",
+    source_url: "https://www.oldbaileyonline.org/record/t17630223-41",
+    testimony_excerpt: "I felt a tug at my pocket and saw the prisoner with my handkerchief in her hand.",
+    is_violent: false,
+    ref: "T17630223-41",
+    title: "The pickpocket of Ludgate Hill",
+    date_label: "23 February 1763",
+    match_basis: "Ludgate Hill is named in the transcript.",
+  },
+  {
+    id: "t17910914-7",
+    year: 1791,
+    offence_category: "Theft",
+    verdict: "Guilty",
+    defendant_name: "Samuel Pike",
+    victim_name: null,
+    location_raw: "Shoe Lane",
+    lat: 51.5150,
+    lon: -0.1081,
+    geocode_confidence: "street",
+    summary:
+      "A bolt of silk was stolen from a shop doorway in Shoe Lane. The goods were found in the accused's lodging.",
+    source_url: "https://www.oldbaileyonline.org/record/t17910914-7",
+    testimony_excerpt: "The silk was found under the prisoner's bed, still wrapped in the shop's paper.",
+    is_violent: false,
+    ref: "T17910914-7",
+    title: "A stolen bolt of silk, Shoe Lane",
+    date_label: "14 September 1791",
+    match_basis: "Shoe Lane is named in the transcript.",
+  },
   {
     id: "t18500101-1",
     year: 1850,
@@ -253,4 +336,70 @@ export const MOCK_THEN_AND_NOW: ThenAndNowRow[] = [
     historical_count: 14,
     recent_count: 6,
   },
+];
+
+// ── Recent concluded cases (plain tone) ───────────────────────────────────────
+// Shown only because the case is concluded (conviction recorded, sentencing
+// complete, no appeal pending) and carries a verified source URL.
+
+export interface RecentConcludedCase {
+  id: string;
+  title: string;
+  year: number;
+  verdict: string;
+  appeal_status: string;
+  concluded: string;
+  finding: string;
+  area: string;
+  match: "high" | "medium" | "low";
+  source_name: string;
+  source_ref: string;
+  source_url: string;
+  lat: number;
+  lon: number;
+  distance_label: string;
+}
+
+export const MOCK_RECENT_CASES: RecentConcludedCase[] = [
+  {
+    id: "rc-2020-ewca-crim-000",
+    title: "R v. Doe (2019)",
+    year: 2019,
+    verdict: "Convicted",
+    appeal_status: "No appeal pending",
+    concluded: "Concluded Jun 2020",
+    finding:
+      "The defendant was convicted of manslaughter after an incident on the riverside towpath. The Court of Appeal upheld the sentence. No further appeal is pending.",
+    area: "riverside towpath near Blackfriars Bridge",
+    match: "medium",
+    source_name: "Find Case Law · The National Archives",
+    source_ref: "[2020] EWCA Crim 000",
+    source_url: "https://caselaw.nationalarchives.gov.uk/ewca/crim/2020/000",
+    lat: 51.5113,
+    lon: -0.1045,
+    distance_label: "0.4 mi",
+  },
+];
+
+// ── Then & Now (Fleet Street) ─────────────────────────────────────────────────
+
+export const MOCK_DECADES: { label: string; count: number }[] = [
+  { label: "1700s", count: 4 }, { label: "1710s", count: 6 }, { label: "1720s", count: 6 },
+  { label: "1730s", count: 8 }, { label: "1740s", count: 12 }, { label: "1750s", count: 13 },
+  { label: "1760s", count: 15 }, { label: "1770s", count: 16 }, { label: "1780s", count: 14 },
+  { label: "1790s", count: 12 }, { label: "1800s", count: 8 }, { label: "1810s", count: 7 },
+  { label: "1820s", count: 4 }, { label: "1830s", count: 3 },
+];
+
+export const MOCK_CATEGORY_COMPARE: {
+  label: string;
+  then: number;
+  now: number | null;
+}[] = [
+  { label: "Theft", then: 61, now: 212 },
+  { label: "Robbery", then: 14, now: 9 },
+  { label: "Violence", then: 8, now: 47 },
+  { label: "Fraud & forgery", then: 6, now: 38 },
+  // now: null means fewer than 3 on a street, shown as "a small number"
+  { label: "Burglary", then: 11, now: null },
 ];

@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Netlify folder
+.netlify
+
+# ETL data (raw downloads, reports and the built database are generated)
+/data/raw/
+/data/reports/
+/data/*.db
+/data/*.db-journal

@@ -1,5 +1,27 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Design
+
+- Figma: [Sherlock design file](https://www.figma.com/design/ly8oJl6FNfD8nuGesz7dR4/Sherlock)
+
+## Docs
+
+### Architecture
+
+- [Data pipeline](docs/architecture.md): how source data is downloaded, checked, enriched and published to the app.
+
+In short: the app never queries the upstream sources while someone is browsing. A pipeline on AWS (S3, Step Functions, ECS Fargate, EventBridge, Bedrock) downloads each source, enforces the data rules once, geocodes and summarises records, and publishes a read-only SQLite database. The Next.js API routes read only from that database, and every row keeps its source link, licence and retrieval date. The police.uk step runs locally today (`yarn ingest:police`, tests with `yarn test:etl`). The other sources and the AWS deployment are still planned, and the app still reads mock data.
+
+| Source | Licence |
+|---|---|
+| police.uk street-level crime and outcomes | Open Government Licence v3.0 |
+| Old Bailey Proceedings, 1674–1913 | To confirm before commercial use (see the architecture doc) |
+| MoJ Outcomes by Offence | Open Government Licence v3.0 |
+| London Datastore: MPS recorded crime | Open Government Licence |
+| Find Case Law (metadata and on-demand links only) | Open Justice Licence v2.0 |
+| Wikidata | CC0 |
+| NLS historic map tiles | Free for non-commercial use, credit required |
+
 ## Getting Started
 
 First, run the development server:

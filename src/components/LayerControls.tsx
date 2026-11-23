@@ -1,100 +1,88 @@
 "use client";
 
+import { Building2, Layers, Menu, Scale, Search, SlidersHorizontal } from "lucide-react";
+
+export type LayerFilter = "historic" | "recent" | "both";
+
 interface Props {
-  historical: boolean;
-  recent: boolean;
-  onToggleHistorical: () => void;
-  onToggleRecent: () => void;
-  onThenAndNow: () => void;
+  value: LayerFilter;
+  onChange: (v: LayerFilter) => void;
+  area: string;
+  onOpenSettings: () => void;
+  /** Opens the city sidebar. Hidden on desktop, where the top bar has its own switcher. */
+  onOpenCities: () => void;
+  /** Render in normal flow inside a panel (tablet/desktop). */
+  inline?: boolean;
 }
 
-/**
- * LayerControls — top-right floating controls over the map.
- * Historical toggle, Recent toggle, Then & Now button.
- */
-export function LayerControls({
-  historical,
-  recent,
-  onToggleHistorical,
-  onToggleRecent,
-  onThenAndNow,
-}: Props) {
+const OPTIONS: { id: LayerFilter; label: string; icon: React.ReactNode }[] = [
+  { id: "historic", label: "Historic", icon: <Building2 className="h-4 w-4" /> },
+  { id: "recent", label: "Recent", icon: <Scale className="h-4 w-4" /> },
+  { id: "both", label: "Both", icon: <Layers className="h-4 w-4" /> },
+];
+
+/** Top-of-map controls: current area pill + Historic / Recent / Both. */
+export function LayerControls({ value, onChange, area, onOpenSettings, onOpenCities, inline = false }: Props) {
   return (
-    <div className="absolute right-3 top-3 z-[1000] flex flex-col gap-2">
-      {/* Layer toggles */}
-      <div
-        className="flex flex-col gap-1 rounded-xl border px-3 py-2 shadow-lg backdrop-blur-sm"
-        style={{
-          background: "rgba(26,26,26,0.92)",
-          borderColor: "var(--hist-card-border)",
-        }}
-      >
-        <p
-          className="mb-1 text-[10px] font-semibold uppercase tracking-widest"
-          style={{ color: "var(--hist-muted)" }}
+    <div
+      className={
+        inline
+          ? "flex flex-col gap-3"
+          : "pointer-events-none absolute inset-x-0 top-0 z-[1000] flex flex-col gap-3 p-4 md:hidden"
+      }
+    >
+      <div className="pointer-events-auto flex items-center gap-3">
+        <button
+          onClick={onOpenCities}
+          aria-label="Choose a city"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white shadow-md lg:hidden"
         >
-          Layers
-        </p>
-
-        <label className="flex cursor-pointer items-center gap-2">
-          <Toggle checked={historical} onChange={onToggleHistorical} amber />
-          <span
-            className="text-xs"
-            style={{ color: "var(--hist-sepia)" }}
-          >
-            Historical
-          </span>
-        </label>
-
-        <label className="flex cursor-pointer items-center gap-2">
-          <Toggle checked={recent} onChange={onToggleRecent} />
-          <span className="text-xs text-gray-300">Recent</span>
-        </label>
+          <Menu className="h-5 w-5" />
+        </button>
+        <div
+          className="flex h-12 flex-1 items-center gap-3 rounded-full bg-white px-4 shadow-md"
+          role="status"
+          aria-label="Current area"
+        >
+          <Search className="h-4 w-4" />
+          <span className="truncate text-[15px]">{area}</span>
+        </div>
+        <button
+          onClick={onOpenSettings}
+          aria-label="Layer settings"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md"
+        >
+          <SlidersHorizontal className="h-5 w-5" />
+        </button>
       </div>
 
-      {/* Then & Now button */}
-      <button
-        onClick={onThenAndNow}
-        className="rounded-xl border px-3 py-2 text-xs font-semibold shadow-lg backdrop-blur-sm transition-colors"
-        style={{
-          background: "rgba(26,26,26,0.92)",
-          borderColor: "var(--hist-card-border)",
-          color: "var(--hist-amber)",
-        }}
+      <div
+        role="radiogroup"
+        aria-label="Layers"
+        className="pointer-events-auto flex w-fit gap-1 rounded-full p-1 shadow-md backdrop-blur"
+        style={{ background: inline ? "var(--cb-stone)" : "rgba(255,255,255,.9)" }}
       >
-        Then &amp; Now
-      </button>
+        {OPTIONS.map((o) => {
+          const active = value === o.id;
+          return (
+            <button
+              key={o.id}
+              role="radio"
+              aria-checked={active}
+              onClick={() => onChange(o.id)}
+              className="flex h-9 items-center gap-2 rounded-full px-4 text-sm font-medium"
+              style={
+                active
+                  ? { background: "#fff", boxShadow: "0 1px 3px rgba(0,0,0,.18)", color: "var(--cb-ink)" }
+                  : { color: "var(--cb-muted)" }
+              }
+            >
+              {o.icon}
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
-  );
-}
-
-function Toggle({
-  checked,
-  onChange,
-  amber,
-}: {
-  checked: boolean;
-  onChange: () => void;
-  amber?: boolean;
-}) {
-  return (
-    <button
-      role="switch"
-      aria-checked={checked}
-      onClick={onChange}
-      className="relative h-5 w-9 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
-      style={{
-        background: checked
-          ? amber
-            ? "var(--hist-amber)"
-            : "#6b7280"
-          : "#3f3f46",
-      }}
-    >
-      <span
-        className="absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform"
-        style={{ left: checked ? "calc(100% - 18px)" : "2px" }}
-      />
-    </button>
   );
 }

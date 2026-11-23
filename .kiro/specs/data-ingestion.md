@@ -33,15 +33,25 @@ A SQLite database at `data/sherlock.db` with two tables:
 
 ### `recent_area_counts`
 
+Implemented in `scripts/ingest-police.ts` (schema in `scripts/lib/db.ts`).
+
 | column | type | notes |
 |---|---|---|
-| id | TEXT PRIMARY KEY | |
+| id | TEXT PRIMARY KEY | `policeuk:<level>:<month>:<force>:<street or neighbourhood id>:<category>` |
+| level | TEXT | `street` or `neighbourhood` |
 | category | TEXT | police.uk category slug |
 | month | TEXT | YYYY-MM |
-| lat | REAL | police.uk approximate point |
-| lon | REAL | police.uk approximate point |
-| count | INTEGER | always >= 3, or null (suppressed) |
-| force | TEXT | police force name |
+| lat | REAL | police.uk approximate point (street) or boundary centroid (neighbourhood) |
+| lon | REAL | as above |
+| location_name | TEXT | e.g. "On or near Queen Street", or the neighbourhood name |
+| count | INTEGER | always >= 3, or null (suppressed). Enforced by a CHECK constraint |
+| force | TEXT | police.uk force id, e.g. `city-of-london`; `btp` for British Transport Police |
+| neighbourhood | TEXT | police.uk neighbourhood id used as the query area |
+| source, source_url, source_query | TEXT | provenance: where the row came from and the exact request |
+| licence, attribution_text | TEXT | shown in the UI's source row |
+| retrieved_at | TEXT | when the raw response was downloaded |
+| upstream_version | TEXT | `sha256:` of the raw response |
+| transform_version | TEXT | git SHA of the ETL code |
 
 ## Rules
 
@@ -53,6 +63,6 @@ A SQLite database at `data/sherlock.db` with two tables:
 ## Tasks
 
 1. Write a Node.js script `scripts/ingest-oldbailey.ts` that parses Old Bailey XML and writes to `historical_cases`.
-2. Write a Node.js script `scripts/ingest-police.ts` that reads police.uk CSV and writes to `recent_area_counts`.
+2. ~~Write a Node.js script `scripts/ingest-police.ts` that reads police.uk CSV and writes to `recent_area_counts`.~~ Done, using the police.uk API with neighbourhood boundaries instead of the CSV download (`yarn ingest:police`). City of London Police only so far.
 3. Write a Node.js script `scripts/geocode-historical.ts` that calls Nominatim to resolve `location_raw` to `lat`/`lon`.
-4. Add `npm run ingest` to `package.json` that runs all three in order.
+4. Add `npm run ingest` to `package.json` that runs all three in order. (`yarn ingest` exists and currently runs the police.uk step only.)
