@@ -7,7 +7,7 @@ Sherlock never queries the upstream data sources while a user is browsing. A pip
 Why not query the sources live:
 
 - **Rate limits.** The public Nominatim instance allows at most 1 request per second and forbids bulk geocoding. A single map view could need dozens of lookups.
-- **Rules in one place.** The 100-year name rule, small-count suppression and "every case has a verdict and a source" are enforced at ingest and backed by database constraints, not re-checked on every request.
+- **Rules in one place.** The 100-year name rule and "every case has a verdict and a source" are enforced at ingest and backed by database constraints, not re-checked on every request.
 - **Joins and aggregates.** Then & Now compares historic and modern counts for an area, which needs data from several sources in one indexed store.
 - **Cost and consistency.** AI summaries are generated once, reviewed and stored, not paid for on every page view.
 - **Offline PWA.** Stable responses can be cached by the service worker.
@@ -78,7 +78,6 @@ These come from `.kiro/steering/tone-and-data-rules.md` and are checked in the c
 
 - Every case has a non-null `verdict` (or outcome) and a non-null `source_url`.
 - Names (`defendant_name`, `victim_name`) are null for anything under 100 years old, unless the case is concluded (conviction recorded, sentence complete, no appeal pending) and has a verified source URL.
-- Area counts of 1 or 2 are stored as null and shown as "a small number".
 - An acquitted person is never stored or shown as a perpetrator.
 - Every geocoded point stores its confidence: `exact`, `street` or `area`.
 
@@ -150,13 +149,14 @@ That downloads the latest 12 months for the City of London Police into `data/raw
 yarn test:etl
 ```
 
-That runs the transform tests (suppression, de-duplication, BTP attribution, rejects and provenance).
+That runs the transform tests (counting, totals, de-duplication, BTP attribution, rejects and provenance).
 
 How the police.uk step works:
 
 - Each police neighbourhood's boundary is used as the query polygon (`POST /api/crimes-street/all-crime`), so every count is tied to a force and neighbourhood.
 - Crimes are de-duplicated by police.uk crime ID, because a street on a border can come back from two neighbourhoods.
-- Counts are written at two levels, `street` and `neighbourhood`, and **counts of 1 or 2 are stored as `NULL` at both levels**. This is stricter than the steering rule (which allows small counts for wider areas) but matches the ingestion spec. Most street-level rows end up suppressed in the City (about 82% in the first run), so the app should show neighbourhood counts by default.
+- Counts are written at two levels, `street` and `neighbourhood`, with the exact number of crimes at each. Street rows in a neighbourhood add up to its total; the transform checks this.
+- Each crime is owned by the neighbourhood whose boundary contains its point. police.uk polygon queries can return points just outside the polygon; those are skipped and left to the neighbour, so `--neighbourhoods` reruns produce the same rows as a full run.
 - Each run replaces the rows for the months it loads, so anything police.uk removes upstream also disappears here.
 - `data/` is generated and ignored by git.
 

@@ -7,7 +7,7 @@ import { PrimaryButton } from "./ui";
 /**
  * Recent layer — plain, factual tone. Sans-serif only, blue accent, no
  * casebook styling. Two shapes: a concluded case (M6) or a police.uk area
- * count. Counts of 1 or 2 are suppressed upstream (count === null).
+ * count.
  */
 type Props =
   | { kind: "case"; data: RecentConcludedCase; onClose: () => void }
@@ -37,6 +37,39 @@ function Chip({ icon, children }: { icon: React.ReactNode; children: React.React
 export function RecentCasePanel(props: Props) {
   if (props.kind === "count") {
     const r = props.data;
+    if (r.breakdown) {
+      return (
+        <div className="bg-white px-5 pb-10 pt-4 md:px-6" style={{ color: "var(--cb-ink)" }}>
+          <Back onClose={props.onClose} />
+          <p className="mt-5 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--cb-blue)" }}>
+            Recent · Recorded crime
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold">On or near {r.place}</h1>
+          <p className="mt-1 text-sm" style={{ color: "var(--cb-muted)" }}>
+            {monthName(r.month)} · {r.force}
+          </p>
+          <ul className="mt-4 divide-y rounded-2xl border" style={{ borderColor: "var(--cb-border)" }}>
+            {r.breakdown.map((b) => (
+              <li key={b.label} className="flex items-center justify-between px-4 py-3 text-[15px]" style={{ borderColor: "var(--cb-border)" }}>
+                <span>{b.label}</span>
+                <span className="font-semibold">{b.count}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 flex items-start gap-3 rounded-xl p-4 text-sm" style={{ background: "var(--cb-info-bg)", color: "var(--cb-text)" }}>
+            <Info className="mt-0.5 h-4 w-4 shrink-0" />
+            police.uk moves each crime to a nearby point, so this is an area, not an
+            address.
+          </div>
+          <p className="mt-5 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--cb-muted)" }}>
+            Source
+          </p>
+          <a href="https://data.police.uk/data/" target="_blank" rel="noreferrer" className="mt-1 block text-sm underline">
+            data.police.uk · Open Government Licence v3.0
+          </a>
+        </div>
+      );
+    }
     return (
       <div className="bg-white px-5 pb-10 pt-4 md:px-6" style={{ color: "var(--cb-ink)" }}>
         <Back onClose={props.onClose} />
@@ -45,14 +78,14 @@ export function RecentCasePanel(props: Props) {
         </p>
         <h1 className="mt-2 text-2xl font-semibold">{r.category_label}</h1>
         <p className="mt-4 text-4xl font-semibold">
-          {r.count !== null ? r.count : "A small number"}
+          {r.count}
         </p>
         <p className="mt-1 text-sm" style={{ color: "var(--cb-muted)" }}>
           reported in this area, {r.month} · {r.force}
         </p>
         <div className="mt-5 flex items-start gap-3 rounded-xl p-4 text-sm" style={{ background: "var(--cb-info-bg)", color: "var(--cb-text)" }}>
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
-          Counts are for an area, not an address. Counts of 1 or 2 are not shown.
+          Counts are for an area, not an address.
         </div>
         <p className="mt-5 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--cb-muted)" }}>
           Source
@@ -116,4 +149,11 @@ export function RecentCasePanel(props: Props) {
       </p>
     </div>
   );
+}
+
+/** "September 2026" from "2026-09". */
+function monthName(m: string): string {
+  const [y, mo] = m.split("-").map(Number);
+  if (!y || !mo) return m;
+  return new Date(Date.UTC(y, mo - 1, 1)).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
 }

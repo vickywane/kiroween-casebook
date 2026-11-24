@@ -87,7 +87,7 @@ async function main() {
     throw new Error(`Unknown neighbourhoods for ${force}: ${missing.join(", ")}`);
   }
 
-  const areas: { id: string; name: string; poly: string; centroid: { lat: number; lon: number } }[] = [];
+  const areas: { id: string; name: string; poly: string; boundary: [number, number][]; centroid: { lat: number; lon: number } }[] = [];
   for (const n of neighbourhoods) {
     const b = await rawFetch(`boundaries/${force}/${n.id}.json`, () => policeApi.boundary(force, n.id));
     areas.push({ id: n.id, name: n.name, ...boundaryToPoly(JSON.parse(b.body)) });
@@ -110,7 +110,16 @@ async function main() {
   );
   const replaceMonth = db.transaction((month: string, rows: AreaCountRow[]) => {
     clearMonth.run(month, force, JSON.stringify(areas.map((a) => a.id)));
-    for (const r of rows) insert.run(r);
+    for (const r of rows) {
+      try {
+        insert.run(r);
+      } catch (err) {
+        // Rows are owned by the neighbourhood containing their point, so this
+        // only happens if a boundary changed since another neighbourhood was ingested.
+        if ((err as { code?: string }).code !== "SQLITE_CONSTRAINT_PRIMARYKEY") throw err;
+        throw new Error(`${r.id} already exists under another neighbourhood (boundaries changed?). Re-run without --neighbourhoods.`);
+      }
+    }
   });
 
   const report = {
@@ -131,6 +140,7 @@ async function main() {
         neighbourhoodName: a.name,
         month,
         centroid: a.centroid,
+        boundary: a.boundary,
         crimes: JSON.parse(res.body) as PoliceCrime[],
         retrievedAt: res.meta.retrieved_at,
         sha256: res.meta.sha256,
@@ -138,12 +148,20 @@ async function main() {
       });
     }
 
-    const { rows, rejects, crimesSeen, duplicates } = aggregateMonth(batches, transformVersion);
+    const { rows, rejects, crimesSeen, duplicates, outside, unowned } = aggregateMonth(batches, transformVersion);
     replaceMonth(month, rows);
 
-    const suppressed = rows.filter((r) => r.count === null).length;
-    report.months.push({ month, crimes_seen: crimesSeen, duplicates, rejects: rejects.length, rows: rows.length, suppressed, reject_samples: rejects.slice(0, 20) });
-    log(`${month}: ${crimesSeen} crimes (${duplicates} duplicate across areas, ${rejects.length} rejected) → ${rows.length} rows, ${suppressed} suppressed`);
+    report.months.push({
+      month, crimes_seen: crimesSeen, duplicates, outside_boundary: outside, unowned, rejects: rejects.length,
+      rows: rows.length, reject_samples: rejects.slice(0, 20),
+    });
+    log(
+      `${month}: ${crimesSeen} crimes (${outside} outside their query boundary, ${duplicates} duplicate, ${rejects.length} rejected)` +
+        ` → ${rows.length} rows`,
+    );
+    if (unowned > 0 && !wanted) {
+      log(`WARNING ${month}: ${unowned} crimes fall inside no ${force} neighbourhood boundary and were not counted`);
+    }
   }
 
   const finishedAt = new Date().toISOString();

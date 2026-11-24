@@ -28,6 +28,13 @@ interface Props {
   onOpenHistoric: (c: HistoricalCase) => void;
   onOpenRecent: (c: RecentConcludedCase) => void;
   showStats: boolean;
+  /** Live police.uk figures for the stat cards. */
+  stats?: {
+    month: string;
+    radius: string;
+    violent: string;
+    street: { street: string; value: string } | null;
+  };
 }
 
 export function NearbyList(p: Props) {
@@ -67,8 +74,18 @@ export function NearbyList(p: Props) {
 
             {p.showStats && !p.outsideLondon && p.variant === "card" && (
               <div className="grid grid-cols-2 gap-3">
-                <StatCard label="police.uk · 1 mile" value="47" sub="violent & sexual offences" />
-                <StatCard label="police.uk · street" value="A small number" sub="robberies on this street" small />
+                <StatCard
+                  label={`police.uk · ${p.stats?.radius ?? "1 mile"}`}
+                  value={p.stats?.violent ?? "—"}
+                  sub={`violent & sexual offences${p.stats?.month ? ` · ${p.stats.month}` : ""}`}
+                  small={(p.stats?.violent ?? "").length > 6}
+                />
+                <StatCard
+                  label="police.uk · street"
+                  value={p.stats?.street?.value ?? "—"}
+                  sub={p.stats?.street ? `robberies on ${p.stats.street.street}` : "no street data near you"}
+                  small
+                />
               </div>
             )}
 

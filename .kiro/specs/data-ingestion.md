@@ -44,7 +44,7 @@ Implemented in `scripts/ingest-police.ts` (schema in `scripts/lib/db.ts`).
 | lat | REAL | police.uk approximate point (street) or boundary centroid (neighbourhood) |
 | lon | REAL | as above |
 | location_name | TEXT | e.g. "On or near Queen Street", or the neighbourhood name |
-| count | INTEGER | always >= 3, or null (suppressed). Enforced by a CHECK constraint |
+| count | INTEGER | number of crimes, always >= 1. Enforced by a CHECK constraint |
 | force | TEXT | police.uk force id, e.g. `city-of-london`; `btp` for British Transport Police |
 | neighbourhood | TEXT | police.uk neighbourhood id used as the query area |
 | source, source_url, source_query | TEXT | provenance: where the row came from and the exact request |
@@ -57,7 +57,8 @@ Implemented in `scripts/ingest-police.ts` (schema in `scripts/lib/db.ts`).
 
 - Any record with `year >= (current_year - 100)` must have `defendant_name = null` and `victim_name = null` unless it also has `concluded = true` and a non-null `source_url`.
 - `verdict` must never be null in `historical_cases`.
-- `count` in `recent_area_counts` must be null when the raw value is 1 or 2.
+- Street rows in a neighbourhood must add up to its total.
+- Each crime is counted in the neighbourhood whose boundary contains its point, so ingesting some neighbourhoods gives the same rows as a full run.
 - Every row in `historical_cases` must have a non-null `source_url`.
 
 ## Tasks

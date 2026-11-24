@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Layers, Menu, Scale, Search, SlidersHorizontal } from "lucide-react";
+import { Building2, CalendarDays, Layers, Menu, Scale, Search, SlidersHorizontal } from "lucide-react";
 
 export type LayerFilter = "historic" | "recent" | "both";
 
@@ -13,6 +13,15 @@ interface Props {
   onOpenCities: () => void;
   /** Render in normal flow inside a panel (tablet/desktop). */
   inline?: boolean;
+  /** police.uk months available, oldest first, and the one shown. */
+  months?: string[];
+  month?: string | null;
+  onMonthChange?: (m: string) => void;
+}
+
+function monthShort(m: string) {
+  const [y, mo] = m.split("-").map(Number);
+  return new Date(Date.UTC(y, mo - 1, 1)).toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" });
 }
 
 const OPTIONS: { id: LayerFilter; label: string; icon: React.ReactNode }[] = [
@@ -22,7 +31,17 @@ const OPTIONS: { id: LayerFilter; label: string; icon: React.ReactNode }[] = [
 ];
 
 /** Top-of-map controls: current area pill + Historic / Recent / Both. */
-export function LayerControls({ value, onChange, area, onOpenSettings, onOpenCities, inline = false }: Props) {
+export function LayerControls({
+  value,
+  onChange,
+  area,
+  onOpenSettings,
+  onOpenCities,
+  inline = false,
+  months,
+  month,
+  onMonthChange,
+}: Props) {
   return (
     <div
       className={
@@ -56,6 +75,7 @@ export function LayerControls({ value, onChange, area, onOpenSettings, onOpenCit
         </button>
       </div>
 
+      <div className="pointer-events-auto flex flex-wrap items-center gap-2">
       <div
         role="radiogroup"
         aria-label="Layers"
@@ -82,6 +102,27 @@ export function LayerControls({ value, onChange, area, onOpenSettings, onOpenCit
             </button>
           );
         })}
+      </div>
+      {months && months.length > 0 && value !== "historic" && (
+        <label
+          className="flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium shadow-md"
+          style={{ background: inline ? "var(--cb-stone)" : "rgba(255,255,255,.9)", color: "var(--cb-ink)" }}
+        >
+          <span className="sr-only">police.uk month</span>
+          <CalendarDays className="h-4 w-4" />
+          <select
+            value={month ?? months[months.length - 1]}
+            onChange={(e) => onMonthChange?.(e.target.value)}
+            className="bg-transparent outline-none"
+          >
+            {[...months].reverse().map((m) => (
+              <option key={m} value={m}>
+                {monthShort(m)}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       </div>
     </div>
   );

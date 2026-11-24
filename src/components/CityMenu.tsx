@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Crosshair, MapPin, X } from "lucide-react";
+import { Check, MapPin, X } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 import { citiesByCountry, type City } from "@/lib/cities";
 
@@ -118,7 +118,7 @@ export function CityMenu({
         aria-modal="true"
         aria-label="Choose a city"
         inert={!open}
-        className="absolute inset-y-0 left-0 flex w-[min(340px,86vw)] flex-col gap-3 overflow-y-auto rounded-r-3xl bg-white px-4 pb-6 pt-6 shadow-[8px_0_30px_rgba(0,0,0,.18)] transition-transform duration-300 ease-[cubic-bezier(.4,0,.2,1)] motion-reduce:transition-none"
+        className="absolute inset-y-0 left-0 flex w-[min(400px,92vw)] flex-col gap-3 overflow-y-auto rounded-r-3xl bg-white px-3 pb-6 pt-6 shadow-[8px_0_30px_rgba(0,0,0,.18)] transition-transform duration-300 ease-[cubic-bezier(.4,0,.2,1)] motion-reduce:transition-none"
         style={{ transform: open ? "translateX(0)" : "translateX(-105%)" }}
       >
         <div className="flex items-center">
@@ -136,51 +136,59 @@ export function CityMenu({
           </button>
         </div>
 
-        {citiesByCountry().map(({ country, cities }) => {
-          const live = cities.filter((c) => c.available).length;
-          return (
-            <section
-              key={country.id}
-              aria-label={country.name}
-              className="overflow-hidden rounded-2xl border bg-white"
-              style={{ borderColor: "var(--cb-border)" }}
-            >
-              <div
-                className="flex items-center gap-2 px-3.5 pb-2.5 pt-3"
-                style={{ background: "var(--cb-stone)" }}
-              >
-                <h3 className="flex-1 text-[17px] font-semibold">{country.name}</h3>
-                <span className="text-[13px]" style={{ color: "var(--cb-muted)" }}>
-                  {live ? `${live} of ${cities.length} live` : "Coming soon"}
-                </span>
-              </div>
-              <ul className="divide-y" style={{ borderColor: "var(--cb-border)" }}>
-                {cities.map((c) => (
-                  <li key={c.id} style={{ borderColor: "var(--cb-border)" }}>
-                    <CityItem
-                      city={c}
-                      selected={c.id === city.id}
-                      here={detected?.id === c.id}
-                      onSelect={() => onSelect(c)}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          );
-        })}
-
-        <p
-          className="mt-auto flex items-center gap-2 pt-4 text-[13px]"
-          style={{ color: "var(--cb-muted)" }}
-        >
-          <Crosshair className="h-4 w-4 shrink-0" />
-          {detected
-            ? `Detected from your location: ${detected.name}`
-            : "Allow location to pick your city automatically"}
-        </p>
+        <CityList city={city} detected={detected} onSelect={onSelect} />
       </aside>
     </div>
+  );
+}
+
+/** Country-grouped city list, shared by the drawer and onboarding. */
+export function CityList({
+  city,
+  detected,
+  onSelect,
+}: {
+  city: City;
+  detected: City | null;
+  onSelect: (c: City) => void;
+}) {
+  return (
+    <>
+        {citiesByCountry().map(({ country, cities }) => {
+        const live = cities.filter((c) => c.available).length;
+        return (
+          <section
+            key={country.id}
+            aria-label={country.name}
+            className="overflow-hidden rounded-2xl border bg-white"
+            style={{ borderColor: "var(--cb-border)" }}
+          >
+            <div
+              className="flex items-center gap-2 px-3.5 pb-2.5 pt-3"
+              style={{ background: "var(--cb-stone)" }}
+            >
+              <h3 className="flex-1 text-[17px] font-semibold">{country.name}</h3>
+              <span className="text-[13px]" style={{ color: "var(--cb-muted)" }}>
+                {live ? `${live} of ${cities.length} live` : "Coming soon"}
+              </span>
+            </div>
+            <ul className="divide-y" style={{ borderColor: "var(--cb-border)" }}>
+              {cities.map((c) => (
+                <li key={c.id} style={{ borderColor: "var(--cb-border)" }}>
+                  <CityItem
+                    city={c}
+                    selected={c.id === city.id}
+                    here={detected?.id === c.id}
+                    onSelect={() => onSelect(c)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+
+    </>
   );
 }
 

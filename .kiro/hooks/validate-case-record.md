@@ -11,7 +11,6 @@ Check any case record object (TypeScript type `CaseRecord` or plain object with 
 1. If `year >= (currentYear - 100)`, then `defendant_name` and `victim_name` must be null, unless `concluded === true` AND `source_url` is non-null.
 2. `verdict` must never be null, undefined, or an empty string.
 3. `source_url` must never be null, undefined, or an empty string.
-4. If `count` is present and is 1 or 2, it must be set to null (suppressed).
 
 ## Action on failure
 

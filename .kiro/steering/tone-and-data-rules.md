@@ -25,11 +25,6 @@ Never blend the two tones. A component that renders recent data must not inherit
 - Every pin must cite its source record.
 - Every pin must show how confident the location match is (exact address / street / area).
 
-## Small-count suppression
-
-- police.uk area counts: never show a count of 1 or 2 for a specific street. Use "a small number" or suppress entirely.
-- Counts of 3+ on a street, or any count within a wider area, are safe to show.
-
 ## Respect rules
 
 - No scoring, gamification, or rankings of victims or cases.

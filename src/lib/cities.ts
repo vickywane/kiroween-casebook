@@ -1,4 +1,5 @@
 import { metresBetween } from "./geo";
+import { loadProfile, updateProfile } from "./profile-cache";
 
 export type CityId =
   | "london"
@@ -86,23 +87,12 @@ export function detectCity(pos: [number, number]): City | null {
   return best?.city ?? null;
 }
 
-const STORAGE_KEY = "casebook.city";
-
 /** Last city the user chose (or was detected in). Falls back to London. */
 export function loadCity(): City {
-  try {
-    const c = getCity(localStorage.getItem(STORAGE_KEY));
-    if (c?.available) return c;
-  } catch {
-    /* storage unavailable */
-  }
-  return DEFAULT_CITY;
+  const c = getCity(loadProfile().cityId);
+  return c?.available ? c : DEFAULT_CITY;
 }
 
 export function saveCity(city: City) {
-  try {
-    localStorage.setItem(STORAGE_KEY, city.id);
-  } catch {
-    /* storage unavailable */
-  }
+  updateProfile({ cityId: city.id });
 }
