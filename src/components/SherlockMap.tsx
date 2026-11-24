@@ -402,7 +402,7 @@ export function SherlockMap({
 
   /**
    * Close the pinned card (close icon or a click on empty map) and zoom out.
-   * The close icon also closes the case-details panel.
+   * Pass `closePanel` to also return the sidebar to the nearby list.
    */
   const closePinned = (opts?: { closePanel?: boolean }) => {
     if (!pinnedRef.current) return;
@@ -422,11 +422,17 @@ export function SherlockMap({
     },
   });
 
-  // A click on the map itself (not a marker) closes the pinned card. Marker
-  // clicks never reach MapLibre: the Leaflet marker layer sits above it.
+  // A click on the map itself (not a marker) closes the pinned card and
+  // returns the sidebar to the nearby list, same as the close icon. The panel
+  // closes even with no pinned card (e.g. a case opened from the list).
+  // Marker clicks never reach MapLibre: the Leaflet marker layer sits above
+  // it. MapLibre doesn't fire "click" after a drag, so panning keeps the panel.
   useEffect(() => {
     if (!libreMap) return;
-    const onClick = () => closePinned();
+    const onClick = () => {
+      closePinned({ closePanel: true });
+      setPanel(null);
+    };
     libreMap.on("click", onClick);
     return () => {
       libreMap.off("click", onClick);
@@ -675,6 +681,10 @@ export function SherlockMap({
         .cb-popup .leaflet-popup-content-wrapper {
           border-radius: 14px;
           padding: 0;
+          /* Contain the content's margins. Without this the bottom margin
+             collapses through the wrapper: the card loses its bottom padding
+             and the tip floats a margin's height below the card. */
+          display: flow-root;
           box-shadow: 0 10px 30px rgba(0,0,0,.35);
         }
         .cb-popup .leaflet-popup-content {
