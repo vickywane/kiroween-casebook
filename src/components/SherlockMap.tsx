@@ -1,14 +1,12 @@
 "use client";
 
-import "leaflet/dist/leaflet.css";
-import "maplibre-gl/dist/maplibre-gl.css";
+// Leaflet and MapLibre CSS are imported in app/layout.tsx.
 import { useEffect, useRef, useState } from "react";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import * as maplibregl from "maplibre-gl";
 import {
-  MOCK_HISTORICAL_CASES,
-  MOCK_RECENT_COUNTS,
   MOCK_RECENT_CASES,
   type HistoricalCase,
   type RecentAreaCount,
@@ -27,6 +25,8 @@ import { SettingsPanel, type Settings } from "./SettingsPanel";
 import { BottomNav, TopNav, type Tab } from "./AppNav";
 import { NearbyList, StatsChip } from "./NearbyList";
 import { useAreaData } from "@/lib/useAreaData";
+import { cellsAround, cellsInBounds } from "@/lib/geohash";
+import { allCases, markerCases, toHistoricalCase } from "@/lib/historic";
 import { allStreets, countWithin, monthLabel, monthOf, onNearestStreet, toMarkers } from "@/lib/area-stats";
 import { OfflineScreen } from "./OfflineScreen";
 import { HistoricCaseCard } from "./CaseCard";
@@ -158,30 +158,22 @@ const toLeafletZoom = (libreZoom: number) => libreZoom + 1;
 
 // ── Case extent ───────────────────────────────────────────────────────────────
 // Initial view frames every case so markers are visible on load.
+// The two corners of the area our data covers (the City of London and its edges).
 const CASE_POINTS: [number, number][] = [
-  ...MOCK_HISTORICAL_CASES.map((c): [number, number] => [c.lon, c.lat]),
-  ...MOCK_RECENT_COUNTS.map((r): [number, number] => [r.lon, r.lat]),
+  [-0.118, 51.506],
+  [-0.07, 51.525],
 ];
 const CASE_BOUNDS = CASE_POINTS.reduce(
   (b, p) => b.extend(p),
   new maplibregl.LngLatBounds(CASE_POINTS[0], CASE_POINTS[0]),
 );
-// Only jump to the user's location if there are cases near them; otherwise
-// (e.g. outside London) keep the case overview instead of an empty map.
-const NEARBY_KM = 5;
+// Only jump to the user's location inside London, where the Old Bailey cases
+// are (they cover Greater London, not just the City). Elsewhere keep the
+// case overview instead of an empty map.
+/** Most map squares loaded for one view (about street zoom on a wide screen). */
+const VIEW_CELL_CAP = 48;
 
-function kmBetween([lat1, lon1]: [number, number], [lon2, lat2]: [number, number]) {
-  const rad = Math.PI / 180;
-  const dLat = (lat2 - lat1) * rad;
-  const dLon = (lon2 - lon1) * rad;
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLon / 2) ** 2;
-  return 12_742 * Math.asin(Math.sqrt(a));
-}
-
-const isNearCases = (pos: [number, number]) =>
-  CASE_POINTS.some((p) => kmBetween(pos, p) <= NEARBY_KM);
+const isNearCases = (pos: [number, number]) => isInLondon(pos);
 
 // ── Leaflet sync component ────────────────────────────────────────────────────
 /**
@@ -266,9 +258,18 @@ export function SherlockMap({
   const [loading, setLoading] = useState(true);
   const [online, setOnline] = useState(() => navigator.onLine);
   const [wide, setWide] = useState(true);
+  /** Street chosen from a case file; otherwise the nearest street with Old Bailey trials. */
+  const [compareStreet, setCompareStreet] = useState<string | null>(null);
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
       return JSON.parse(localStorage.getItem("casebook.saved") ?? "[]");
+    } catch {
+      return [];
+    }
+  });
+  const [savedStore, setSavedStore] = useState<HistoricalCase[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("casebook.savedCases") ?? "[]");
     } catch {
       return [];
     }
@@ -278,7 +279,43 @@ export function SherlockMap({
     () => loadProfile().lastPos,
   );
   const [panel, setPanel] = useState<Panel>(null);
+  /** Left sidebar (nearby list or case file). Hidden state keeps the open case. */
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  // Opening a case, or going back to the list, brings the sidebar back.
+  useEffect(() => {
+    setSidebarOpen(true);
+  }, [panel]);
   const [libreMap, setLibreMap] = useState<maplibregl.Map | null>(null);
+  /** Squares the visible map covers, so cases load wherever the user looks. */
+  const [viewCells, setViewCells] = useState<string[]>([]);
+  /** Zoomed out past what square-by-square loading covers. */
+  const [viewTooWide, setViewTooWide] = useState(false);
+  /** Visible area [south, west, north, east], padded by half a screen each side. */
+  const [viewBox, setViewBox] = useState<[number, number, number, number] | null>(null);
+  useEffect(() => {
+    if (!libreMap) return;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const update = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const b = libreMap.getBounds();
+        const c = libreMap.getCenter();
+        const inView = cellsInBounds(b.getSouth(), b.getWest(), b.getNorth(), b.getEast(), VIEW_CELL_CAP);
+        setViewTooWide(inView === null);
+        const padLat = (b.getNorth() - b.getSouth()) / 2;
+        const padLon = (b.getEast() - b.getWest()) / 2;
+        setViewBox([b.getSouth() - padLat, b.getWest() - padLon, b.getNorth() + padLat, b.getEast() + padLon]);
+        const cells = inView ?? cellsAround(c.lat, c.lng);
+        setViewCells((prev) => (prev.join() === cells.sort().join() ? prev : cells));
+      }, 250);
+    };
+    update();
+    libreMap.on("moveend", update);
+    return () => {
+      clearTimeout(timer);
+      libreMap.off("moveend", update);
+    };
+  }, [libreMap]);
 
   const libreContainerRef = useRef<HTMLDivElement>(null);
   const libreMapRef = useRef<maplibregl.Map | null>(null);
@@ -458,12 +495,17 @@ export function SherlockMap({
     };
   }, []);
 
-  const toggleSaved = (id: string) =>
-    setSavedIds((prev) => {
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem("casebook.saved", JSON.stringify(next));
-      return next;
-    });
+  // Saved cases keep their whole record, so they open offline and after a reload.
+  const toggleSaved = (c: HistoricalCase) => {
+    const next = savedIds.includes(c.id) ? savedIds.filter((x) => x !== c.id) : [...savedIds, c.id];
+    const nextStore = next.includes(c.id)
+      ? [...savedStore.filter((x) => x.id !== c.id), c]
+      : savedStore.filter((x) => x.id !== c.id);
+    setSavedIds(next);
+    setSavedStore(nextStore);
+    localStorage.setItem("casebook.saved", JSON.stringify(next));
+    localStorage.setItem("casebook.savedCases", JSON.stringify(nextStore));
+  };
 
   const showHistoric = settings.historic && filter !== "recent";
   const showRecentCases = settings.recent && filter !== "historic";
@@ -476,10 +518,12 @@ export function SherlockMap({
   const fmt = (m: number) => formatMetres(m, settings.units);
 
   // ── police.uk data (DynamoDB via /api/area, cached per map square) ──────────
-  const areaData = useAreaData(ref, policeMonth);
+  const areaData = useAreaData(ref, policeMonth, viewCells);
   const streets = allStreets(areaData.areas);
   const dataMonth = monthOf(areaData.areas);
-  const recentMarkers = toMarkers(streets, dataMonth);
+  const inViewBox = (lat: number, lon: number) =>
+    !viewBox || (lat >= viewBox[0] && lon >= viewBox[1] && lat <= viewBox[2] && lon <= viewBox[3]);
+  const recentMarkers = toMarkers(streets, dataMonth).filter((r) => inViewBox(r.lat, r.lon));
   const violent = countWithin(streets, ref, "violent-crime");
   const streetRobbery = onNearestStreet(streets, ref, "robbery");
   const radiusUnit = settings.units === "mi" ? "1 mi" : "1.6 km";
@@ -494,10 +538,12 @@ export function SherlockMap({
   };
   const detected = userPos ? detectCity(userPos) : detectedCity;
 
-  const historicNearby = MOCK_HISTORICAL_CASES.map((c) => ({
-    c,
-    m: metresBetween(ref, [c.lat, c.lon]),
-  })).sort((a, b) => a.m - b.m);
+  // Old Bailey cases from the loaded map squares (DynamoDB via /api/area).
+  const loadedCases = allCases(areaData.areas);
+  const historicMarkers = markerCases(loadedCases.filter((c) => inViewBox(c.lat, c.lon)));
+  const historicNearby = loadedCases
+    .map((c) => ({ c: toHistoricalCase(c), m: metresBetween(ref, [c.lat, c.lon]) }))
+    .sort((a, b) => a.m - b.m);
   const recentNearby = MOCK_RECENT_CASES.map((c) => ({
     c,
     m: metresBetween(ref, [c.lat, c.lon]),
@@ -507,12 +553,17 @@ export function SherlockMap({
     ...recentNearby.map((x) => x.m),
   );
   const listHistoric = showHistoric
-    ? historicNearby.filter((x) => x.m <= radius).map((x) => ({ c: x.c, distance: fmt(x.m) }))
+    ? historicNearby
+        .filter((x) => x.m <= radius)
+        .slice(0, 60)
+        .map((x) => ({ c: x.c, distance: fmt(x.m) }))
     : [];
   const listRecent = showRecentCases
     ? recentNearby.filter((x) => x.m <= radius).map((x) => ({ c: x.c, distance: fmt(x.m) }))
     : [];
-  const savedCases = MOCK_HISTORICAL_CASES.filter((c) => savedIds.includes(c.id));
+  const nearestStreetKey =
+    historicNearby.find((x) => x.c.geocode_confidence === "street" && x.c.street_key)?.c.street_key ?? null;
+  const savedCases = savedStore.filter((c) => savedIds.includes(c.id));
   const area = outsideLondon ? "Near you" : "Fleet Street, London EC4";
   const distanceOf = (lat: number, lon: number) => fmt(metresBetween(ref, [lat, lon]));
 
@@ -598,7 +649,7 @@ export function SherlockMap({
           )}
 
           {historicalOn &&
-            MOCK_HISTORICAL_CASES.map((c) => (
+            historicMarkers.map((c) => (
               <Marker
                 key={c.id}
                 position={[c.lat, c.lon]}
@@ -721,8 +772,9 @@ export function SherlockMap({
       `}</style>
 
       {/* ── Casebook overlays ── */}
-      {tab === "map" && !panel && (
+      {tab === "map" && (!panel || !sidebarOpen) && (
         <LayerControls
+          floatAlways={!sidebarOpen}
           value={filter}
           onChange={setFilter}
           months={areaData.areas[0]?.months}
@@ -734,14 +786,20 @@ export function SherlockMap({
         />
       )}
 
-      {tab === "map" && !panel && settings.stats && !outsideLondon && !loading && violentLabel && (
+      {tab === "map" && viewTooWide && showHistoric && (
+        <div className="pointer-events-none absolute bottom-24 left-1/2 z-[1000] -translate-x-1/2 md:bottom-8 md:left-[calc(50%+200px)] lg:left-[calc(50%+220px)]">
+          <StatsChip label="Zoom in to see case files" />
+        </div>
+      )}
+
+      {tab === "map" && !panel && sidebarOpen && settings.stats && !outsideLondon && !loading && violentLabel && (
         <div className="pointer-events-none absolute left-1/2 top-[120px] z-[1000] hidden -translate-x-1/2 md:block lg:left-[calc(50%+220px)]">
           <StatsChip label={violentLabel} />
         </div>
       )}
 
       {/* Nearby list: bottom sheet (mobile), floating card (tablet), side column (desktop) */}
-      {tab === "map" && !panel && (
+      {tab === "map" && !panel && sidebarOpen && (
         <div
           className={[
             "absolute z-[1050] overflow-y-auto bg-white px-4 pb-24 pt-3",
@@ -751,7 +809,17 @@ export function SherlockMap({
           ].join(" ")}
           style={{ borderColor: "var(--cb-border)" }}
         >
-          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full md:hidden" style={{ background: "var(--cb-border)" }} />
+          <div className="relative mb-3 flex items-center justify-center md:hidden">
+            <div className="h-1.5 w-10 rounded-full" style={{ background: "var(--cb-border)" }} />
+            <button
+              onClick={() => setSidebarOpen(false)}
+              aria-label="Hide list"
+              className="absolute right-0 flex h-9 w-9 items-center justify-center rounded-full border"
+              style={{ borderColor: "var(--cb-border)" }}
+            >
+              <PanelLeftClose className="h-4 w-4" />
+            </button>
+          </div>
           <div className="mb-4 hidden md:block">
             <LayerControls
               inline
@@ -769,8 +837,33 @@ export function SherlockMap({
         </div>
       )}
 
+      {/* Sidebar toggle. Open: on the sidebar's edge (tablet/desktop), above the sheet for a case file on
+          mobile (the list sheet carries its own button). Closed: bottom-left on every screen. */}
+      {tab === "map" && (
+        <button
+          onClick={() => setSidebarOpen((o) => !o)}
+          aria-label={sidebarOpen ? "Hide sidebar" : panel ? "Show case file" : "Show list"}
+          aria-expanded={sidebarOpen}
+          title={sidebarOpen ? "Hide sidebar" : panel ? "Show case file" : "Show list"}
+          className={[
+            "absolute z-[1060] flex items-center justify-center bg-white shadow-md transition-all hover:bg-[var(--cb-stone)]",
+            sidebarOpen
+              ? [
+                  "hidden h-11 w-11 rounded-full",
+                  panel
+                    ? "right-4 top-[140px] max-md:flex md:top-[210px] md:flex lg:left-[532px] lg:right-auto lg:top-4 lg:h-12 lg:w-9 lg:rounded-l-none lg:rounded-r-xl"
+                    : "md:left-[396px] md:top-4 md:flex lg:left-[440px] lg:h-12 lg:w-9 lg:rounded-l-none lg:rounded-r-xl",
+                ].join(" ")
+              : "bottom-24 left-4 h-12 w-12 rounded-full",
+          ].join(" ")}
+          style={{ color: "var(--cb-ink)" }}
+        >
+          {sidebarOpen ? <PanelLeftClose className="h-5 w-5" /> : <PanelLeftOpen className="h-5 w-5" />}
+        </button>
+      )}
+
       {/* Case panel: sheet (mobile/tablet), side column (desktop) */}
-      {tab === "map" && panel && (
+      {tab === "map" && panel && sidebarOpen && (
         <div
           className={[
             "absolute z-[1050] overflow-y-auto bg-white shadow-[0_-8px_30px_rgba(0,0,0,.14)]",
@@ -784,9 +877,10 @@ export function SherlockMap({
               caseRecord={panel.data}
               distanceLabel={`${distanceOf(panel.data.lat, panel.data.lon)} from you`}
               saved={savedIds.includes(panel.data.id)}
-              onToggleSave={() => toggleSaved(panel.data.id)}
+              onToggleSave={() => toggleSaved(panel.data)}
               onClose={() => setPanel(null)}
               onCompare={() => {
+                if (panel.data.street_key) setCompareStreet(panel.data.street_key);
                 setPanel(null);
                 setTab("compare");
               }}
@@ -811,7 +905,7 @@ export function SherlockMap({
           )}
           {tab === "compare" && (
             <ComparePanel
-              street="Fleet Street, London"
+              streetKey={compareStreet ?? nearestStreetKey ?? "fleet street"}
               wide={wide}
               onToggleWide={setWide}
             />

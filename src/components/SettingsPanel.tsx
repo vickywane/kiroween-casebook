@@ -69,7 +69,7 @@ function Row({
 }
 
 const SOURCES = [
-  { name: "Old Bailey Online", licence: "CC BY 4.0", href: "https://www.oldbaileyonline.org" },
+  { name: "Old Bailey Online", licence: "CC BY-NC 4.0", href: "https://www.oldbaileyonline.org" },
   { name: "police.uk", licence: "Open Government Licence", href: "https://data.police.uk" },
   { name: "Wikipedia & Wikidata", licence: "CC BY-SA / CC0", href: "https://www.wikidata.org" },
   { name: "Find Case Law", licence: "The National Archives", href: "https://caselaw.nationalarchives.gov.uk" },

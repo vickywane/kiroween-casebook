@@ -60,3 +60,26 @@ export function cellsAround(lat: number, lon: number, precision = CELL_PRECISION
       out.add(encodeGeohash(lat + dy * dLat, lon + dx * dLon, precision));
   return [...out];
 }
+
+/**
+ * Cells covering a bounding box, or null when that would be more than `max`
+ * cells (zoomed far out). Callers then fall back to cellsAround the centre.
+ */
+export function cellsInBounds(
+  south: number,
+  west: number,
+  north: number,
+  east: number,
+  max = 30,
+  precision = CELL_PRECISION,
+): string[] | null {
+  const { dLat, dLon } = decodeGeohash(encodeGeohash((south + north) / 2, (west + east) / 2, precision));
+  const rows = Math.ceil((north - south) / dLat) + 1;
+  const cols = Math.ceil((east - west) / dLon) + 1;
+  if (rows * cols > max) return null;
+  const out = new Set<string>();
+  for (let y = 0; y < rows; y++)
+    for (let x = 0; x < cols; x++)
+      out.add(encodeGeohash(Math.min(north, south + y * dLat), Math.min(east, west + x * dLon), precision));
+  return [...out];
+}

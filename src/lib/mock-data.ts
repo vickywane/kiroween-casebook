@@ -28,6 +28,9 @@ export interface HistoricalCase {
   match_basis?: string;
   timeline?: { date: string; title: string; detail?: string }[];
   testimonies?: { speaker: string; text: string }[];
+  /** Normalised street name, used to open Compare for this street. */
+  street_key?: string;
+  location_label?: string;
 }
 
 export interface RecentAreaCount {

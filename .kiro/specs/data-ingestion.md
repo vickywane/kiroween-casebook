@@ -6,7 +6,7 @@ Pre-process Old Bailey XML data and police.uk CSV data into a local SQLite datab
 
 ## Inputs
 
-- Old Bailey Online XML dump (CC BY 4.0) from https://figshare.shef.ac.uk/articles/dataset/Old_Bailey_Online_XML_Data/4775434
+- Old Bailey Online XML dump (CC BY-NC 4.0, non-commercial, credit required) from https://figshare.shef.ac.uk/articles/dataset/Old_Bailey_Online_XML_Data/4775434
 - police.uk street-level crime CSV from https://data.police.uk/data/
 
 ## Output

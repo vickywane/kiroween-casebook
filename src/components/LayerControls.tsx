@@ -13,6 +13,8 @@ interface Props {
   onOpenCities: () => void;
   /** Render in normal flow inside a panel (tablet/desktop). */
   inline?: boolean;
+  /** Float over the map on every screen size (used while the sidebar is hidden). */
+  floatAlways?: boolean;
   /** police.uk months available, oldest first, and the one shown. */
   months?: string[];
   month?: string | null;
@@ -38,6 +40,7 @@ export function LayerControls({
   onOpenSettings,
   onOpenCities,
   inline = false,
+  floatAlways = false,
   months,
   month,
   onMonthChange,
@@ -47,7 +50,7 @@ export function LayerControls({
       className={
         inline
           ? "flex flex-col gap-3"
-          : "pointer-events-none absolute inset-x-0 top-0 z-[1000] flex flex-col gap-3 p-4 md:hidden"
+          : `pointer-events-none absolute inset-x-0 top-0 z-[1000] flex flex-col gap-3 p-4 ${floatAlways ? "" : "md:hidden"}`
       }
     >
       <div className="pointer-events-auto flex items-center gap-3">

@@ -1,0 +1,5104 @@
+{
+ "Oxford street, London": {
+  "lat": 51.5152997,
+  "lon": -0.1420187,
+  "confidence": "street",
+  "label": "Oxford Street",
+  "kind": "highway/primary_link"
+ },
+ "Shoreditch, London": {
+  "lat": 51.5266694,
+  "lon": -0.0798926,
+  "confidence": "area",
+  "label": "Shoreditch",
+  "kind": "place/suburb"
+ },
+ "Whitechapel, London": {
+  "lat": 51.5174861,
+  "lon": -0.0659685,
+  "confidence": "area",
+  "label": "Whitechapel",
+  "kind": "place/suburb"
+ },
+ "Islington, London": {
+  "lat": 51.5384287,
+  "lon": -0.0999051,
+  "confidence": "area",
+  "label": "Islington",
+  "kind": "place/suburb"
+ },
+ "Cheapside, London": {
+  "lat": 51.5139965,
+  "lon": -0.0933797,
+  "confidence": "street",
+  "label": "Cheapside",
+  "kind": "highway/unclassified"
+ },
+ "Strand, London": {
+  "lat": 51.5131749,
+  "lon": -0.1144233,
+  "confidence": "street",
+  "label": "Strand",
+  "kind": "highway/unclassified"
+ },
+ "Bishopsgate street, London": {
+  "lat": 51.5149327,
+  "lon": -0.0846415,
+  "confidence": "exact",
+  "label": "City of London Club",
+  "kind": "building/yes"
+ },
+ "Drury lane, London": {
+  "lat": 51.5135245,
+  "lon": -0.1196026,
+  "confidence": "street",
+  "label": "Drury Lane",
+  "kind": "highway/unclassified"
+ },
+ "Newgate street, London": {
+  "lat": 51.5161755,
+  "lon": -0.101779,
+  "confidence": "street",
+  "label": "Newgate Street",
+  "kind": "highway/primary"
+ },
+ "Tottenham court road, London": {
+  "lat": 51.5161338,
+  "lon": -0.1327997,
+  "confidence": "exact",
+  "label": "Tottenham Court Road",
+  "kind": "railway/stop"
+ },
+ "Stepney, London": {
+  "lat": 51.5174023,
+  "lon": -0.0462189,
+  "confidence": "area",
+  "label": "Stepney",
+  "kind": "place/suburb"
+ },
+ "Smithfield, London": {
+  "lat": 51.5178275,
+  "lon": -0.1021753,
+  "confidence": "area",
+  "label": "West Smithfield",
+  "kind": "place/neighbourhood"
+ },
+ "Chelsea, London": {
+  "lat": 51.4888554,
+  "lon": -0.1653781,
+  "confidence": "area",
+  "label": "Chelsea",
+  "kind": "place/suburb"
+ },
+ "Ratcliff highway, London": {
+  "lat": 51.5107904,
+  "lon": -0.0435596,
+  "confidence": "exact",
+  "label": "Holiday Inn Express London - Limehouse",
+  "kind": "tourism/hotel"
+ },
+ "Piccadilly, London": {
+  "lat": 51.5090975,
+  "lon": -0.1365053,
+  "confidence": "street",
+  "label": "Piccadilly",
+  "kind": "highway/primary"
+ },
+ "Hackney, London": {
+  "lat": 51.5432402,
+  "lon": -0.0493621,
+  "confidence": "area",
+  "label": "Hackney",
+  "kind": "place/suburb"
+ },
+ "High Holborn, London": {
+  "lat": 51.5178515,
+  "lon": -0.1176158,
+  "confidence": "street",
+  "label": "High Holborn",
+  "kind": "highway/primary"
+ },
+ "Edmonton, London": {
+  "lat": 51.6268085,
+  "lon": -0.0772524,
+  "confidence": "area",
+  "label": "Edmonton",
+  "kind": "place/suburb"
+ },
+ "the Strand, London": {
+  "lat": 51.5123207,
+  "lon": -0.1160161,
+  "confidence": "street",
+  "label": "Strand",
+  "kind": "highway/pedestrian"
+ },
+ "Shadwell, London": {
+  "lat": 51.511289,
+  "lon": -0.0569187,
+  "confidence": "exact",
+  "label": "Shadwell",
+  "kind": "railway/station"
+ },
+ "Enfield, London": {
+  "lat": 51.6520851,
+  "lon": -0.0810175,
+  "confidence": "area",
+  "label": "Enfield",
+  "kind": "place/town"
+ },
+ "Hampstead, London": {
+  "lat": 51.55653,
+  "lon": -0.1783011,
+  "confidence": "area",
+  "label": "Hampstead",
+  "kind": "place/town"
+ },
+ "Fleet market, London": null,
+ "Holborn hill, London": {
+  "lat": 51.62084,
+  "lon": -0.2411369,
+  "confidence": "street",
+  "label": "Holborn Close",
+  "kind": "highway/service"
+ },
+ "Cornhill, London": {
+  "lat": 51.5146421,
+  "lon": -0.0845385,
+  "confidence": "area",
+  "label": "Cornhill",
+  "kind": "boundary/political"
+ },
+ "St. Giles's, London": {
+  "lat": 51.5154186,
+  "lon": -0.1226874,
+  "confidence": "exact",
+  "label": "Gillian Lynne Theatre",
+  "kind": "amenity/theatre"
+ },
+ "Old street, London": {
+  "lat": 51.5256284,
+  "lon": -0.0876094,
+  "confidence": "exact",
+  "label": "Old Street",
+  "kind": "railway/station"
+ },
+ "Chiswell street, London": {
+  "lat": 51.5207352,
+  "lon": -0.0898156,
+  "confidence": "street",
+  "label": "Chiswell Street",
+  "kind": "highway/secondary"
+ },
+ "Fenchurch street, London": {
+  "lat": 51.5118008,
+  "lon": -0.0812393,
+  "confidence": "street",
+  "label": "Fenchurch Street",
+  "kind": "highway/tertiary"
+ },
+ "Tottenham, London": {
+  "lat": 51.5976955,
+  "lon": -0.0672892,
+  "confidence": "area",
+  "label": "Tottenham",
+  "kind": "place/town"
+ },
+ "Wapping, London": {
+  "lat": 51.5071316,
+  "lon": -0.0620152,
+  "confidence": "area",
+  "label": "Wapping",
+  "kind": "place/suburb"
+ },
+ "Aldgate, London": {
+  "lat": 51.5142477,
+  "lon": -0.0757186,
+  "confidence": "exact",
+  "label": "Aldgate",
+  "kind": "railway/station"
+ },
+ "Whitecross street, London": {
+  "lat": 51.5232823,
+  "lon": -0.0930793,
+  "confidence": "street",
+  "label": "Whitecross Street",
+  "kind": "highway/unclassified"
+ },
+ "Hoxton, London": {
+  "lat": 51.5323935,
+  "lon": -0.086078,
+  "confidence": "area",
+  "label": "Hoxton",
+  "kind": "place/suburb"
+ },
+ "Kensington, London": {
+  "lat": 51.4989948,
+  "lon": -0.1991229,
+  "confidence": "area",
+  "label": "Kensington",
+  "kind": "place/suburb"
+ },
+ "Commercial road, London": {
+  "lat": 51.514762,
+  "lon": -0.06213,
+  "confidence": "street",
+  "label": "Commercial Road",
+  "kind": "highway/trunk"
+ },
+ "Paddington, London": {
+  "lat": 51.5161629,
+  "lon": -0.1744856,
+  "confidence": "area",
+  "label": "Paddington",
+  "kind": "place/suburb"
+ },
+ "Fulham, London": {
+  "lat": 51.474408,
+  "lon": -0.206809,
+  "confidence": "area",
+  "label": "Fulham",
+  "kind": "place/suburb"
+ },
+ "Leadenhall street, London": {
+  "lat": 51.5134722,
+  "lon": -0.080602,
+  "confidence": "street",
+  "label": "Leadenhall Street",
+  "kind": "highway/tertiary"
+ },
+ "Kingsland road, London": {
+  "lat": 51.5285313,
+  "lon": -0.0779278,
+  "confidence": "street",
+  "label": "Kingsland Road",
+  "kind": "highway/trunk"
+ },
+ "Whitechapel road, London": {
+  "lat": 51.5164287,
+  "lon": -0.0689036,
+  "confidence": "street",
+  "label": "Whitechapel Road",
+  "kind": "highway/trunk"
+ },
+ "Rosemary lane, London": {
+  "lat": 51.4685125,
+  "lon": -0.2700581,
+  "confidence": "street",
+  "label": "Rosemary Lane",
+  "kind": "highway/residential"
+ },
+ "Barbican, London": {
+  "lat": 51.5201797,
+  "lon": -0.0986342,
+  "confidence": "exact",
+  "label": "Barbican",
+  "kind": "railway/station"
+ },
+ "East Smithfield, London": {
+  "lat": 51.5089408,
+  "lon": -0.0680818,
+  "confidence": "street",
+  "label": "East Smithfield",
+  "kind": "highway/trunk"
+ },
+ "St. Pancras, London": {
+  "lat": 51.5259149,
+  "lon": -0.1290973,
+  "confidence": "area",
+  "label": "St Pancras",
+  "kind": "place/suburb"
+ },
+ "Westminster, London": {
+  "lat": 51.5004439,
+  "lon": -0.1265398,
+  "confidence": "area",
+  "label": "Westminster",
+  "kind": "place/quarter"
+ },
+ "Brick lane, London": {
+  "lat": 51.521804,
+  "lon": -0.0717141,
+  "confidence": "street",
+  "label": "Brick Lane",
+  "kind": "highway/secondary"
+ },
+ "Bethnal green, London": {
+  "lat": 51.5303456,
+  "lon": -0.0561633,
+  "confidence": "area",
+  "label": "Bethnal Green",
+  "kind": "place/suburb"
+ },
+ "Limehouse, London": {
+  "lat": 51.5133074,
+  "lon": -0.0351492,
+  "confidence": "area",
+  "label": "Limehouse",
+  "kind": "place/suburb"
+ },
+ "Goswell street, London": {
+  "lat": 51.5240703,
+  "lon": -0.0991843,
+  "confidence": "street",
+  "label": "Goswell Road / Great Sutton Street",
+  "kind": "highway/bus_stop"
+ },
+ "Hammersmith, London": {
+  "lat": 51.4920377,
+  "lon": -0.2236401,
+  "confidence": "area",
+  "label": "Hammersmith",
+  "kind": "place/suburb"
+ },
+ "City road, London": {
+  "lat": 51.5295947,
+  "lon": -0.0969512,
+  "confidence": "street",
+  "label": "City Road",
+  "kind": "highway/trunk"
+ },
+ "Long acre, London": {
+  "lat": 51.512678,
+  "lon": -0.1251311,
+  "confidence": "street",
+  "label": "Long Acre",
+  "kind": "highway/secondary"
+ },
+ "St. James, Clerkenwell, London": {
+  "lat": 51.5316725,
+  "lon": -0.1148497,
+  "confidence": "exact",
+  "label": "Grimaldi Building",
+  "kind": "building/church"
+ },
+ "Regent street, London": {
+  "lat": 51.5121107,
+  "lon": -0.1398205,
+  "confidence": "street",
+  "label": "Regent Street",
+  "kind": "highway/primary"
+ },
+ "Thames street, London": {
+  "lat": 51.4823808,
+  "lon": -0.0148944,
+  "confidence": "street",
+  "label": "Thames Street",
+  "kind": "highway/pedestrian"
+ },
+ "St. John street, London": {
+  "lat": 51.5317833,
+  "lon": -0.1062879,
+  "confidence": "street",
+  "label": "St. John Street",
+  "kind": "highway/primary"
+ },
+ "St. Martins in the Fields, London": null,
+ "Acton, London": {
+  "lat": 51.5081402,
+  "lon": -0.2732607,
+  "confidence": "area",
+  "label": "Acton",
+  "kind": "place/town"
+ },
+ "Long lane, London": {
+  "lat": 51.4980486,
+  "lon": -0.0820784,
+  "confidence": "street",
+  "label": "Long Lane",
+  "kind": "highway/primary"
+ },
+ "Saffron hill, London": {
+  "lat": 51.5202451,
+  "lon": -0.1066741,
+  "confidence": "street",
+  "label": "Saffron Hill",
+  "kind": "highway/unclassified"
+ },
+ "St. Martin's lane, London": {
+  "lat": 51.5101244,
+  "lon": -0.1269178,
+  "confidence": "street",
+  "label": "St Martin's Lane",
+  "kind": "highway/secondary"
+ },
+ "High street, Shadwell, London": {
+  "lat": 51.505045,
+  "lon": -0.05519,
+  "confidence": "street",
+  "label": "Wapping High Street",
+  "kind": "highway/tertiary"
+ },
+ "Hendon, London": {
+  "lat": 51.5897175,
+  "lon": -0.2216026,
+  "confidence": "area",
+  "label": "Hendon",
+  "kind": "place/suburb"
+ },
+ "Bond street, London": {
+  "lat": 51.5135348,
+  "lon": -0.1470905,
+  "confidence": "exact",
+  "label": "Bond Street",
+  "kind": "railway/station"
+ },
+ "St. Marylebone, London": {
+  "lat": 51.5348056,
+  "lon": -0.1548066,
+  "confidence": "exact",
+  "label": "London Zoo",
+  "kind": "tourism/zoo"
+ },
+ "Newgate market, London": null,
+ "Uxbridge, London": {
+  "lat": 51.5449509,
+  "lon": -0.4816672,
+  "confidence": "area",
+  "label": "Uxbridge",
+  "kind": "place/town"
+ },
+ "Moorfields, London": {
+  "lat": 51.5189298,
+  "lon": -0.0884025,
+  "confidence": "street",
+  "label": "Moorfields",
+  "kind": "highway/unclassified"
+ },
+ "Chancery lane, London": {
+  "lat": 51.5181738,
+  "lon": -0.1117642,
+  "confidence": "exact",
+  "label": "Chancery Lane",
+  "kind": "railway/station"
+ },
+ "Finchley, London": {
+  "lat": 51.5973246,
+  "lon": -0.1805587,
+  "confidence": "area",
+  "label": "Finchley",
+  "kind": "place/suburb"
+ },
+ "Monmouth street, London": {
+  "lat": 51.5144459,
+  "lon": -0.1268991,
+  "confidence": "street",
+  "label": "Monmouth Street",
+  "kind": "highway/unclassified"
+ },
+ "Hackney road, London": {
+  "lat": 51.53149,
+  "lon": -0.0639668,
+  "confidence": "street",
+  "label": "Hackney Road",
+  "kind": "highway/primary"
+ },
+ "Brentford, London": {
+  "lat": 51.4863958,
+  "lon": -0.3216623,
+  "confidence": "area",
+  "label": "Brentford",
+  "kind": "place/town"
+ },
+ "St. Leonard, Shoreditch, London": {
+  "lat": 51.5268566,
+  "lon": -0.077216,
+  "confidence": "exact",
+  "label": "Saint Leonard",
+  "kind": "amenity/place_of_worship"
+ },
+ "Highgate, London": {
+  "lat": 51.5706446,
+  "lon": -0.1492397,
+  "confidence": "area",
+  "label": "Highgate",
+  "kind": "place/suburb"
+ },
+ "Snow hill, London": {
+  "lat": 51.5169723,
+  "lon": -0.1029388,
+  "confidence": "street",
+  "label": "Snow Hill",
+  "kind": "highway/tertiary"
+ },
+ "Poplar, London": {
+  "lat": 51.5110713,
+  "lon": -0.0144629,
+  "confidence": "area",
+  "label": "Poplar",
+  "kind": "place/suburb"
+ },
+ "Shoe lane, London": {
+  "lat": 51.515625,
+  "lon": -0.1062566,
+  "confidence": "street",
+  "label": "Shoe Lane",
+  "kind": "highway/unclassified"
+ },
+ "Isleworth, London": {
+  "lat": 51.4685202,
+  "lon": -0.325966,
+  "confidence": "area",
+  "label": "Isleworth",
+  "kind": "place/town"
+ },
+ "Hounslow, London": {
+  "lat": 51.4686132,
+  "lon": -0.3613471,
+  "confidence": "area",
+  "label": "Hounslow",
+  "kind": "place/town"
+ },
+ "St. George, Hanover square, London": {
+  "lat": 51.5144288,
+  "lon": -0.1443852,
+  "confidence": "exact",
+  "label": "St George's House",
+  "kind": "building/yes"
+ },
+ "Hornsey, London": {
+  "lat": 51.5873645,
+  "lon": -0.1209667,
+  "confidence": "area",
+  "label": "Hornsey",
+  "kind": "place/suburb"
+ },
+ "Knightsbridge, London": {
+  "lat": 51.5008444,
+  "lon": -0.166965,
+  "confidence": "area",
+  "label": "Knightsbridge",
+  "kind": "place/suburb"
+ },
+ "Poultry, London": {
+  "lat": 51.5134957,
+  "lon": -0.0902874,
+  "confidence": "street",
+  "label": "Poultry",
+  "kind": "highway/tertiary"
+ },
+ "Wentworth street, London": {
+  "lat": 51.5171095,
+  "lon": -0.071628,
+  "confidence": "street",
+  "label": "Wentworth Street",
+  "kind": "highway/residential"
+ },
+ "St. Giles's in the Fields, London": null,
+ "St. Mary le bone, London": null,
+ "St. Giles in the Fields, London": {
+  "lat": 51.5153141,
+  "lon": -0.1283993,
+  "confidence": "exact",
+  "label": "St Giles-in-the-Fields",
+  "kind": "amenity/place_of_worship"
+ },
+ "Ealing, London": {
+  "lat": 51.5126553,
+  "lon": -0.3051952,
+  "confidence": "area",
+  "label": "Ealing",
+  "kind": "place/town"
+ },
+ "Oxford road, London": {
+  "lat": 51.582671,
+  "lon": -0.3493575,
+  "confidence": "street",
+  "label": "Oxford Road",
+  "kind": "highway/residential"
+ },
+ "Mile end, London": {
+  "lat": 51.5253378,
+  "lon": -0.033435,
+  "confidence": "exact",
+  "label": "Mile End",
+  "kind": "railway/station"
+ },
+ "Clerkenwell, London": {
+  "lat": 51.5237268,
+  "lon": -0.1055555,
+  "confidence": "area",
+  "label": "Clerkenwell",
+  "kind": "place/suburb"
+ },
+ "Blackwall, London": {
+  "lat": 51.5065004,
+  "lon": -0.0064024,
+  "confidence": "area",
+  "label": "Blackwall",
+  "kind": "place/suburb"
+ },
+ "High street, St. Giles's, London": {
+  "lat": 51.5172021,
+  "lon": -0.1235741,
+  "confidence": "street",
+  "label": "New Oxford Street / High Holborn",
+  "kind": "highway/bus_stop"
+ },
+ "Twickenham, London": {
+  "lat": 51.4467444,
+  "lon": -0.3281887,
+  "confidence": "area",
+  "label": "Twickenham",
+  "kind": "place/town"
+ },
+ "Bunhill row, London": {
+  "lat": 51.5247281,
+  "lon": -0.0905453,
+  "confidence": "street",
+  "label": "Bunhill Row",
+  "kind": "highway/secondary"
+ },
+ "London bridge, London": {
+  "lat": 51.508049,
+  "lon": -0.0876715,
+  "confidence": "exact",
+  "label": "London Bridge",
+  "kind": "man_made/bridge"
+ },
+ "Tower hill, London": {
+  "lat": 51.5098481,
+  "lon": -0.0766986,
+  "confidence": "exact",
+  "label": "Tower Hill",
+  "kind": "railway/station"
+ },
+ "Gray's Inn lane, London": null,
+ "Holbourn, London": null,
+ "St. Paul's Church yard, London": null,
+ "Charles street, Drury lane, London": null,
+ "Newgate, London": {
+  "lat": 51.3818838,
+  "lon": -0.0981491,
+  "confidence": "street",
+  "label": "Newgate",
+  "kind": "highway/primary"
+ },
+ "Haymarket, London": {
+  "lat": 51.5088571,
+  "lon": -0.1320752,
+  "confidence": "street",
+  "label": "Haymarket",
+  "kind": "highway/primary"
+ },
+ "Gray's inn lane, London": null,
+ "Covent garden, London": {
+  "lat": 51.5128732,
+  "lon": -0.1225639,
+  "confidence": "exact",
+  "label": "Royal Opera House",
+  "kind": "amenity/arts_centre"
+ },
+ "Holloway, London": {
+  "lat": 51.5572453,
+  "lon": -0.1183706,
+  "confidence": "area",
+  "label": "Holloway",
+  "kind": "place/suburb"
+ },
+ "Temple bar, London": {
+  "lat": 51.513692,
+  "lon": -0.1119161,
+  "confidence": "exact",
+  "label": "Temple Bar",
+  "kind": "building/yes"
+ },
+ "Church street, Bethnal green, London": {
+  "lat": 51.5285354,
+  "lon": -0.0618852,
+  "confidence": "exact",
+  "label": "Mansford Street Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Old street road, London": {
+  "lat": 51.4540512,
+  "lon": 0.1738544,
+  "confidence": "street",
+  "label": "Old Road / Perry Street",
+  "kind": "highway/bus_stop"
+ },
+ "Edgware road, London": {
+  "lat": 51.5201935,
+  "lon": -0.1667636,
+  "confidence": "exact",
+  "label": "Edgware Road",
+  "kind": "railway/station"
+ },
+ "St. Paul's church yard, London": null,
+ "Skinner street, London": {
+  "lat": 51.525805,
+  "lon": -0.1041232,
+  "confidence": "street",
+  "label": "Skinner Street",
+  "kind": "highway/secondary"
+ },
+ "Hillingdon, London": {
+  "lat": 51.5425193,
+  "lon": -0.4483349,
+  "confidence": "area",
+  "label": "London Borough of Hillingdon",
+  "kind": "boundary/administrative"
+ },
+ "Wardour street, London": {
+  "lat": 51.5114288,
+  "lon": -0.1321363,
+  "confidence": "street",
+  "label": "Wardour Street",
+  "kind": "highway/pedestrian"
+ },
+ "Broad street, St. Giles's, London": null,
+ "Chick lane, London": {
+  "lat": 51.5283985,
+  "lon": -0.2161806,
+  "confidence": "exact",
+  "label": "Chick Inn Village",
+  "kind": "amenity/fast_food"
+ },
+ "Guildhall, London": {
+  "lat": 51.5159067,
+  "lon": -0.0920239,
+  "confidence": "exact",
+  "label": "Guildhall",
+  "kind": "amenity/townhall"
+ },
+ "Charing cross, London": {
+  "lat": 51.5074975,
+  "lon": -0.1236888,
+  "confidence": "exact",
+  "label": "Charing Cross",
+  "kind": "railway/station"
+ },
+ "St. Margaret, Westminster, London": {
+  "lat": 51.4998839,
+  "lon": -0.1267229,
+  "confidence": "exact",
+  "label": "St Margaret's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Stoke Newington, London": {
+  "lat": 51.5578698,
+  "lon": -0.0822482,
+  "confidence": "area",
+  "label": "Stoke Newington",
+  "kind": "place/suburb"
+ },
+ "Billingsgate, London": {
+  "lat": 51.5093795,
+  "lon": -0.0831144,
+  "confidence": "area",
+  "label": "Billingsgate",
+  "kind": "boundary/political"
+ },
+ "Kentish town, London": {
+  "lat": 51.5501355,
+  "lon": -0.1408009,
+  "confidence": "area",
+  "label": "Kentish Town",
+  "kind": "place/suburb"
+ },
+ "St. Martin's court, London": {
+  "lat": 51.5112428,
+  "lon": -0.1278946,
+  "confidence": "street",
+  "label": "St Martin's Court",
+  "kind": "highway/pedestrian"
+ },
+ "Holborn bridge, London": null,
+ "Leadenhall market, London": {
+  "lat": 51.5127276,
+  "lon": -0.0833953,
+  "confidence": "exact",
+  "label": "Leadenhall Market",
+  "kind": "amenity/marketplace"
+ },
+ "Ratcliffe highway, London": {
+  "lat": 51.5097936,
+  "lon": -0.050727,
+  "confidence": "street",
+  "label": "The Highway",
+  "kind": "highway/trunk"
+ },
+ "St. James, Westminster, London": {
+  "lat": 51.5057719,
+  "lon": -0.1363183,
+  "confidence": "street",
+  "label": "Pall Mall",
+  "kind": "highway/primary"
+ },
+ "St. James's Park, London": {
+  "lat": 51.5031295,
+  "lon": -0.133165,
+  "confidence": "exact",
+  "label": "St. James's Park",
+  "kind": "leisure/park"
+ },
+ "Ludgate street, London": {
+  "lat": 51.5142493,
+  "lon": -0.1053369,
+  "confidence": "street",
+  "label": "Ludgate Circus",
+  "kind": "highway/bus_stop"
+ },
+ "St. John's street, London": {
+  "lat": 51.5152543,
+  "lon": -0.1427125,
+  "confidence": "street",
+  "label": "John Prince's Street",
+  "kind": "highway/pedestrian"
+ },
+ "St. Clement Danes, London": {
+  "lat": 51.5131213,
+  "lon": -0.1138282,
+  "confidence": "exact",
+  "label": "St Clement Danes",
+  "kind": "amenity/place_of_worship"
+ },
+ "St. Martin in the Fields, London": {
+  "lat": 51.5088275,
+  "lon": -0.1266769,
+  "confidence": "exact",
+  "label": "St Martin-in-the-Fields",
+  "kind": "amenity/place_of_worship"
+ },
+ "Covent Garden, London": {
+  "lat": 51.5128732,
+  "lon": -0.1225639,
+  "confidence": "exact",
+  "label": "Royal Opera House",
+  "kind": "amenity/arts_centre"
+ },
+ "St. James's street, London": {
+  "lat": 51.5070233,
+  "lon": -0.1398786,
+  "confidence": "street",
+  "label": "St. James's Street",
+  "kind": "highway/primary"
+ },
+ "New Bond street, London": {
+  "lat": 51.5104539,
+  "lon": -0.1425594,
+  "confidence": "street",
+  "label": "New Bond Street",
+  "kind": "highway/pedestrian"
+ },
+ "Battle bridge, London": {
+  "lat": 51.5054546,
+  "lon": -0.0833264,
+  "confidence": "street",
+  "label": "Battle Bridge Lane",
+  "kind": "highway/unclassified"
+ },
+ "Drury Lane, London": {
+  "lat": 51.5159282,
+  "lon": -0.1239745,
+  "confidence": "street",
+  "label": "Drury Lane",
+  "kind": "highway/unclassified"
+ },
+ "George street, London": {
+  "lat": 51.3739003,
+  "lon": -0.0989116,
+  "confidence": "exact",
+  "label": "George Street",
+  "kind": "railway/tram_stop"
+ },
+ "New Gravel lane, London": null,
+ "Wood street, London": {
+  "lat": 51.587041,
+  "lon": -0.0016791,
+  "confidence": "exact",
+  "label": "Wood Street",
+  "kind": "railway/station"
+ },
+ "Leather lane, London": {
+  "lat": 51.5208932,
+  "lon": -0.1097394,
+  "confidence": "street",
+  "label": "Leather Lane",
+  "kind": "highway/unclassified"
+ },
+ "Upper Thames street, London": {
+  "lat": 51.5103944,
+  "lon": -0.0905821,
+  "confidence": "street",
+  "label": "Upper Thames Street",
+  "kind": "highway/primary"
+ },
+ "Old Gravel lane, London": null,
+ "Fish street hill, London": {
+  "lat": 51.5103086,
+  "lon": -0.0859671,
+  "confidence": "street",
+  "label": "Fish Street Hill",
+  "kind": "highway/pedestrian"
+ },
+ "Kingsland, London": {
+  "lat": 51.5374455,
+  "lon": -0.1636359,
+  "confidence": "exact",
+  "label": "Kingsland (37-72)",
+  "kind": "building/apartments"
+ },
+ "Coventry street, London": {
+  "lat": 51.5100398,
+  "lon": -0.1339363,
+  "confidence": "street",
+  "label": "Coventry Street",
+  "kind": "highway/primary"
+ },
+ "London Docks, London": {
+  "lat": 51.5061601,
+  "lon": -0.0580353,
+  "confidence": "exact",
+  "label": "St Peter's London Docks",
+  "kind": "amenity/place_of_worship"
+ },
+ "Bow, London": {
+  "lat": 51.5309383,
+  "lon": -0.0274853,
+  "confidence": "area",
+  "label": "Bow",
+  "kind": "place/suburb"
+ },
+ "Grub street, London": {
+  "lat": 51.4067309,
+  "lon": -0.0319781,
+  "confidence": "exact",
+  "label": "Zen Grub",
+  "kind": "amenity/fast_food"
+ },
+ "Staines, London": {
+  "lat": 51.4250734,
+  "lon": -0.466915,
+  "confidence": "exact",
+  "label": "Staines Reservoirs Aqueduct",
+  "kind": "waterway/canal"
+ },
+ "Field lane, London": {
+  "lat": 51.4823832,
+  "lon": -0.3154888,
+  "confidence": "street",
+  "label": "Field Lane",
+  "kind": "highway/residential"
+ },
+ "Aldgate High street, London": {
+  "lat": 51.5141105,
+  "lon": -0.0750582,
+  "confidence": "street",
+  "label": "Aldgate High Street",
+  "kind": "highway/tertiary"
+ },
+ "Spitalfields, London": {
+  "lat": 51.5195274,
+  "lon": -0.0751701,
+  "confidence": "area",
+  "label": "Spitalfields",
+  "kind": "place/quarter"
+ },
+ "Petticoat lane, London": {
+  "lat": 51.5167811,
+  "lon": -0.0749006,
+  "confidence": "exact",
+  "label": "Wentworth Street Market",
+  "kind": "amenity/marketplace"
+ },
+ "Mile end road, London": {
+  "lat": 51.5251772,
+  "lon": -0.0340301,
+  "confidence": "street",
+  "label": "Mile End Road",
+  "kind": "highway/trunk"
+ },
+ "Thames, London": {
+  "lat": 51.4939346,
+  "lon": -0.1255714,
+  "confidence": "exact",
+  "label": "The Security Service",
+  "kind": "office/government"
+ },
+ "Royal Exchange, London": {
+  "lat": 51.4084241,
+  "lon": -0.3027692,
+  "confidence": "exact",
+  "label": "Royal Exchange",
+  "kind": "landuse/residential"
+ },
+ "Harrow, London": {
+  "lat": 51.5968271,
+  "lon": -0.3373046,
+  "confidence": "area",
+  "label": "London Borough of Harrow",
+  "kind": "boundary/administrative"
+ },
+ "Dean street, Soho, London": {
+  "lat": 51.5139045,
+  "lon": -0.1326445,
+  "confidence": "street",
+  "label": "Dean Street",
+  "kind": "highway/residential"
+ },
+ "Black Fryars, London": null,
+ "St. Luke, London": {
+  "lat": 51.4308894,
+  "lon": 0.0115911,
+  "confidence": "exact",
+  "label": "St Luke",
+  "kind": "amenity/place_of_worship"
+ },
+ "Norton Falgate, London": null,
+ "King street, Covent garden, London": {
+  "lat": 51.5062729,
+  "lon": -0.1378779,
+  "confidence": "street",
+  "label": "King Street",
+  "kind": "highway/residential"
+ },
+ "Leicester square, London": {
+  "lat": 51.5103136,
+  "lon": -0.1306055,
+  "confidence": "street",
+  "label": "Leicester Square",
+  "kind": "highway/pedestrian"
+ },
+ "Hatton garden, London": {
+  "lat": 51.5179199,
+  "lon": -0.107665,
+  "confidence": "street",
+  "label": "Hatton Garden",
+  "kind": "highway/secondary"
+ },
+ "Swallow street, London": {
+  "lat": 51.5168191,
+  "lon": 0.0519234,
+  "confidence": "street",
+  "label": "Swallow Street",
+  "kind": "highway/residential"
+ },
+ "Basinghall street, London": {
+  "lat": 51.5168822,
+  "lon": -0.0918502,
+  "confidence": "street",
+  "label": "Basinghall Street",
+  "kind": "highway/unclassified"
+ },
+ "Devonshire street, London": {
+  "lat": 51.5223086,
+  "lon": -0.1442793,
+  "confidence": "street",
+  "label": "Devonshire Street",
+  "kind": "highway/unclassified"
+ },
+ "Dyot street, London": null,
+ "Pall Mall, London": {
+  "lat": 51.5053464,
+  "lon": -0.1376862,
+  "confidence": "street",
+  "label": "Pall Mall",
+  "kind": "highway/primary"
+ },
+ "Bow street, London": {
+  "lat": 51.513271,
+  "lon": -0.1219686,
+  "confidence": "street",
+  "label": "Bow Street",
+  "kind": "highway/unclassified"
+ },
+ "Rathbone place, London": {
+  "lat": 51.5171175,
+  "lon": -0.1336074,
+  "confidence": "street",
+  "label": "Rathbone Place",
+  "kind": "highway/residential"
+ },
+ "New road, London": {
+  "lat": 51.5202701,
+  "lon": 0.2061677,
+  "confidence": "street",
+  "label": "New Road",
+  "kind": "highway/primary"
+ },
+ "Finsbury square, London": {
+  "lat": 51.5209269,
+  "lon": -0.0864049,
+  "confidence": "exact",
+  "label": "Finsbury Square",
+  "kind": "leisure/park"
+ },
+ "Chiswick, London": {
+  "lat": 51.4923137,
+  "lon": -0.263818,
+  "confidence": "area",
+  "label": "Chiswick",
+  "kind": "place/town"
+ },
+ "Old Bailey, London": {
+  "lat": 51.5153089,
+  "lon": -0.1022327,
+  "confidence": "street",
+  "label": "Old Bailey",
+  "kind": "highway/unclassified"
+ },
+ "Kentish Town, London": {
+  "lat": 51.5501355,
+  "lon": -0.1408009,
+  "confidence": "area",
+  "label": "Kentish Town",
+  "kind": "place/suburb"
+ },
+ "Long Acre, London": {
+  "lat": 51.512678,
+  "lon": -0.1251311,
+  "confidence": "street",
+  "label": "Long Acre",
+  "kind": "highway/secondary"
+ },
+ "St. Sepulchre, London": {
+  "lat": 51.5166687,
+  "lon": -0.1022311,
+  "confidence": "exact",
+  "label": "St. Sepulchre's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Harley street, London": {
+  "lat": 51.5181037,
+  "lon": -0.1465558,
+  "confidence": "street",
+  "label": "Harley Street",
+  "kind": "highway/tertiary"
+ },
+ "Parliament street, London": {
+  "lat": 51.5010686,
+  "lon": -0.1261567,
+  "confidence": "street",
+  "label": "Parliament Street",
+  "kind": "highway/primary"
+ },
+ "St. Matthew, Bethnal green, London": {
+  "lat": 51.5251396,
+  "lon": -0.0671692,
+  "confidence": "exact",
+  "label": "Saint Matthew's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Heston, London": {
+  "lat": 51.4854573,
+  "lon": -0.3719561,
+  "confidence": "area",
+  "label": "Heston",
+  "kind": "place/suburb"
+ },
+ "King street, London": {
+  "lat": 51.5062729,
+  "lon": -0.1378779,
+  "confidence": "street",
+  "label": "King Street",
+  "kind": "highway/residential"
+ },
+ "Hyde park, London": {
+  "lat": 51.5074889,
+  "lon": -0.1622074,
+  "confidence": "exact",
+  "label": "Hyde Park",
+  "kind": "leisure/park"
+ },
+ "St. George's in the East, London": {
+  "lat": 51.5053014,
+  "lon": -0.0709072,
+  "confidence": "exact",
+  "label": "URNU London",
+  "kind": "military/office"
+ },
+ "Pimlico, London": {
+  "lat": 51.4889993,
+  "lon": -0.1398817,
+  "confidence": "area",
+  "label": "Pimlico",
+  "kind": "place/suburb"
+ },
+ "Camden town, London": {
+  "lat": 51.5392533,
+  "lon": -0.142757,
+  "confidence": "area",
+  "label": "Camden Town",
+  "kind": "place/town"
+ },
+ "St. Sepulchres, London": null,
+ "Charing Cross, London": {
+  "lat": 51.5074975,
+  "lon": -0.1236888,
+  "confidence": "exact",
+  "label": "Charing Cross",
+  "kind": "railway/station"
+ },
+ "St. Andrews Holbourn, London": null,
+ "Charles street, London": {
+  "lat": 51.5074969,
+  "lon": -0.1480278,
+  "confidence": "street",
+  "label": "Charles Street",
+  "kind": "highway/residential"
+ },
+ "Nightingale lane, London": {
+  "lat": 51.5892023,
+  "lon": -0.1229711,
+  "confidence": "street",
+  "label": "Nightingale Lane",
+  "kind": "highway/residential"
+ },
+ "Tower street, London": {
+  "lat": 51.5131718,
+  "lon": -0.1276517,
+  "confidence": "street",
+  "label": "Tower Street",
+  "kind": "highway/unclassified"
+ },
+ "Bedford row, London": {
+  "lat": 51.5199989,
+  "lon": -0.1161213,
+  "confidence": "street",
+  "label": "Bedford Row",
+  "kind": "highway/unclassified"
+ },
+ "Curtain road, London": {
+  "lat": 51.5254952,
+  "lon": -0.0803175,
+  "confidence": "street",
+  "label": "Curtain Road",
+  "kind": "highway/trunk"
+ },
+ "Compton street, London": {
+  "lat": 51.5253471,
+  "lon": -0.1002659,
+  "confidence": "street",
+  "label": "Compton Street",
+  "kind": "highway/residential"
+ },
+ "Mile End, London": {
+  "lat": 51.5253378,
+  "lon": -0.033435,
+  "confidence": "exact",
+  "label": "Mile End",
+  "kind": "railway/station"
+ },
+ "Hyde Park, London": {
+  "lat": 51.5074889,
+  "lon": -0.1622074,
+  "confidence": "exact",
+  "label": "Hyde Park",
+  "kind": "leisure/park"
+ },
+ "Stepney fields, London": null,
+ "St. Catherine's, London": {
+  "lat": 51.5713623,
+  "lon": 0.0010763,
+  "confidence": "exact",
+  "label": "Elim Pentecostal Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Cockspur street, London": {
+  "lat": 51.5075324,
+  "lon": -0.1292607,
+  "confidence": "street",
+  "label": "Cockspur Street",
+  "kind": "highway/primary"
+ },
+ "St. Luke's, London": {
+  "lat": 51.4896338,
+  "lon": -0.1694392,
+  "confidence": "exact",
+  "label": "St. Luke's",
+  "kind": "amenity/place_of_worship"
+ },
+ "Tothill street, Westminster, London": {
+  "lat": 51.499704,
+  "lon": -0.1317809,
+  "confidence": "street",
+  "label": "Tothill Street",
+  "kind": "highway/residential"
+ },
+ "Tottenham Court road, London": {
+  "lat": 51.5161338,
+  "lon": -0.1327997,
+  "confidence": "exact",
+  "label": "Tottenham Court Road",
+  "kind": "railway/stop"
+ },
+ "St. Brides, London": {
+  "lat": 51.4983095,
+  "lon": 0.130169,
+  "confidence": "street",
+  "label": "St Brides Close",
+  "kind": "highway/living_street"
+ },
+ "Newington, London": {
+  "lat": 51.4852627,
+  "lon": -0.101583,
+  "confidence": "area",
+  "label": "Newington",
+  "kind": "boundary/political"
+ },
+ "Cow lane, London": {
+  "lat": 51.535253,
+  "lon": -0.3483574,
+  "confidence": "street",
+  "label": "Cow Lane",
+  "kind": "highway/pedestrian"
+ },
+ "Hanwell, London": {
+  "lat": 51.5089838,
+  "lon": -0.3381584,
+  "confidence": "area",
+  "label": "Hanwell",
+  "kind": "place/suburb"
+ },
+ "Stamford hill, London": {
+  "lat": 51.5707092,
+  "lon": -0.0690402,
+  "confidence": "area",
+  "label": "Stamford Hill",
+  "kind": "place/suburb"
+ },
+ "Great Queen Street, London": {
+  "lat": 51.5154186,
+  "lon": -0.1211963,
+  "confidence": "street",
+  "label": "Great Queen Street",
+  "kind": "highway/secondary"
+ },
+ "Old Ford, London": {
+  "lat": 51.5341124,
+  "lon": -0.0268215,
+  "confidence": "area",
+  "label": "Old Ford",
+  "kind": "place/quarter"
+ },
+ "Stanmore, London": {
+  "lat": 51.6188526,
+  "lon": -0.3026271,
+  "confidence": "exact",
+  "label": "Stanmore",
+  "kind": "railway/station"
+ },
+ "Turnmill street, London": {
+  "lat": 51.5209864,
+  "lon": -0.1050191,
+  "confidence": "street",
+  "label": "Turnmill Street",
+  "kind": "highway/unclassified"
+ },
+ "Long lane, Smithfield, London": {
+  "lat": 51.5197538,
+  "lon": -0.0985955,
+  "confidence": "street",
+  "label": "Long Lane",
+  "kind": "highway/secondary"
+ },
+ "New street, Covent garden, London": {
+  "lat": 51.5209064,
+  "lon": -0.140073,
+  "confidence": "exact",
+  "label": "University of Westminster",
+  "kind": "amenity/university"
+ },
+ "Ratcliffe Highway, London": {
+  "lat": 51.5097936,
+  "lon": -0.050727,
+  "confidence": "street",
+  "label": "The Highway",
+  "kind": "highway/trunk"
+ },
+ "Duke street, Manchester square, London": null,
+ "Crown street, Finsbury square, London": null,
+ "West India Docks, London": {
+  "lat": 51.5013538,
+  "lon": -0.0105224,
+  "confidence": "exact",
+  "label": "West India Dock Entrance Lock",
+  "kind": "waterway/dock"
+ },
+ "St. Giles', London": {
+  "lat": 51.5154723,
+  "lon": -0.1284181,
+  "confidence": "area",
+  "label": "St Giles",
+  "kind": "place/neighbourhood"
+ },
+ "Hounsditch, London": null,
+ "Paternoster row, London": {
+  "lat": 51.6226702,
+  "lon": 0.2148117,
+  "confidence": "street",
+  "label": "Paternoster Row",
+  "kind": "highway/unclassified"
+ },
+ "Pall mall, London": {
+  "lat": 51.505819,
+  "lon": -0.1363986,
+  "confidence": "street",
+  "label": "Pall Mall",
+  "kind": "highway/primary"
+ },
+ "Grafton street, London": {
+  "lat": 51.5098538,
+  "lon": -0.1436481,
+  "confidence": "street",
+  "label": "Grafton Street",
+  "kind": "highway/unclassified"
+ },
+ "Grafton street, Soho, London": null,
+ "Wellclose square, London": {
+  "lat": 51.5105131,
+  "lon": -0.0659573,
+  "confidence": "street",
+  "label": "Wellclose Square",
+  "kind": "highway/residential"
+ },
+ "Great Saffron hill, London": null,
+ "St. Mary, Islington, London": {
+  "lat": 51.5384067,
+  "lon": -0.1017197,
+  "confidence": "exact",
+  "label": "Saint Mary's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Tothill street, London": {
+  "lat": 51.499702,
+  "lon": -0.1309398,
+  "confidence": "street",
+  "label": "Tothill Street",
+  "kind": "highway/residential"
+ },
+ "Bethnal green road, London": {
+  "lat": 51.5252087,
+  "lon": -0.0709552,
+  "confidence": "street",
+  "label": "Bethnal Green Road",
+  "kind": "highway/primary"
+ },
+ "St. Luke, Chelsea, London": {
+  "lat": 51.4896338,
+  "lon": -0.1694392,
+  "confidence": "exact",
+  "label": "St. Luke's",
+  "kind": "amenity/place_of_worship"
+ },
+ "Crawford street, London": {
+  "lat": 51.5430593,
+  "lon": -0.2629483,
+  "confidence": "street",
+  "label": "Crawford Street",
+  "kind": "highway/residential"
+ },
+ "Whitehall, London": {
+  "lat": 51.5030645,
+  "lon": -0.1259999,
+  "confidence": "street",
+  "label": "Whitehall",
+  "kind": "highway/primary"
+ },
+ "Whitechappel, London": null,
+ "Bromley, London": {
+  "lat": 51.4028046,
+  "lon": 0.0148142,
+  "confidence": "area",
+  "label": "Bromley",
+  "kind": "place/town"
+ },
+ "Hayes, London": {
+  "lat": 51.5077154,
+  "lon": -0.4181471,
+  "confidence": "area",
+  "label": "Hayes",
+  "kind": "place/suburb"
+ },
+ "Brompton, London": {
+  "lat": 51.4918222,
+  "lon": -0.178326,
+  "confidence": "area",
+  "label": "Brompton",
+  "kind": "place/suburb"
+ },
+ "Bartholomew fair, London": null,
+ "Clare market, London": {
+  "lat": 51.5143037,
+  "lon": -0.1166873,
+  "confidence": "street",
+  "label": "Clare Market",
+  "kind": "highway/pedestrian"
+ },
+ "Church street, London": {
+  "lat": 51.373648,
+  "lon": -0.1041797,
+  "confidence": "exact",
+  "label": "Church Street",
+  "kind": "railway/tram_stop"
+ },
+ "Clerkenwell green, London": {
+  "lat": 51.5230119,
+  "lon": -0.1051077,
+  "confidence": "area",
+  "label": "Clerkenwell Green",
+  "kind": "place/neighbourhood"
+ },
+ "Soho square, London": {
+  "lat": 51.514971,
+  "lon": -0.1326033,
+  "confidence": "street",
+  "label": "Soho Square",
+  "kind": "highway/residential"
+ },
+ "Wood street, Cheapside, London": null,
+ "Broad street, Bloomsbury, London": null,
+ "St. Mary, Whitechapel, London": {
+  "lat": 51.5161879,
+  "lon": -0.0685212,
+  "confidence": "exact",
+  "label": "Altab Ali Park",
+  "kind": "leisure/park"
+ },
+ "Rose lane, Spitalfields, London": null,
+ "Broad street, London": {
+  "lat": 51.5132222,
+  "lon": -0.1371204,
+  "confidence": "street",
+  "label": "Broadwick Street",
+  "kind": "highway/unclassified"
+ },
+ "Fleet lane, London": {
+  "lat": 51.5153304,
+  "lon": -0.1042183,
+  "confidence": "street",
+  "label": "Old Fleet Lane",
+  "kind": "highway/unclassified"
+ },
+ "London Bridge, London": {
+  "lat": 51.508049,
+  "lon": -0.0876715,
+  "confidence": "exact",
+  "label": "London Bridge",
+  "kind": "man_made/bridge"
+ },
+ "Wilsden, London": null,
+ "Princes street, London": {
+  "lat": 51.6067758,
+  "lon": -0.0758387,
+  "confidence": "street",
+  "label": "Princes Street",
+  "kind": "highway/residential"
+ },
+ "King street, Golden square, London": null,
+ "Cable street, London": {
+  "lat": 51.5111205,
+  "lon": -0.0502821,
+  "confidence": "street",
+  "label": "Cable Street",
+  "kind": "highway/secondary"
+ },
+ "Hay market, London": null,
+ "Duke street, London": {
+  "lat": 51.5149877,
+  "lon": -0.1517378,
+  "confidence": "street",
+  "label": "Duke Street",
+  "kind": "highway/residential"
+ },
+ "Bucklersbury, London": {
+  "lat": 51.5129284,
+  "lon": -0.0902888,
+  "confidence": "street",
+  "label": "Bucklersbury",
+  "kind": "highway/unclassified"
+ },
+ "Blackfriars bridge, London": {
+  "lat": 51.5097589,
+  "lon": -0.104391,
+  "confidence": "exact",
+  "label": "Blackfriars Bridge",
+  "kind": "man_made/bridge"
+ },
+ "Wych street, London": null,
+ "Castle street, London": {
+  "lat": 51.4113229,
+  "lon": -0.3018885,
+  "confidence": "street",
+  "label": "Castle Street",
+  "kind": "highway/pedestrian"
+ },
+ "Park lane, London": {
+  "lat": 51.5054523,
+  "lon": -0.151894,
+  "confidence": "street",
+  "label": "Park Lane",
+  "kind": "highway/trunk"
+ },
+ "Upper East Smithfield, London": {
+  "lat": 51.5063412,
+  "lon": -0.0775604,
+  "confidence": "area",
+  "label": "Upper Pool",
+  "kind": "place/locality"
+ },
+ "High street, Bloomsbury, London": {
+  "lat": 51.5345867,
+  "lon": -0.1390133,
+  "confidence": "street",
+  "label": "Camden High Street",
+  "kind": "highway/trunk"
+ },
+ "Bridge street, London": {
+  "lat": 51.4686029,
+  "lon": -0.2102797,
+  "confidence": "street",
+  "label": "Fulham High Street",
+  "kind": "highway/residential"
+ },
+ "Brick lane, Spitalfields, London": {
+  "lat": 51.5188914,
+  "lon": -0.0716223,
+  "confidence": "street",
+  "label": "Brick Lane",
+  "kind": "highway/secondary"
+ },
+ "York street, Westminster, London": {
+  "lat": 51.5203685,
+  "lon": -0.1599342,
+  "confidence": "street",
+  "label": "York Street",
+  "kind": "highway/unclassified"
+ },
+ "St. Giles's Cripplegate, London": null,
+ "West Smithfield, London": {
+  "lat": 51.5178275,
+  "lon": -0.1021753,
+  "confidence": "area",
+  "label": "West Smithfield",
+  "kind": "place/neighbourhood"
+ },
+ "Finchley Common, London": null,
+ "Mansion house, London": {
+  "lat": 51.5118924,
+  "lon": -0.0952228,
+  "confidence": "exact",
+  "label": "Mansion House",
+  "kind": "railway/station"
+ },
+ "Kilburn, London": {
+  "lat": 51.541882,
+  "lon": -0.1979358,
+  "confidence": "area",
+  "label": "Kilburn",
+  "kind": "place/suburb"
+ },
+ "Cow cross, London": null,
+ "Greek street, Soho, London": {
+  "lat": 51.5150229,
+  "lon": -0.1315284,
+  "confidence": "street",
+  "label": "Greek Street",
+  "kind": "highway/residential"
+ },
+ "Old Brentford, London": {
+  "lat": 51.4904952,
+  "lon": -0.3176941,
+  "confidence": "exact",
+  "label": "The Old Bowling Green",
+  "kind": "landuse/recreation_ground"
+ },
+ "Parker's lane, London": {
+  "lat": 51.563271,
+  "lon": -0.3556178,
+  "confidence": "exact",
+  "label": "Parker & Hammond Opticians",
+  "kind": "shop/optician"
+ },
+ "Norton falgate, London": null,
+ "Broad street, St. Giles', London": null,
+ "White Chappel, London": null,
+ "St. Martin's in the Fields, London": null,
+ "Cripplegate, London": {
+  "lat": 51.5203761,
+  "lon": -0.0934541,
+  "confidence": "area",
+  "label": "Cripplegate",
+  "kind": "boundary/political"
+ },
+ "Fleetstreet, London": null,
+ "Russel street, London": {
+  "lat": 51.4261611,
+  "lon": 0.1012665,
+  "confidence": "exact",
+  "label": "Langford Russel",
+  "kind": "office/estate_agent"
+ },
+ "King street, Westminster, London": {
+  "lat": 51.5062729,
+  "lon": -0.1378779,
+  "confidence": "street",
+  "label": "King Street",
+  "kind": "highway/residential"
+ },
+ "Newington green, London": {
+  "lat": 51.5521202,
+  "lon": -0.0852481,
+  "confidence": "street",
+  "label": "Newington Green",
+  "kind": "highway/primary"
+ },
+ "Hedge lane, London": {
+  "lat": 51.6186151,
+  "lon": -0.0893953,
+  "confidence": "street",
+  "label": "Hedge Lane",
+  "kind": "highway/primary"
+ },
+ "the Poultry, London": {
+  "lat": 51.5137033,
+  "lon": -0.0900744,
+  "confidence": "exact",
+  "label": "The Ned",
+  "kind": "tourism/hotel"
+ },
+ "Church lane, London": {
+  "lat": 51.586383,
+  "lon": -0.1146827,
+  "confidence": "street",
+  "label": "Church Lane",
+  "kind": "highway/primary"
+ },
+ "King street, Seven Dials, London": {
+  "lat": 51.5160731,
+  "lon": -0.1230887,
+  "confidence": "exact",
+  "label": "International House London",
+  "kind": "amenity/language_school"
+ },
+ "Somerset house, London": {
+  "lat": 51.5116948,
+  "lon": -0.117442,
+  "confidence": "exact",
+  "label": "The Courtauld Institute of Art",
+  "kind": "amenity/university"
+ },
+ "Jewin street, London": {
+  "lat": 51.521666,
+  "lon": -0.0951978,
+  "confidence": "exact",
+  "label": "Eglwys Jewin Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Holywell street, London": {
+  "lat": 51.3613422,
+  "lon": 0.098821,
+  "confidence": "street",
+  "label": "Holywell Close",
+  "kind": "highway/residential"
+ },
+ "Crown street, London": {
+  "lat": 51.5076527,
+  "lon": -0.2731084,
+  "confidence": "street",
+  "label": "Crown Street",
+  "kind": "highway/residential"
+ },
+ "Tabernacle walk, London": null,
+ "High street, St. Giles', London": {
+  "lat": 51.5155822,
+  "lon": -0.1277833,
+  "confidence": "street",
+  "label": "St Giles High Street",
+  "kind": "highway/primary"
+ },
+ "St. Andrews Holborn, London": null,
+ "Lincoln's Inn Fields, London": {
+  "lat": 51.5162327,
+  "lon": -0.1165666,
+  "confidence": "exact",
+  "label": "Lincoln's Inn Fields",
+  "kind": "leisure/park"
+ },
+ "Mark lane, London": {
+  "lat": 51.5110098,
+  "lon": -0.0801528,
+  "confidence": "street",
+  "label": "Mark Lane",
+  "kind": "highway/residential"
+ },
+ "Church street, Hackney, London": {
+  "lat": 51.541734,
+  "lon": -0.0554748,
+  "confidence": "exact",
+  "label": "The Methodist Church Mare Street",
+  "kind": "amenity/place_of_worship"
+ },
+ "Jermyn street, London": {
+  "lat": 51.5079025,
+  "lon": -0.1382255,
+  "confidence": "street",
+  "label": "Jermyn Street",
+  "kind": "highway/tertiary"
+ },
+ "Orchard street, Westminster, London": {
+  "lat": 51.5146225,
+  "lon": -0.1541133,
+  "confidence": "street",
+  "label": "Orchard Street",
+  "kind": "highway/primary"
+ },
+ "Lamb's Conduit street, London": {
+  "lat": 51.5215452,
+  "lon": -0.1183145,
+  "confidence": "street",
+  "label": "Lamb's Conduit Street",
+  "kind": "highway/pedestrian"
+ },
+ "Greek street, London": {
+  "lat": 51.5133101,
+  "lon": -0.1303569,
+  "confidence": "street",
+  "label": "Greek Street",
+  "kind": "highway/unclassified"
+ },
+ "Portpool lane, London": {
+  "lat": 51.5208923,
+  "lon": -0.1118789,
+  "confidence": "street",
+  "label": "Portpool Lane",
+  "kind": "highway/unclassified"
+ },
+ "Sun street, London": {
+  "lat": 51.5200532,
+  "lon": -0.0842063,
+  "confidence": "street",
+  "label": "Sun Street",
+  "kind": "highway/secondary"
+ },
+ "St. John street, Clerkenwell, London": {
+  "lat": 51.5258944,
+  "lon": -0.1040155,
+  "confidence": "street",
+  "label": "St. John Street",
+  "kind": "highway/secondary"
+ },
+ "Crown street, Finsbury, London": {
+  "lat": 51.5320007,
+  "lon": -0.1018588,
+  "confidence": "exact",
+  "label": "The Tamil Crown",
+  "kind": "amenity/pub"
+ },
+ "Farringdon street, London": {
+  "lat": 51.5165255,
+  "lon": -0.1048897,
+  "confidence": "street",
+  "label": "Farringdon Street",
+  "kind": "highway/primary"
+ },
+ "White cross street, London": {
+  "lat": 51.503276,
+  "lon": -0.0950963,
+  "confidence": "exact",
+  "label": "White Cross Cottages",
+  "kind": "building/residential"
+ },
+ "St. James's, London": {
+  "lat": 51.5079082,
+  "lon": -0.1365727,
+  "confidence": "area",
+  "label": "St. James's",
+  "kind": "place/neighbourhood"
+ },
+ "South Mimms, London": {
+  "lat": 51.6887722,
+  "lon": -0.2380834,
+  "confidence": "exact",
+  "label": "London Research Institute - Clare Hall Site",
+  "kind": "amenity/research_institute"
+ },
+ "Ludgate, London": {
+  "lat": 51.5140198,
+  "lon": -0.1020896,
+  "confidence": "exact",
+  "label": "Ludgate",
+  "kind": "historic/memorial"
+ },
+ "Liquorpond street, London": null,
+ "Edgware, London": {
+  "lat": 51.6136623,
+  "lon": -0.2749555,
+  "confidence": "exact",
+  "label": "Edgware",
+  "kind": "railway/station"
+ },
+ "Tavistock street, London": {
+  "lat": 51.5118815,
+  "lon": -0.1208266,
+  "confidence": "street",
+  "label": "Tavistock Street",
+  "kind": "highway/unclassified"
+ },
+ "Cross lane, London": {
+  "lat": 51.5094567,
+  "lon": -0.0820488,
+  "confidence": "street",
+  "label": "Cross Lane",
+  "kind": "highway/residential"
+ },
+ "Peter street, Westminster, London": {
+  "lat": 51.5127192,
+  "lon": -0.1343544,
+  "confidence": "street",
+  "label": "Peter Street",
+  "kind": "highway/unclassified"
+ },
+ "Wimpole street, London": {
+  "lat": 51.5161305,
+  "lon": -0.1473057,
+  "confidence": "street",
+  "label": "Wimpole Street",
+  "kind": "highway/tertiary"
+ },
+ "Hampstead road, London": {
+  "lat": 51.5278094,
+  "lon": -0.1386374,
+  "confidence": "street",
+  "label": "Hampstead Road",
+  "kind": "highway/trunk"
+ },
+ "Wentworth street, Spitalfields, London": {
+  "lat": 51.5171095,
+  "lon": -0.071628,
+  "confidence": "street",
+  "label": "Wentworth Street",
+  "kind": "highway/residential"
+ },
+ "Vine street, London": {
+  "lat": 51.5445177,
+  "lon": -0.4792717,
+  "confidence": "street",
+  "label": "Vine Street",
+  "kind": "highway/unclassified"
+ },
+ "Redcross street, London": {
+  "lat": 51.5038286,
+  "lon": -0.0930496,
+  "confidence": "exact",
+  "label": "Redcross Way Substation",
+  "kind": "building/yes"
+ },
+ "Ray street, Clerkenwell, London": {
+  "lat": 51.5230634,
+  "lon": -0.1078349,
+  "confidence": "street",
+  "label": "Ray Street Bridge",
+  "kind": "highway/unclassified"
+ },
+ "Princes street, Soho, London": null,
+ "West street, Smithfield, London": {
+  "lat": 51.512362,
+  "lon": -0.072498,
+  "confidence": "street",
+  "label": "West Tenter Street",
+  "kind": "highway/unclassified"
+ },
+ "Great Russell street, London": {
+  "lat": 51.5185812,
+  "lon": -0.1252748,
+  "confidence": "street",
+  "label": "Great Russell Street",
+  "kind": "highway/tertiary"
+ },
+ "West street, London": {
+  "lat": 51.5127919,
+  "lon": -0.1278261,
+  "confidence": "street",
+  "label": "West Street",
+  "kind": "highway/unclassified"
+ },
+ "Harrow on the Hill, London": {
+  "lat": 51.5791381,
+  "lon": -0.336092,
+  "confidence": "exact",
+  "label": "Harrow-on-the-Hill",
+  "kind": "railway/station"
+ },
+ "St. Dunstans in the West, London": null,
+ "Deptford, London": {
+  "lat": 51.4758453,
+  "lon": -0.0215164,
+  "confidence": "area",
+  "label": "Deptford",
+  "kind": "place/suburb"
+ },
+ "St. Mary Woolnoth, London": {
+  "lat": 51.5127597,
+  "lon": -0.0880229,
+  "confidence": "exact",
+  "label": "St Mary Woolnoth",
+  "kind": "amenity/place_of_worship"
+ },
+ "Tower Hill, London": {
+  "lat": 51.5098481,
+  "lon": -0.0766986,
+  "confidence": "exact",
+  "label": "Tower Hill",
+  "kind": "railway/station"
+ },
+ "Leicester fields, London": {
+  "lat": 51.4676401,
+  "lon": -0.1057857,
+  "confidence": "exact",
+  "label": "Leicester House",
+  "kind": "building/residential"
+ },
+ "Clapton, London": {
+  "lat": 51.558602,
+  "lon": -0.0558777,
+  "confidence": "area",
+  "label": "Clapton",
+  "kind": "place/suburb"
+ },
+ "Threadneedle street, London": {
+  "lat": 51.5142957,
+  "lon": -0.0847305,
+  "confidence": "street",
+  "label": "Threadneedle Street",
+  "kind": "highway/unclassified"
+ },
+ "Great Wild street, London": null,
+ "Saltpetre bank, London": null,
+ "Feltham, London": {
+  "lat": 51.4442232,
+  "lon": -0.410659,
+  "confidence": "area",
+  "label": "Feltham",
+  "kind": "place/suburb"
+ },
+ "Great Ormond street, London": {
+  "lat": 51.5225205,
+  "lon": -0.1181049,
+  "confidence": "street",
+  "label": "Great Ormond Street",
+  "kind": "highway/unclassified"
+ },
+ "Long alley, London": null,
+ "Baldwin's gardens, London": null,
+ "Sloane street, London": {
+  "lat": 51.5001006,
+  "lon": -0.1597873,
+  "confidence": "street",
+  "label": "Sloane Street",
+  "kind": "highway/primary"
+ },
+ "Sloane street, Chelsea, London": {
+  "lat": 51.5009294,
+  "lon": -0.1600261,
+  "confidence": "street",
+  "label": "Sloane Street",
+  "kind": "highway/primary"
+ },
+ "Bedfont, London": {
+  "lat": 51.4531236,
+  "lon": -0.430874,
+  "confidence": "area",
+  "label": "Bedfont",
+  "kind": "place/suburb"
+ },
+ "Union street, London": {
+  "lat": 51.5036962,
+  "lon": -0.1013247,
+  "confidence": "street",
+  "label": "Union Street",
+  "kind": "highway/unclassified"
+ },
+ "Marylebone, London": {
+  "lat": 51.5196374,
+  "lon": -0.1519627,
+  "confidence": "area",
+  "label": "Marylebone",
+  "kind": "place/suburb"
+ },
+ "Lisson grove, London": {
+  "lat": 51.5275092,
+  "lon": -0.1738865,
+  "confidence": "street",
+  "label": "Lisson Grove",
+  "kind": "highway/secondary"
+ },
+ "St. Clements Danes, London": null,
+ "Hounslow heath, London": {
+  "lat": 51.4571848,
+  "lon": -0.3852397,
+  "confidence": "exact",
+  "label": "Hounslow Heath",
+  "kind": "leisure/nature_reserve"
+ },
+ "Ratcliff Highway, London": {
+  "lat": 51.5107904,
+  "lon": -0.0435596,
+  "confidence": "exact",
+  "label": "Holiday Inn Express London - Limehouse",
+  "kind": "tourism/hotel"
+ },
+ "Chick Lane, London": {
+  "lat": 51.5283985,
+  "lon": -0.2161806,
+  "confidence": "exact",
+  "label": "Chick Inn Village",
+  "kind": "amenity/fast_food"
+ },
+ "Newport street, London": {
+  "lat": 51.492737,
+  "lon": -0.1179285,
+  "confidence": "street",
+  "label": "Newport Street",
+  "kind": "highway/residential"
+ },
+ "Great Queen street, London": {
+  "lat": 51.5154186,
+  "lon": -0.1211963,
+  "confidence": "street",
+  "label": "Great Queen Street",
+  "kind": "highway/secondary"
+ },
+ "Lime house, London": {
+  "lat": 51.4775058,
+  "lon": -0.2775829,
+  "confidence": "exact",
+  "label": "Lime House",
+  "kind": "building/residential"
+ },
+ "Southgate, London": {
+  "lat": 51.6323183,
+  "lon": -0.1277858,
+  "confidence": "exact",
+  "label": "Southgate",
+  "kind": "railway/station"
+ },
+ "Oxford Road, London": {
+  "lat": 51.582671,
+  "lon": -0.3493575,
+  "confidence": "street",
+  "label": "Oxford Road",
+  "kind": "highway/residential"
+ },
+ "Aylesbury street, Clerkenwell, London": {
+  "lat": 51.5237422,
+  "lon": -0.1034657,
+  "confidence": "street",
+  "label": "Aylesbury Street",
+  "kind": "highway/unclassified"
+ },
+ "Margaret street, Cavendish square, London": null,
+ "Westminster bridge, London": {
+  "lat": 51.5008685,
+  "lon": -0.1225584,
+  "confidence": "street",
+  "label": "Westminster Bridge",
+  "kind": "highway/primary"
+ },
+ "Homerton, London": {
+  "lat": 51.5470789,
+  "lon": -0.043121,
+  "confidence": "exact",
+  "label": "Homerton",
+  "kind": "railway/station"
+ },
+ "Long alley, Moorfields, London": null,
+ "Little Moorfields, London": null,
+ "Newman street, London": {
+  "lat": 51.516962,
+  "lon": -0.135234,
+  "confidence": "street",
+  "label": "Newman Street",
+  "kind": "highway/unclassified"
+ },
+ "Chandos street, London": {
+  "lat": 51.5177545,
+  "lon": -0.1447455,
+  "confidence": "street",
+  "label": "Chandos Street",
+  "kind": "highway/residential"
+ },
+ "Smithfield bars, London": {
+  "lat": 51.5195284,
+  "lon": -0.102759,
+  "confidence": "exact",
+  "label": "Smiths of Smithfield",
+  "kind": "amenity/pub"
+ },
+ "High street, Whitechapel, London": {
+  "lat": 51.5232534,
+  "lon": -0.0744674,
+  "confidence": "exact",
+  "label": "Shoreditch High Street",
+  "kind": "railway/station"
+ },
+ "Essex street, Whitechapel, London": null,
+ "St. George, London": {
+  "lat": 51.3781006,
+  "lon": -0.283356,
+  "confidence": "exact",
+  "label": "St George",
+  "kind": "amenity/place_of_worship"
+ },
+ "Ratcliff, London": {
+  "lat": 51.5115396,
+  "lon": -0.0442364,
+  "confidence": "area",
+  "label": "Ratcliffe",
+  "kind": "place/quarter"
+ },
+ "Bow lane, London": {
+  "lat": 51.6037526,
+  "lon": -0.1780957,
+  "confidence": "street",
+  "label": "Bow Lane",
+  "kind": "highway/residential"
+ },
+ "Old Change, London": {
+  "lat": 51.5133063,
+  "lon": -0.0970536,
+  "confidence": "exact",
+  "label": "Old Change",
+  "kind": "historic/memorial"
+ },
+ "Turnham Green, London": {
+  "lat": 51.4953269,
+  "lon": -0.2549777,
+  "confidence": "exact",
+  "label": "Turnham Green",
+  "kind": "building/train_station"
+ },
+ "Berwick street, London": {
+  "lat": 51.5133238,
+  "lon": -0.1346581,
+  "confidence": "street",
+  "label": "Berwick Street",
+  "kind": "highway/pedestrian"
+ },
+ "Great Marlborough street, London": {
+  "lat": 51.5143833,
+  "lon": -0.1388711,
+  "confidence": "street",
+  "label": "Great Marlborough Street",
+  "kind": "highway/tertiary"
+ },
+ "Marybone, London": null,
+ "Chelsea Fields, London": {
+  "lat": 51.4114218,
+  "lon": -0.1749293,
+  "confidence": "street",
+  "label": "Chelsea Fields",
+  "kind": "highway/bus_stop"
+ },
+ "Lime street, London": {
+  "lat": 51.5133392,
+  "lon": -0.0816995,
+  "confidence": "street",
+  "label": "Lime Street",
+  "kind": "highway/unclassified"
+ },
+ "Rupert street, London": {
+  "lat": 51.5119211,
+  "lon": -0.1333642,
+  "confidence": "street",
+  "label": "Rupert Street",
+  "kind": "highway/pedestrian"
+ },
+ "George yard, Whitechapel, London": null,
+ "Stratford, London": {
+  "lat": 51.541289,
+  "lon": -0.0035472,
+  "confidence": "exact",
+  "label": "Stratford",
+  "kind": "railway/station"
+ },
+ "King street, Seven dials, London": {
+  "lat": 51.5160731,
+  "lon": -0.1230887,
+  "confidence": "exact",
+  "label": "International House London",
+  "kind": "amenity/language_school"
+ },
+ "New Brentford, London": {
+  "lat": 51.4730215,
+  "lon": -0.3755478,
+  "confidence": "exact",
+  "label": "New Brentford Cemetery",
+  "kind": "landuse/cemetery"
+ },
+ "Orchard street, London": {
+  "lat": 51.587142,
+  "lon": -0.0356482,
+  "confidence": "street",
+  "label": "Orchard Street",
+  "kind": "highway/residential"
+ },
+ "Titchfield street, London": {
+  "lat": 51.5183568,
+  "lon": -0.1404975,
+  "confidence": "street",
+  "label": "Great Titchfield Street",
+  "kind": "highway/unclassified"
+ },
+ "Lower East Smithfield, London": null,
+ "Milk street, London": {
+  "lat": 51.5149903,
+  "lon": -0.0935885,
+  "confidence": "street",
+  "label": "Milk Street",
+  "kind": "highway/unclassified"
+ },
+ "Lower Shadwell, London": null,
+ "Wardour street, Soho, London": {
+  "lat": 51.5151083,
+  "lon": -0.1352457,
+  "confidence": "street",
+  "label": "Wardour Street",
+  "kind": "highway/tertiary"
+ },
+ "Brown's lane, Spitalfields, London": null,
+ "Turnham green, London": {
+  "lat": 51.4953269,
+  "lon": -0.2549777,
+  "confidence": "exact",
+  "label": "Turnham Green",
+  "kind": "building/train_station"
+ },
+ "Bedford square, London": {
+  "lat": 51.5189676,
+  "lon": -0.1300259,
+  "confidence": "exact",
+  "label": "Bedford Square",
+  "kind": "leisure/garden"
+ },
+ "Portland place, London": {
+  "lat": 51.5198254,
+  "lon": -0.1447317,
+  "confidence": "street",
+  "label": "Portland Place",
+  "kind": "highway/primary"
+ },
+ "St. Dunstan, Stepney, London": {
+  "lat": 51.5168487,
+  "lon": -0.0416657,
+  "confidence": "exact",
+  "label": "St Dunstan's",
+  "kind": "amenity/place_of_worship"
+ },
+ "Jewry street, Aldgate, London": {
+  "lat": 51.5133914,
+  "lon": -0.076707,
+  "confidence": "street",
+  "label": "Jewry Street",
+  "kind": "highway/unclassified"
+ },
+ "Castle street, Leicester square, London": null,
+ "Euston square, London": {
+  "lat": 51.5256866,
+  "lon": -0.1355703,
+  "confidence": "exact",
+  "label": "Euston Square",
+  "kind": "railway/station"
+ },
+ "St. John the Evangelist, Westminster, London": {
+  "lat": 51.5280428,
+  "lon": -0.2152969,
+  "confidence": "exact",
+  "label": "St John the Evangelist",
+  "kind": "amenity/place_of_worship"
+ },
+ "Cromer street, London": {
+  "lat": 51.5276073,
+  "lon": -0.1233864,
+  "confidence": "street",
+  "label": "Cromer Street",
+  "kind": "highway/residential"
+ },
+ "All Saints, Poplar, London": {
+  "lat": 51.5108398,
+  "lon": -0.0130551,
+  "confidence": "exact",
+  "label": "All Saints",
+  "kind": "railway/station"
+ },
+ "St. Mary le Bow, London": {
+  "lat": 51.5137347,
+  "lon": -0.0935304,
+  "confidence": "exact",
+  "label": "St. Mary-Le-Bow",
+  "kind": "amenity/place_of_worship"
+ },
+ "Scotland yard, London": {
+  "lat": 51.5027566,
+  "lon": -0.1242538,
+  "confidence": "exact",
+  "label": "New Scotland Yard",
+  "kind": "amenity/police"
+ },
+ "St. Dunstan's in the West, London": null,
+ "St. Leonard Shoreditch, London": {
+  "lat": 51.5268566,
+  "lon": -0.077216,
+  "confidence": "exact",
+  "label": "Saint Leonard",
+  "kind": "amenity/place_of_worship"
+ },
+ "Bloomsbury, London": {
+  "lat": 51.5210963,
+  "lon": -0.1289635,
+  "confidence": "area",
+  "label": "Bloomsbury",
+  "kind": "place/suburb"
+ },
+ "Old Fish street, London": {
+  "lat": 51.5121166,
+  "lon": -0.0966163,
+  "confidence": "street",
+  "label": "Old Fish Street Hill",
+  "kind": "highway/footway"
+ },
+ "Warwick lane, London": {
+  "lat": 51.5150485,
+  "lon": -0.1007274,
+  "confidence": "street",
+  "label": "Warwick Lane",
+  "kind": "highway/residential"
+ },
+ "Fleet Market, London": null,
+ "Seven Dials, London": {
+  "lat": 51.5137537,
+  "lon": -0.1269049,
+  "confidence": "street",
+  "label": "Seven Dials",
+  "kind": "highway/unclassified"
+ },
+ "Bethnal Green, London": {
+  "lat": 51.5303456,
+  "lon": -0.0561633,
+  "confidence": "area",
+  "label": "Bethnal Green",
+  "kind": "place/suburb"
+ },
+ "Harting, County of Sussex, London": null,
+ "Church lane, Whitechapel, London": {
+  "lat": 51.5194406,
+  "lon": -0.0720511,
+  "confidence": "exact",
+  "label": "Brick Lane Jamme Masjid",
+  "kind": "amenity/place_of_worship"
+ },
+ "Cavendish square, London": {
+  "lat": 51.5164887,
+  "lon": -0.1450325,
+  "confidence": "exact",
+  "label": "Cavendish Square",
+  "kind": "leisure/park"
+ },
+ "Islington road, London": {
+  "lat": 51.531669,
+  "lon": -0.1047435,
+  "confidence": "street",
+  "label": "Angel Islington / City Road",
+  "kind": "highway/bus_stop"
+ },
+ "Poland street, London": {
+  "lat": 51.5145162,
+  "lon": -0.1369755,
+  "confidence": "street",
+  "label": "Poland Street",
+  "kind": "highway/unclassified"
+ },
+ "Duck lane, London": {
+  "lat": 51.5136858,
+  "lon": -0.1345735,
+  "confidence": "street",
+  "label": "Duck Lane",
+  "kind": "highway/unclassified"
+ },
+ "Park street, London": {
+  "lat": 51.5072481,
+  "lon": -0.0962895,
+  "confidence": "street",
+  "label": "Park Street",
+  "kind": "highway/unclassified"
+ },
+ "Harrow road, London": {
+  "lat": 51.5274698,
+  "lon": -0.2146934,
+  "confidence": "street",
+  "label": "Harrow Road",
+  "kind": "highway/primary"
+ },
+ "St. James's square, London": {
+  "lat": 51.5077001,
+  "lon": -0.1347727,
+  "confidence": "street",
+  "label": "St James's Square",
+  "kind": "highway/residential"
+ },
+ "Upper Clapton, London": {
+  "lat": 51.5668384,
+  "lon": -0.0605697,
+  "confidence": "area",
+  "label": "Upper Clapton",
+  "kind": "place/quarter"
+ },
+ "St. John street road, London": {
+  "lat": 51.5035194,
+  "lon": -0.0829926,
+  "confidence": "exact",
+  "label": "London Bridge",
+  "kind": "railway/stop"
+ },
+ "Red Lion street, Clerkenwell, London": {
+  "lat": 51.5314266,
+  "lon": -0.1059203,
+  "confidence": "exact",
+  "label": "Old Red Lion Theatre",
+  "kind": "amenity/theatre"
+ },
+ "Gunpowder alley, Bishopsgate street, London": null,
+ "Temple Bar, London": {
+  "lat": 51.513692,
+  "lon": -0.1119161,
+  "confidence": "exact",
+  "label": "Temple Bar",
+  "kind": "building/yes"
+ },
+ "St. Paul, Shadwell, London": {
+  "lat": 51.5094251,
+  "lon": -0.0520268,
+  "confidence": "exact",
+  "label": "St Paul's Shadwell",
+  "kind": "amenity/place_of_worship"
+ },
+ "Hounslow Heath, London": {
+  "lat": 51.4571848,
+  "lon": -0.3852397,
+  "confidence": "exact",
+  "label": "Hounslow Heath",
+  "kind": "leisure/nature_reserve"
+ },
+ "Tyburn, London": {
+  "lat": 51.518391,
+  "lon": -0.1529642,
+  "confidence": "exact",
+  "label": "Tyburn",
+  "kind": "waterway/stream"
+ },
+ "Shakesby's Walk, London": null,
+ "Albemarle street, London": {
+  "lat": 51.5089718,
+  "lon": -0.1418256,
+  "confidence": "street",
+  "label": "Albemarle Street",
+  "kind": "highway/residential"
+ },
+ "Whetstone, London": {
+  "lat": 51.6301886,
+  "lon": -0.1748799,
+  "confidence": "area",
+  "label": "Whetstone",
+  "kind": "place/suburb"
+ },
+ "Dove Brigantine, London": null,
+ "Denmark street, London": {
+  "lat": 51.5152478,
+  "lon": -0.129496,
+  "confidence": "street",
+  "label": "Denmark Street",
+  "kind": "highway/tertiary"
+ },
+ "Well street, London": {
+  "lat": 51.5462979,
+  "lon": 0.0041489,
+  "confidence": "street",
+  "label": "Well Street",
+  "kind": "highway/residential"
+ },
+ "Hadley, London": {
+  "lat": 51.6629764,
+  "lon": -0.1990421,
+  "confidence": "area",
+  "label": "Hadley",
+  "kind": "place/village"
+ },
+ "Brumpton, London": null,
+ "Brook street, London": {
+  "lat": 51.4815503,
+  "lon": 0.1535191,
+  "confidence": "street",
+  "label": "Brook Street",
+  "kind": "highway/tertiary"
+ },
+ "Shepherd's bush, London": {
+  "lat": 51.5053155,
+  "lon": -0.2229856,
+  "confidence": "area",
+  "label": "Shepherd's Bush",
+  "kind": "place/suburb"
+ },
+ "Conduit street, London": {
+  "lat": 51.5113553,
+  "lon": -0.1429537,
+  "confidence": "street",
+  "label": "Conduit Street",
+  "kind": "highway/secondary"
+ },
+ "Dowgate hill, London": {
+  "lat": 51.5112593,
+  "lon": -0.0909089,
+  "confidence": "street",
+  "label": "Dowgate Hill",
+  "kind": "highway/unclassified"
+ },
+ "Windmill street, London": {
+  "lat": 51.5185363,
+  "lon": -0.1345732,
+  "confidence": "street",
+  "label": "Windmill Street",
+  "kind": "highway/residential"
+ },
+ "Whitcomb street, London": {
+  "lat": 51.5100122,
+  "lon": -0.1311853,
+  "confidence": "street",
+  "label": "Whitcomb Street",
+  "kind": "highway/residential"
+ },
+ "Bridge street, Blackfriars, London": {
+  "lat": 51.5130234,
+  "lon": -0.1009021,
+  "confidence": "exact",
+  "label": "Bridge Street",
+  "kind": "office/company"
+ },
+ "Drury lane Theatre, London": {
+  "lat": 51.5154186,
+  "lon": -0.1226874,
+  "confidence": "exact",
+  "label": "Gillian Lynne Theatre",
+  "kind": "amenity/theatre"
+ },
+ "Pentonville, London": {
+  "lat": 51.5321048,
+  "lon": -0.1148938,
+  "confidence": "area",
+  "label": "Pentonville",
+  "kind": "place/neighbourhood"
+ },
+ "St. George, Bloomsbury, London": {
+  "lat": 51.5302582,
+  "lon": -0.1443371,
+  "confidence": "exact",
+  "label": "St. George's Cathedral",
+  "kind": "amenity/place_of_worship"
+ },
+ "Spitalfields market, London": {
+  "lat": 51.5196499,
+  "lon": -0.0753423,
+  "confidence": "street",
+  "label": "Spitalfields Market",
+  "kind": "highway/pedestrian"
+ },
+ "Frith street, London": {
+  "lat": 51.5131556,
+  "lon": -0.1311957,
+  "confidence": "street",
+  "label": "Frith Street",
+  "kind": "highway/residential"
+ },
+ "St. John street, Smithfield, London": {
+  "lat": 51.5088825,
+  "lon": -0.0684867,
+  "confidence": "street",
+  "label": "John Fisher Street",
+  "kind": "highway/unclassified"
+ },
+ "St. Martins in the fields, London": null,
+ "Palace yard, London": {
+  "lat": 51.4989252,
+  "lon": -0.1256156,
+  "confidence": "exact",
+  "label": "Old Palace Yard",
+  "kind": "amenity/parking"
+ },
+ "Temple, London": {
+  "lat": 51.5109659,
+  "lon": -0.1143345,
+  "confidence": "exact",
+  "label": "Temple",
+  "kind": "railway/station"
+ },
+ "St. Mary Woolchurch, London": {
+  "lat": 51.5132704,
+  "lon": -0.0895533,
+  "confidence": "exact",
+  "label": "St Mary Woolchurch Haw",
+  "kind": "historic/memorial"
+ },
+ "St. Mary Islington, London": {
+  "lat": 51.5384067,
+  "lon": -0.1017197,
+  "confidence": "exact",
+  "label": "Saint Mary's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Church Lane, London": {
+  "lat": 51.586383,
+  "lon": -0.1146827,
+  "confidence": "street",
+  "label": "Church Lane",
+  "kind": "highway/primary"
+ },
+ "Lisle street, London": {
+  "lat": 51.5114617,
+  "lon": -0.1306725,
+  "confidence": "street",
+  "label": "Lisle Street",
+  "kind": "highway/pedestrian"
+ },
+ "Stanwell, London": {
+  "lat": 51.4377913,
+  "lon": -0.4905699,
+  "confidence": "exact",
+  "label": "London Road Allotments",
+  "kind": "landuse/allotments"
+ },
+ "Lothbury, London": {
+  "lat": 51.514706,
+  "lon": -0.0889524,
+  "confidence": "street",
+  "label": "Lothbury",
+  "kind": "highway/unclassified"
+ },
+ "Wapping Wall, Parish of S. Paul's Shadwell, London": null,
+ "Teddington, London": {
+  "lat": 51.4277844,
+  "lon": -0.333653,
+  "confidence": "area",
+  "label": "Teddington",
+  "kind": "place/town"
+ },
+ "Catherine street, London": {
+  "lat": 51.5126127,
+  "lon": -0.1203857,
+  "confidence": "street",
+  "label": "Catherine Street",
+  "kind": "highway/unclassified"
+ },
+ "Clement's lane, London": {
+  "lat": 51.5144825,
+  "lon": -0.1165851,
+  "confidence": "street",
+  "label": "St Clement's Lane",
+  "kind": "highway/unclassified"
+ },
+ "Old Bond street, London": {
+  "lat": 51.5089078,
+  "lon": -0.1408282,
+  "confidence": "street",
+  "label": "Old Bond Street",
+  "kind": "highway/residential"
+ },
+ "Golden square, London": {
+  "lat": 51.511655,
+  "lon": -0.137183,
+  "confidence": "exact",
+  "label": "Golden Square",
+  "kind": "leisure/park"
+ },
+ "Tavistock street, Covent garden, London": {
+  "lat": 51.5128788,
+  "lon": -0.1195161,
+  "confidence": "street",
+  "label": "Tavistock Street",
+  "kind": "highway/unclassified"
+ },
+ "St. Dunstan's church, London": {
+  "lat": 51.5167478,
+  "lon": -0.0433474,
+  "confidence": "street",
+  "label": "St Dunstan's Church",
+  "kind": "highway/bus_stop"
+ },
+ "St. Catherine's lane, London": null,
+ "Turnmill street, Clerkenwell, London": {
+  "lat": 51.5209864,
+  "lon": -0.1050191,
+  "confidence": "street",
+  "label": "Turnmill Street",
+  "kind": "highway/unclassified"
+ },
+ "George alley, London": {
+  "lat": 51.5106041,
+  "lon": -0.0664232,
+  "confidence": "exact",
+  "label": "George Leybourne House",
+  "kind": "building/apartments"
+ },
+ "King street, Soho, London": {
+  "lat": 51.5155385,
+  "lon": -0.1351659,
+  "confidence": "exact",
+  "label": "King",
+  "kind": "office/company"
+ },
+ "Wapping street, London": {
+  "lat": 51.5152561,
+  "lon": -0.05989,
+  "confidence": "exact",
+  "label": "East London Central Synagogue",
+  "kind": "amenity/place_of_worship"
+ },
+ "Hampton, London": {
+  "lat": 51.4150272,
+  "lon": -0.3691409,
+  "confidence": "area",
+  "label": "Hampton",
+  "kind": "place/suburb"
+ },
+ "Carnaby market, London": null,
+ "Lower Grosvenor street, London": null,
+ "Cateaton street, London": null,
+ "Church lane, St. Giles's, London": null,
+ "Peter street, London": {
+  "lat": 51.5127192,
+  "lon": -0.1343544,
+  "confidence": "street",
+  "label": "Peter Street",
+  "kind": "highway/unclassified"
+ },
+ "Portman square, London": {
+  "lat": 51.5162048,
+  "lon": -0.1557229,
+  "confidence": "street",
+  "label": "Portman Square",
+  "kind": "highway/primary"
+ },
+ "King's road, Chelsea, London": {
+  "lat": 51.4886382,
+  "lon": -0.1659171,
+  "confidence": "street",
+  "label": "King's Road",
+  "kind": "highway/primary"
+ },
+ "Maiden lane, London": {
+  "lat": 51.5105234,
+  "lon": -0.1235978,
+  "confidence": "street",
+  "label": "Maiden Lane",
+  "kind": "highway/pedestrian"
+ },
+ "Welbeck street, London": {
+  "lat": 51.5168313,
+  "lon": -0.1490142,
+  "confidence": "street",
+  "label": "Welbeck Street",
+  "kind": "highway/residential"
+ },
+ "Short's gardens, Drury lane, London": null,
+ "Wapping wall, London": {
+  "lat": 51.5066522,
+  "lon": -0.0526614,
+  "confidence": "street",
+  "label": "Wapping Wall",
+  "kind": "highway/tertiary"
+ },
+ "James street, Covent garden, London": {
+  "lat": 51.5125869,
+  "lon": -0.1234649,
+  "confidence": "street",
+  "label": "James Street",
+  "kind": "highway/pedestrian"
+ },
+ "Finsbury place, London": {
+  "lat": 51.527133,
+  "lon": -0.0956583,
+  "confidence": "exact",
+  "label": "London Dental Centre",
+  "kind": "amenity/dentist"
+ },
+ "Frith street, Soho, London": {
+  "lat": 51.5131556,
+  "lon": -0.1311957,
+  "confidence": "street",
+  "label": "Frith Street",
+  "kind": "highway/residential"
+ },
+ "Union street, Spitalfields, London": {
+  "lat": 51.5138579,
+  "lon": -0.0704297,
+  "confidence": "exact",
+  "label": "Pizza Union",
+  "kind": "amenity/fast_food"
+ },
+ "Crown street, Soho, London": {
+  "lat": 51.5111757,
+  "lon": -0.1363142,
+  "confidence": "exact",
+  "label": "The Crown",
+  "kind": "amenity/pub"
+ },
+ "Cranbourn street, London": {
+  "lat": 51.5115691,
+  "lon": -0.1277549,
+  "confidence": "street",
+  "label": "Cranbourn Street",
+  "kind": "highway/secondary"
+ },
+ "Lincoln's Inn fields, London": {
+  "lat": 51.5162327,
+  "lon": -0.1165666,
+  "confidence": "exact",
+  "label": "Lincoln's Inn Fields",
+  "kind": "leisure/park"
+ },
+ "East India Docks, London": {
+  "lat": 51.5111314,
+  "lon": -0.0069683,
+  "confidence": "exact",
+  "label": "East India Docks",
+  "kind": "historic/monument"
+ },
+ "St. Ann, Westminster, London": {
+  "lat": 51.5345708,
+  "lon": -0.1719932,
+  "confidence": "street",
+  "label": "St. Ann's Terrace",
+  "kind": "highway/residential"
+ },
+ "Charlotte street, Fitzroy square, London": null,
+ "Barnet, London": {
+  "lat": 51.65309,
+  "lon": -0.2002261,
+  "confidence": "area",
+  "label": "Chipping Barnet",
+  "kind": "place/town"
+ },
+ "George yard, London": {
+  "lat": 51.5124428,
+  "lon": -0.0860912,
+  "confidence": "street",
+  "label": "George Yard",
+  "kind": "highway/unclassified"
+ },
+ "Ratcliffe, London": {
+  "lat": 51.5115396,
+  "lon": -0.0442364,
+  "confidence": "area",
+  "label": "Ratcliffe",
+  "kind": "place/quarter"
+ },
+ "Rosemary Lane, London": {
+  "lat": 51.4685125,
+  "lon": -0.2700581,
+  "confidence": "street",
+  "label": "Rosemary Lane",
+  "kind": "highway/residential"
+ },
+ "Finchly Common, London": null,
+ "Sadler's Wells, London": {
+  "lat": 51.5294595,
+  "lon": -0.1061453,
+  "confidence": "exact",
+  "label": "Sadler's Wells",
+  "kind": "amenity/theatre"
+ },
+ "Great Russel street, London": null,
+ "Camomile street, London": {
+  "lat": 51.5154569,
+  "lon": -0.0800013,
+  "confidence": "street",
+  "label": "Camomile Street",
+  "kind": "highway/primary"
+ },
+ "Willsden, London": null,
+ "King's Head Court, Shoe Lane, London": null,
+ "Newport market, London": null,
+ "Black Boy Alley, London": null,
+ "Southampton street, London": {
+  "lat": 51.5105951,
+  "lon": -0.1216171,
+  "confidence": "street",
+  "label": "Southampton Street",
+  "kind": "highway/pedestrian"
+ },
+ "Oxford market, London": {
+  "lat": 51.5164044,
+  "lon": -0.1404462,
+  "confidence": "exact",
+  "label": "The Oxford Market",
+  "kind": "amenity/bar"
+ },
+ "Bloomsbury square, London": {
+  "lat": 51.5192946,
+  "lon": -0.12359,
+  "confidence": "street",
+  "label": "Bloomsbury Square",
+  "kind": "highway/tertiary"
+ },
+ "Newtoner's lane, London": null,
+ "river Thames, London": {
+  "lat": 51.5113794,
+  "lon": -0.1173806,
+  "confidence": "exact",
+  "label": "George III and the River Thames",
+  "kind": "historic/memorial"
+ },
+ "Grosvenor square, London": {
+  "lat": 51.5115142,
+  "lon": -0.1513916,
+  "confidence": "exact",
+  "label": "Grosvenor Square",
+  "kind": "leisure/park"
+ },
+ "Walthamstow, London": {
+  "lat": 51.5844701,
+  "lon": -0.0188186,
+  "confidence": "area",
+  "label": "Walthamstow",
+  "kind": "place/town"
+ },
+ "Constitution hill, London": {
+  "lat": 51.5023288,
+  "lon": -0.1453761,
+  "confidence": "street",
+  "label": "Constitution Hill",
+  "kind": "highway/residential"
+ },
+ "Holborn Hill, London": {
+  "lat": 51.62084,
+  "lon": -0.2411369,
+  "confidence": "street",
+  "label": "Holborn Close",
+  "kind": "highway/service"
+ },
+ "St. John's lane, London": {
+  "lat": 51.52144,
+  "lon": -0.1023657,
+  "confidence": "street",
+  "label": "St John's Lane",
+  "kind": "highway/unclassified"
+ },
+ "China row, Chelsea, London": null,
+ "Gunnersbury lane, London": {
+  "lat": 51.5082317,
+  "lon": -0.2761419,
+  "confidence": "street",
+  "label": "Gunnersbury Lane",
+  "kind": "highway/primary"
+ },
+ "St. Anne, Westminster, London": {
+  "lat": 51.5124199,
+  "lon": -0.1321911,
+  "confidence": "exact",
+  "label": "St Anne's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Spital square, London": {
+  "lat": 51.5204576,
+  "lon": -0.0788223,
+  "confidence": "street",
+  "label": "Spital Square",
+  "kind": "highway/unclassified"
+ },
+ "James street, London": {
+  "lat": 51.5143568,
+  "lon": -0.150265,
+  "confidence": "street",
+  "label": "James Street",
+  "kind": "highway/pedestrian"
+ },
+ "St. James's, Clerkenwell, London": {
+  "lat": 51.5235711,
+  "lon": -0.1056105,
+  "confidence": "exact",
+  "label": "St. James's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "King's road, London": {
+  "lat": 51.481093,
+  "lon": -0.1835903,
+  "confidence": "street",
+  "label": "King's Road",
+  "kind": "highway/primary"
+ },
+ "New Prison, Clerkenwell, London": null,
+ "Brewer street, Golden square, London": null,
+ "Broadway, Westminster, London": {
+  "lat": 51.4997288,
+  "lon": -0.1334029,
+  "confidence": "street",
+  "label": "Broadway",
+  "kind": "highway/residential"
+ },
+ "Henrietta street, Covent garden, London": {
+  "lat": 51.5110764,
+  "lon": -0.1237582,
+  "confidence": "street",
+  "label": "Henrietta Street",
+  "kind": "highway/pedestrian"
+ },
+ "Guildford street, London": {
+  "lat": 51.5043624,
+  "lon": -0.0967973,
+  "confidence": "street",
+  "label": "Great Guildford Street",
+  "kind": "highway/unclassified"
+ },
+ "Baker street, London": {
+  "lat": 51.5225853,
+  "lon": -0.1567431,
+  "confidence": "exact",
+  "label": "Baker Street",
+  "kind": "railway/station"
+ },
+ "Red Lion street, London": {
+  "lat": 51.4596156,
+  "lon": -0.3045725,
+  "confidence": "street",
+  "label": "Red Lion Street",
+  "kind": "highway/primary"
+ },
+ "Bath street, City road, London": null,
+ "Featherstone street, City road, London": null,
+ "Paddington street, London": {
+  "lat": 51.5203592,
+  "lon": -0.1563267,
+  "confidence": "street",
+  "label": "Paddington Street",
+  "kind": "highway/secondary"
+ },
+ "St. Mary Matfelon, alias Whitechapel, London": null,
+ "St. John, Hackney, London": {
+  "lat": 51.5478166,
+  "lon": -0.0545036,
+  "confidence": "exact",
+  "label": "Tower of Church of St Augustine",
+  "kind": "man_made/tower"
+ },
+ "Queen street, Seven dials, London": {
+  "lat": 51.5154186,
+  "lon": -0.1211963,
+  "confidence": "street",
+  "label": "Great Queen Street",
+  "kind": "highway/secondary"
+ },
+ "St. Margarets Westminster, London": null,
+ "Petty France, London": {
+  "lat": 51.4994116,
+  "lon": -0.1362227,
+  "confidence": "street",
+  "label": "Petty France",
+  "kind": "highway/residential"
+ },
+ "York Buildings, London": {
+  "lat": 51.5087069,
+  "lon": -0.1230431,
+  "confidence": "street",
+  "label": "York Buildings",
+  "kind": "highway/residential"
+ },
+ "St. Ann Westminster, London": {
+  "lat": 51.5345708,
+  "lon": -0.1719932,
+  "confidence": "street",
+  "label": "St. Ann's Terrace",
+  "kind": "highway/residential"
+ },
+ "Harlington, London": {
+  "lat": 51.4884891,
+  "lon": -0.4363028,
+  "confidence": "area",
+  "label": "Harlington",
+  "kind": "place/village"
+ },
+ "South Mims, London": null,
+ "Bear key, London": null,
+ "Grass Inn Garden Wall, London": null,
+ "St. Stephen, Coleman street, London": null,
+ "Queen street, Westminster, London": {
+  "lat": 51.5068504,
+  "lon": -0.1469912,
+  "confidence": "street",
+  "label": "Queen Street",
+  "kind": "highway/residential"
+ },
+ "St. James's park, London": {
+  "lat": 51.5031295,
+  "lon": -0.133165,
+  "confidence": "exact",
+  "label": "St. James's Park",
+  "kind": "leisure/park"
+ },
+ "Catherine wheel alley, Whitechapel, London": null,
+ "St. Mary Axe, London": {
+  "lat": 51.5140577,
+  "lon": -0.0811224,
+  "confidence": "exact",
+  "label": "St Mary Axe",
+  "kind": "historic/memorial"
+ },
+ "Gutter lane, London": {
+  "lat": 51.5156882,
+  "lon": -0.0955,
+  "confidence": "street",
+  "label": "Gutter Lane",
+  "kind": "highway/unclassified"
+ },
+ "Suffolk street, London": {
+  "lat": 51.5511151,
+  "lon": 0.0211083,
+  "confidence": "street",
+  "label": "Suffolk Street",
+  "kind": "highway/residential"
+ },
+ "Maynard street, London": {
+  "lat": 51.5822601,
+  "lon": -0.0055283,
+  "confidence": "exact",
+  "label": "Henry Maynard Primary School (Infant school and Nursery)",
+  "kind": "building/school"
+ },
+ "Little Newport street, London": {
+  "lat": 51.5117212,
+  "lon": -0.1288283,
+  "confidence": "street",
+  "label": "Little Newport Street",
+  "kind": "highway/pedestrian"
+ },
+ "Brewer's street, Golden square, London": null,
+ "Shire lane, London": {
+  "lat": 51.3587719,
+  "lon": 0.0872786,
+  "confidence": "street",
+  "label": "Shire Lane",
+  "kind": "highway/unclassified"
+ },
+ "Church street, St. Giles's, London": null,
+ "Brownlow street, Drury lane, London": null,
+ "Pye street, Westminster, London": {
+  "lat": 51.4970893,
+  "lon": -0.1328583,
+  "confidence": "exact",
+  "label": "Old Pye Street Estate",
+  "kind": "landuse/residential"
+ },
+ "Bayswater, London": {
+  "lat": 51.5122764,
+  "lon": -0.1883854,
+  "confidence": "exact",
+  "label": "Bayswater",
+  "kind": "railway/station"
+ },
+ "Smithfield market, London": {
+  "lat": 51.5193568,
+  "lon": -0.1012706,
+  "confidence": "exact",
+  "label": "Smithfield Market",
+  "kind": "amenity/marketplace"
+ },
+ "Charles street, Hatton garden, London": null,
+ "Gower street, London": {
+  "lat": 51.524839,
+  "lon": -0.135176,
+  "confidence": "street",
+  "label": "Gower Street",
+  "kind": "highway/primary"
+ },
+ "Enfield highway, London": {
+  "lat": 51.6570155,
+  "lon": -0.0471516,
+  "confidence": "area",
+  "label": "Enfield Highway",
+  "kind": "place/quarter"
+ },
+ "Dalston, London": {
+  "lat": 51.543212,
+  "lon": -0.0760128,
+  "confidence": "area",
+  "label": "Dalston",
+  "kind": "place/suburb"
+ },
+ "St. Botolph, Aldgate, London": {
+  "lat": 51.5140976,
+  "lon": -0.0763961,
+  "confidence": "exact",
+  "label": "St Botolph's Aldgate",
+  "kind": "amenity/place_of_worship"
+ },
+ "Park street, Grosvenor square, London": null,
+ "Galley quay, London": null,
+ "Upper Seymour street, London": {
+  "lat": 51.5282791,
+  "lon": -0.1335089,
+  "confidence": "exact",
+  "label": "Upper Crust",
+  "kind": "amenity/fast_food"
+ },
+ "Covent garden market, London": {
+  "lat": 51.5119791,
+  "lon": -0.1227413,
+  "confidence": "exact",
+  "label": "Covent Garden Market",
+  "kind": "tourism/attraction"
+ },
+ "Lawrence lane, London": {
+  "lat": 51.5146585,
+  "lon": -0.092599,
+  "confidence": "street",
+  "label": "Lawrence Lane",
+  "kind": "highway/unclassified"
+ },
+ "Sun yard, London": {
+  "lat": 51.4509679,
+  "lon": 0.0581257,
+  "confidence": "street",
+  "label": "Sun Yard",
+  "kind": "highway/residential"
+ },
+ "Marchmont street, London": {
+  "lat": 51.5260178,
+  "lon": -0.1257012,
+  "confidence": "street",
+  "label": "Marchmont Street",
+  "kind": "highway/unclassified"
+ },
+ "Chequer alley, London": null,
+ "Ironmonger row, St. Luke's, London": {
+  "lat": 51.5268073,
+  "lon": -0.0944161,
+  "confidence": "street",
+  "label": "Ironmonger Row",
+  "kind": "highway/residential"
+ },
+ "Tindal place, Islington, London": null,
+ "St. Botolph Without, Aldgate, London": {
+  "lat": 51.5145583,
+  "lon": -0.0743654,
+  "confidence": "exact",
+  "label": "City of London",
+  "kind": "tourism/artwork"
+ },
+ "Marylebone lane, London": {
+  "lat": 51.5149631,
+  "lon": -0.1486605,
+  "confidence": "street",
+  "label": "Marylebone Lane",
+  "kind": "highway/unclassified"
+ },
+ "Bluegate fields, London": null,
+ "St. Mary Abbotts, Kensington, London": null,
+ "Cannon street road, London": {
+  "lat": 51.5096421,
+  "lon": -0.0605449,
+  "confidence": "street",
+  "label": "Cannon Street Road",
+  "kind": "highway/secondary"
+ },
+ "St. Martins lane, London": {
+  "lat": 51.5105435,
+  "lon": -0.1263409,
+  "confidence": "exact",
+  "label": "St Martins Lane Hotel",
+  "kind": "tourism/hotel"
+ },
+ "Exchange, London": {
+  "lat": 51.5214105,
+  "lon": -0.0873458,
+  "confidence": "exact",
+  "label": "The London Metal Exchange",
+  "kind": "office/company"
+ },
+ "Lincolns Inn Fields, London": null,
+ "St. Botolph Aldgate, London": {
+  "lat": 51.5145583,
+  "lon": -0.0743654,
+  "confidence": "exact",
+  "label": "City of London",
+  "kind": "tourism/artwork"
+ },
+ "St. Giles without Cripplegate, London": {
+  "lat": 51.5187065,
+  "lon": -0.093834,
+  "confidence": "exact",
+  "label": "St Giles-without-Cripplegate",
+  "kind": "amenity/place_of_worship"
+ },
+ "Bartholomew Fair, London": null,
+ "Mincing Lane, London": {
+  "lat": 51.5109039,
+  "lon": -0.0814786,
+  "confidence": "street",
+  "label": "Mincing Lane",
+  "kind": "highway/unclassified"
+ },
+ "St. Mary le Bone, London": null,
+ "St. James street, London": {
+  "lat": 51.5811716,
+  "lon": -0.0322047,
+  "confidence": "exact",
+  "label": "St James Street",
+  "kind": "railway/station"
+ },
+ "Clare Market, London": {
+  "lat": 51.5143037,
+  "lon": -0.1166873,
+  "confidence": "street",
+  "label": "Clare Market",
+  "kind": "highway/pedestrian"
+ },
+ "St. Botolph without Aldgate, London": {
+  "lat": 51.5145583,
+  "lon": -0.0743654,
+  "confidence": "exact",
+  "label": "City of London",
+  "kind": "tourism/artwork"
+ },
+ "St. Paul's Church, London": {
+  "lat": 51.5115563,
+  "lon": -0.1237151,
+  "confidence": "exact",
+  "label": "St Paul's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Lambeth, London": {
+  "lat": 51.4952111,
+  "lon": -0.1163354,
+  "confidence": "area",
+  "label": "Lambeth",
+  "kind": "place/suburb"
+ },
+ "Star Tavern in Coleman street, London": null,
+ "Alehouse with the Prisoner near Hickes's Hall, London": null,
+ "Ratcliff high way, London": null,
+ "Leather Lane, London": {
+  "lat": 51.519877,
+  "lon": -0.1093091,
+  "confidence": "street",
+  "label": "Leather Lane",
+  "kind": "highway/unclassified"
+ },
+ "Bear Key, London": null,
+ "White Chapel, London": {
+  "lat": 51.514434,
+  "lon": -0.0729102,
+  "confidence": "exact",
+  "label": "The White Chapel Building",
+  "kind": "building/commercial"
+ },
+ "London, London": {
+  "lat": 51.5156177,
+  "lon": -0.0919983,
+  "confidence": "area",
+  "label": "City of London",
+  "kind": "boundary/administrative"
+ },
+ "King's street, London": {
+  "lat": 51.5303065,
+  "lon": -0.1224033,
+  "confidence": "exact",
+  "label": "Birkenhead Street",
+  "kind": "amenity/bicycle_rental"
+ },
+ "Marybone Park, London": null,
+ "Lemon street, Goodman's fields, London": null,
+ "Harefield, London": {
+  "lat": 51.6041828,
+  "lon": -0.4825622,
+  "confidence": "area",
+  "label": "Harefield",
+  "kind": "place/village"
+ },
+ "Throgmorton street, London": {
+  "lat": 51.5148479,
+  "lon": -0.0866467,
+  "confidence": "street",
+  "label": "Throgmorton Street",
+  "kind": "highway/pedestrian"
+ },
+ "from the halfway house on this side Hampstead, foot of the bridge that leads to Pancras Church, London": null,
+ "Holborn bars, London": {
+  "lat": 51.5187561,
+  "lon": -0.1101696,
+  "confidence": "exact",
+  "label": "Holborn Bars",
+  "kind": "building/commercial"
+ },
+ "Castle lane, Westminster, London": {
+  "lat": 51.4985317,
+  "lon": -0.1389579,
+  "confidence": "street",
+  "label": "Castle Lane",
+  "kind": "highway/residential"
+ },
+ "Sunbury, London": {
+  "lat": 51.5673524,
+  "lon": -0.1570497,
+  "confidence": "exact",
+  "label": "Sunbury",
+  "kind": "building/house"
+ },
+ "Bow street, Covent garden, London": {
+  "lat": 51.513271,
+  "lon": -0.1219686,
+  "confidence": "street",
+  "label": "Bow Street",
+  "kind": "highway/unclassified"
+ },
+ "Grace church street, London": {
+  "lat": 51.5852899,
+  "lon": -0.0013568,
+  "confidence": "exact",
+  "label": "Grace Community Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Queen Anne's street, Marybone, London": null,
+ "Woolwich, London": {
+  "lat": 51.4826696,
+  "lon": 0.0623335,
+  "confidence": "area",
+  "label": "Woolwich",
+  "kind": "place/town"
+ },
+ "the Hermitage, London": {
+  "lat": 51.4432608,
+  "lon": -0.0577367,
+  "confidence": "street",
+  "label": "The Hermitage",
+  "kind": "highway/residential"
+ },
+ "Rotherhithe, London": {
+  "lat": 51.5002908,
+  "lon": -0.0436321,
+  "confidence": "area",
+  "label": "Rotherhithe",
+  "kind": "place/suburb"
+ },
+ "Bishopgate street, London": null,
+ "Vere street, Clare market, London": null,
+ "Stanhope street, London": {
+  "lat": 51.5272492,
+  "lon": -0.1408514,
+  "confidence": "street",
+  "label": "Stanhope Street",
+  "kind": "highway/residential"
+ },
+ "Air street, Piccadilly, London": null,
+ "Marsham street, Westminster, London": {
+  "lat": 51.4951657,
+  "lon": -0.1291011,
+  "confidence": "street",
+  "label": "Marsham Street",
+  "kind": "highway/secondary"
+ },
+ "Covent garden Theatre, London": {
+  "lat": 51.5100038,
+  "lon": -0.1262319,
+  "confidence": "exact",
+  "label": "London Coliseum",
+  "kind": "amenity/theatre"
+ },
+ "Argyle street, London": {
+  "lat": 51.5286733,
+  "lon": -0.119892,
+  "confidence": "street",
+  "label": "Argyle Street",
+  "kind": "highway/unclassified"
+ },
+ "John street, London": {
+  "lat": 51.5216107,
+  "lon": -0.1149906,
+  "confidence": "street",
+  "label": "John Street",
+  "kind": "highway/unclassified"
+ },
+ "Grosvenor place, London": {
+  "lat": 51.4985518,
+  "lon": -0.1473146,
+  "confidence": "street",
+  "label": "Grosvenor Place",
+  "kind": "highway/trunk"
+ },
+ "Lemon street, London": {
+  "lat": 51.4388873,
+  "lon": -0.4181004,
+  "confidence": "exact",
+  "label": "Lemon Car Wash",
+  "kind": "amenity/car_wash"
+ },
+ "Angel alley, London": {
+  "lat": 51.5160924,
+  "lon": -0.0705687,
+  "confidence": "street",
+  "label": "Angel Alley",
+  "kind": "highway/footway"
+ },
+ "Cock hill, Ratcliff, London": null,
+ "Back hill, London": {
+  "lat": 51.5227499,
+  "lon": -0.1093559,
+  "confidence": "street",
+  "label": "Back Hill",
+  "kind": "highway/unclassified"
+ },
+ "Clare street, Clare market, London": null,
+ "Great Queen street, Lincoln's inn fields, London": null,
+ "Great Chapel street, Westminster, London": {
+  "lat": 51.515232,
+  "lon": -0.1342216,
+  "confidence": "street",
+  "label": "Great Chapel Street",
+  "kind": "highway/unclassified"
+ },
+ "Old Pye street, Westminster, London": {
+  "lat": 51.4975592,
+  "lon": -0.1314055,
+  "confidence": "street",
+  "label": "Old Pye Street",
+  "kind": "highway/residential"
+ },
+ "Brick lane, Old street, London": null,
+ "George street, Portman square, London": null,
+ "Pitfield street, Hoxton, London": {
+  "lat": 51.529258,
+  "lon": -0.08344,
+  "confidence": "street",
+  "label": "Pitfield Street",
+  "kind": "highway/tertiary"
+ },
+ "Gloucester place, London": {
+  "lat": 51.5245302,
+  "lon": -0.1609174,
+  "confidence": "street",
+  "label": "Gloucester Place",
+  "kind": "highway/trunk"
+ },
+ "Judd street, Brunswick square, London": null,
+ "Somers' town, London": {
+  "lat": 51.5317283,
+  "lon": -0.1315656,
+  "confidence": "area",
+  "label": "Somers Town",
+  "kind": "place/suburb"
+ },
+ "Fitzroy market, London": null,
+ "London docks, London": {
+  "lat": 51.5061601,
+  "lon": -0.0580353,
+  "confidence": "exact",
+  "label": "St Peter's London Docks",
+  "kind": "amenity/place_of_worship"
+ },
+ "Portland town, London": {
+  "lat": 51.5239547,
+  "lon": -0.1434662,
+  "confidence": "street",
+  "label": "Great Portland Street",
+  "kind": "highway/primary"
+ },
+ "St. James' street, London": {
+  "lat": 51.5811716,
+  "lon": -0.0322047,
+  "confidence": "exact",
+  "label": "St James Street",
+  "kind": "railway/station"
+ },
+ "St. James' park, London": {
+  "lat": 51.4992816,
+  "lon": -0.1345942,
+  "confidence": "exact",
+  "label": "St. James's Park",
+  "kind": "railway/station"
+ },
+ "Woodstreet, London": {
+  "lat": 51.5861453,
+  "lon": -0.0019859,
+  "confidence": "exact",
+  "label": "Woodstreet Station Cars",
+  "kind": "shop/minicab"
+ },
+ "Bedfordbury, London": {
+  "lat": 51.5102632,
+  "lon": -0.1256572,
+  "confidence": "street",
+  "label": "Bedfordbury",
+  "kind": "highway/residential"
+ },
+ "Savoy, London": {
+  "lat": 51.5160957,
+  "lon": -0.3017698,
+  "confidence": "exact",
+  "label": "Savoy",
+  "kind": "shop/dry_cleaning"
+ },
+ "St. Giles Cripplegate, London": {
+  "lat": 51.5187065,
+  "lon": -0.093834,
+  "confidence": "exact",
+  "label": "St Giles-without-Cripplegate",
+  "kind": "amenity/place_of_worship"
+ },
+ "Marlborough Thicket, London": null,
+ "Hampsted, London": {
+  "lat": 51.55653,
+  "lon": -0.1783011,
+  "confidence": "area",
+  "label": "Hampstead",
+  "kind": "place/town"
+ },
+ "St. Michael Cornhil, London": null,
+ "Hanworth, London": {
+  "lat": 51.4348478,
+  "lon": -0.3903611,
+  "confidence": "area",
+  "label": "Hanworth",
+  "kind": "place/suburb"
+ },
+ "White chappel, London": null,
+ "Tottenham Court, London": {
+  "lat": 51.5161338,
+  "lon": -0.1327997,
+  "confidence": "exact",
+  "label": "Tottenham Court Road",
+  "kind": "railway/stop"
+ },
+ "Guild hall, London": null,
+ "Lad lane, London": null,
+ "Star Court in the Butcher Row near Temple Bar, London": null,
+ "Pancras, London": {
+  "lat": 51.5322106,
+  "lon": -0.1276185,
+  "confidence": "exact",
+  "label": "St Pancras International",
+  "kind": "railway/station"
+ },
+ "Snow Hill, London": {
+  "lat": 51.5175288,
+  "lon": -0.1042406,
+  "confidence": "street",
+  "label": "Snow Hill",
+  "kind": "highway/secondary"
+ },
+ "St. George in the East, London": {
+  "lat": 51.5114632,
+  "lon": -0.0621141,
+  "confidence": "area",
+  "label": "St. George in the East",
+  "kind": "place/quarter"
+ },
+ "Christ church, London": {
+  "lat": 51.5302582,
+  "lon": -0.1443371,
+  "confidence": "exact",
+  "label": "St. George's Cathedral",
+  "kind": "amenity/place_of_worship"
+ },
+ "Saffron Hill, London": {
+  "lat": 51.5202451,
+  "lon": -0.1066741,
+  "confidence": "street",
+  "label": "Saffron Hill",
+  "kind": "highway/unclassified"
+ },
+ "Old Jewry, London": {
+  "lat": 51.5139066,
+  "lon": -0.0910225,
+  "confidence": "street",
+  "label": "Old Jewry",
+  "kind": "highway/residential"
+ },
+ "Broad way, Westminster, London": null,
+ "Broad St. Giles's, London": null,
+ "Holywell lane, Shoreditch, London": {
+  "lat": 51.5237834,
+  "lon": -0.078054,
+  "confidence": "street",
+  "label": "Holywell Lane",
+  "kind": "highway/tertiary"
+ },
+ "Abchurch lane, London": {
+  "lat": 51.5123738,
+  "lon": -0.0875155,
+  "confidence": "street",
+  "label": "Abchurch Lane",
+  "kind": "highway/unclassified"
+ },
+ "Finchley common, London": null,
+ "Southampton row, London": {
+  "lat": 51.5206714,
+  "lon": -0.1231076,
+  "confidence": "street",
+  "label": "Southampton Row",
+  "kind": "highway/primary"
+ },
+ "Castle street, Leicester fields, London": null,
+ "St. Catharine's, London": null,
+ "White's alley, Chancery lane, London": null,
+ "George street, Hanover square, London": null,
+ "Carey street, London": {
+  "lat": 51.5150231,
+  "lon": -0.1128859,
+  "confidence": "street",
+  "label": "Carey Street",
+  "kind": "highway/unclassified"
+ },
+ "Harley street, Cavendish square, London": null,
+ "Great Newport street, London": {
+  "lat": 51.5118614,
+  "lon": -0.1279732,
+  "confidence": "street",
+  "label": "Great Newport Street",
+  "kind": "highway/unclassified"
+ },
+ "Artichoke lane, London": {
+  "lat": 51.5463483,
+  "lon": -0.161723,
+  "confidence": "exact",
+  "label": "Artichoke",
+  "kind": "shop/greengrocer"
+ },
+ "Charles street, Westminster, London": {
+  "lat": 51.5073888,
+  "lon": -0.1489975,
+  "confidence": "street",
+  "label": "Charles Street",
+  "kind": "highway/residential"
+ },
+ "Almonry, London": null,
+ "Green park, London": {
+  "lat": 51.5066244,
+  "lon": -0.1429437,
+  "confidence": "exact",
+  "label": "Green Park",
+  "kind": "railway/station"
+ },
+ "Mincing lane, London": {
+  "lat": 51.5109039,
+  "lon": -0.0814786,
+  "confidence": "street",
+  "label": "Mincing Lane",
+  "kind": "highway/unclassified"
+ },
+ "Brumpton road, London": null,
+ "Bishopsgate street Without, London": {
+  "lat": 51.5149327,
+  "lon": -0.0846415,
+  "confidence": "exact",
+  "label": "City of London Club",
+  "kind": "building/yes"
+ },
+ "Manor row, Tower hill, London": null,
+ "Castle street, Long acre, London": null,
+ "Uxbridge road, London": {
+  "lat": 51.5186459,
+  "lon": -0.4105114,
+  "confidence": "street",
+  "label": "Uxbridge Road",
+  "kind": "highway/primary"
+ },
+ "Hoxton square, London": {
+  "lat": 51.5278571,
+  "lon": -0.0812099,
+  "confidence": "exact",
+  "label": "Hoxton Square",
+  "kind": "leisure/park"
+ },
+ "West Drayton, London": {
+  "lat": 51.503513,
+  "lon": -0.4662704,
+  "confidence": "area",
+  "label": "West Drayton",
+  "kind": "place/suburb"
+ },
+ "Lambeth Marsh, London": {
+  "lat": 51.5003914,
+  "lon": -0.1138124,
+  "confidence": "exact",
+  "label": "London Skin Wellness House",
+  "kind": "shop/beauty"
+ },
+ "Tottenham Court Road, London": {
+  "lat": 51.5161338,
+  "lon": -0.1327997,
+  "confidence": "exact",
+  "label": "Tottenham Court Road",
+  "kind": "railway/stop"
+ },
+ "Russell street, London": {
+  "lat": 51.5132566,
+  "lon": -0.1204688,
+  "confidence": "street",
+  "label": "Russell Street",
+  "kind": "highway/unclassified"
+ },
+ "Holywell street, Shoreditch, London": null,
+ "Edgeware road, London": {
+  "lat": 51.5199628,
+  "lon": -0.1698121,
+  "confidence": "exact",
+  "label": "Edgeware Road Station",
+  "kind": "amenity/bicycle_rental"
+ },
+ "Sharp's alley, London": null,
+ "Lincoln's inn fields, London": {
+  "lat": 51.5162327,
+  "lon": -0.1165666,
+  "confidence": "exact",
+  "label": "Lincoln's Inn Fields",
+  "kind": "leisure/park"
+ },
+ "High street, Mary le bone, London": null,
+ "Limehouse hole, London": null,
+ "Strutton ground, Westminster, London": {
+  "lat": 51.4976886,
+  "lon": -0.1339555,
+  "confidence": "street",
+  "label": "Strutton Ground",
+  "kind": "highway/residential"
+ },
+ "Old Compton street, London": {
+  "lat": 51.5131965,
+  "lon": -0.1312269,
+  "confidence": "street",
+  "label": "Old Compton Street",
+  "kind": "highway/residential"
+ },
+ "Princes street, Drury lane, London": null,
+ "Well street, Oxford street, London": null,
+ "St. John, Clerkenwell, London": {
+  "lat": 51.5204809,
+  "lon": -0.1012748,
+  "confidence": "exact",
+  "label": "St. John",
+  "kind": "amenity/restaurant"
+ },
+ "Five fields, Chelsea, London": {
+  "lat": 51.4917193,
+  "lon": -0.1612992,
+  "confidence": "exact",
+  "label": "The Five Fields",
+  "kind": "amenity/restaurant"
+ },
+ "Brick lane, St. Luke's, London": null,
+ "Somer's town, London": null,
+ "George street, St. Giles', London": {
+  "lat": 51.5179369,
+  "lon": -0.1273465,
+  "confidence": "exact",
+  "label": "George Du Maurier",
+  "kind": "historic/memorial"
+ },
+ "great Queen street, London": {
+  "lat": 51.5154186,
+  "lon": -0.1211963,
+  "confidence": "street",
+  "label": "Great Queen Street",
+  "kind": "highway/secondary"
+ },
+ "Pancrass, London": null,
+ "St. Pauls Covent Garden, London": null,
+ "Paul's Wharf, London": {
+  "lat": 51.5175781,
+  "lon": -0.0294325,
+  "confidence": "exact",
+  "label": "St Paul's Bow Common",
+  "kind": "amenity/place_of_worship"
+ },
+ "Newington Green, London": {
+  "lat": 51.5509264,
+  "lon": -0.0856352,
+  "confidence": "street",
+  "label": "Newington Green",
+  "kind": "highway/primary"
+ },
+ "St. James's Westminster, London": {
+  "lat": 51.5071911,
+  "lon": -0.1414246,
+  "confidence": "exact",
+  "label": "The Ritz London",
+  "kind": "tourism/hotel"
+ },
+ "St. James's, Westminster, London": {
+  "lat": 51.5079082,
+  "lon": -0.1365727,
+  "confidence": "area",
+  "label": "St. James's",
+  "kind": "place/neighbourhood"
+ },
+ "Mark Lane, London": {
+  "lat": 51.5114396,
+  "lon": -0.0800632,
+  "confidence": "street",
+  "label": "Mark Lane",
+  "kind": "highway/residential"
+ },
+ "Shoe Lane, London": {
+  "lat": 51.5170828,
+  "lon": -0.106326,
+  "confidence": "street",
+  "label": "Shoe Lane",
+  "kind": "highway/unclassified"
+ },
+ "Enfield Chase, London": {
+  "lat": 51.6526384,
+  "lon": -0.0908639,
+  "confidence": "exact",
+  "label": "Enfield Chase",
+  "kind": "railway/station"
+ },
+ "St. Margaret's Westminster, London": {
+  "lat": 51.4998839,
+  "lon": -0.1267229,
+  "confidence": "exact",
+  "label": "St Margaret's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Salisbury Court, London": {
+  "lat": 51.5138592,
+  "lon": -0.106176,
+  "confidence": "street",
+  "label": "Salisbury Court",
+  "kind": "highway/unclassified"
+ },
+ "St. Martin's Lane, London": {
+  "lat": 51.5101244,
+  "lon": -0.1269178,
+  "confidence": "street",
+  "label": "St Martin's Lane",
+  "kind": "highway/secondary"
+ },
+ "Gravesend, London": {
+  "lat": 51.5106956,
+  "lon": -0.239628,
+  "confidence": "street",
+  "label": "Gravesend Road",
+  "kind": "highway/residential"
+ },
+ "St. Paul's Church Yard, London": null,
+ "Ingerstone Fair, London": null,
+ "Savoy Gate, London": null,
+ "Virginia street, London": {
+  "lat": 51.5086618,
+  "lon": -0.0653636,
+  "confidence": "street",
+  "label": "Virginia Street",
+  "kind": "highway/unclassified"
+ },
+ "Finsbury, London": {
+  "lat": 51.521798,
+  "lon": -0.0914245,
+  "confidence": "area",
+  "label": "Finsbury",
+  "kind": "place/suburb"
+ },
+ "St. Bride's, London": {
+  "lat": 51.5137454,
+  "lon": -0.1055075,
+  "confidence": "exact",
+  "label": "St Bride's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Bell Yard, London": {
+  "lat": 51.5145955,
+  "lon": -0.1120216,
+  "confidence": "street",
+  "label": "Bell Yard",
+  "kind": "highway/unclassified"
+ },
+ "Duke street, Westminster, London": {
+  "lat": 51.5149877,
+  "lon": -0.1517378,
+  "confidence": "street",
+  "label": "Duke Street",
+  "kind": "highway/residential"
+ },
+ "Lincoln's Inn, London": {
+  "lat": 51.5155852,
+  "lon": -0.112127,
+  "confidence": "exact",
+  "label": "Lincoln's Inn",
+  "kind": "tourism/attraction"
+ },
+ "Stanhope street, Clare market, London": null,
+ "Muswell hill, London": {
+  "lat": 51.5910395,
+  "lon": -0.1420768,
+  "confidence": "area",
+  "label": "Muswell Hill",
+  "kind": "place/suburb"
+ },
+ "White chapel, London": {
+  "lat": 51.514434,
+  "lon": -0.0729102,
+  "confidence": "exact",
+  "label": "The White Chapel Building",
+  "kind": "building/commercial"
+ },
+ "Cow Cross, London": null,
+ "Bishopsgate street without, London": {
+  "lat": 51.5149327,
+  "lon": -0.0846415,
+  "confidence": "exact",
+  "label": "City of London Club",
+  "kind": "building/yes"
+ },
+ "Gerrard street, London": {
+  "lat": 51.5117874,
+  "lon": -0.1310953,
+  "confidence": "street",
+  "label": "Gerrard Street",
+  "kind": "highway/pedestrian"
+ },
+ "Hanover square, London": {
+  "lat": 51.5139601,
+  "lon": -0.1438009,
+  "confidence": "exact",
+  "label": "Hanover Square",
+  "kind": "leisure/park"
+ },
+ "Prince's street, London": {
+  "lat": 51.4615044,
+  "lon": -0.3025842,
+  "confidence": "street",
+  "label": "Prince's Street",
+  "kind": "highway/residential"
+ },
+ "Shepherd's Bush, London": {
+  "lat": 51.5053155,
+  "lon": -0.2229856,
+  "confidence": "area",
+  "label": "Shepherd's Bush",
+  "kind": "place/suburb"
+ },
+ "Black boy alley, London": null,
+ "Pudding lane, London": {
+  "lat": 51.5101109,
+  "lon": -0.0853281,
+  "confidence": "street",
+  "label": "Pudding Lane",
+  "kind": "highway/unclassified"
+ },
+ "St. Paul's Churchyard, London": {
+  "lat": 51.513771,
+  "lon": -0.0972184,
+  "confidence": "exact",
+  "label": "St Paul's Churchyard",
+  "kind": "leisure/park"
+ },
+ "New Road, London": {
+  "lat": 51.5052772,
+  "lon": 0.2260703,
+  "confidence": "street",
+  "label": "New Road",
+  "kind": "highway/primary"
+ },
+ "Dyot street, St. Giles's, London": null,
+ "New prison, London": null,
+ "Great Russel street, Bloomsbury, London": null,
+ "Castle street, Oxford market, London": null,
+ "Round court, Strand, London": null,
+ "Hanway street, London": {
+  "lat": 51.5168114,
+  "lon": -0.1319735,
+  "confidence": "street",
+  "label": "Hanway Street",
+  "kind": "highway/service"
+ },
+ "City Road, London": {
+  "lat": 51.5295947,
+  "lon": -0.0969512,
+  "confidence": "street",
+  "label": "City Road",
+  "kind": "highway/trunk"
+ },
+ "King street, Cheapside, London": null,
+ "Maiden lane, Covent garden, London": {
+  "lat": 51.5106785,
+  "lon": -0.1231931,
+  "confidence": "street",
+  "label": "Maiden Lane",
+  "kind": "highway/pedestrian"
+ },
+ "Upper Grosvenor street, London": {
+  "lat": 51.5103517,
+  "lon": -0.1543347,
+  "confidence": "street",
+  "label": "Upper Grosvenor Street",
+  "kind": "highway/tertiary"
+ },
+ "Kingsbury, London": {
+  "lat": 51.5843174,
+  "lon": -0.2787137,
+  "confidence": "exact",
+  "label": "Kingsbury",
+  "kind": "railway/station"
+ },
+ "Eagle street, London": {
+  "lat": 51.5186577,
+  "lon": -0.1179024,
+  "confidence": "street",
+  "label": "Eagle Street",
+  "kind": "highway/unclassified"
+ },
+ "Princes street, Westminster, London": {
+  "lat": 51.5144426,
+  "lon": -0.1429152,
+  "confidence": "street",
+  "label": "Princes Street",
+  "kind": "highway/unclassified"
+ },
+ "Butcher row, London": {
+  "lat": 51.5114561,
+  "lon": -0.0424802,
+  "confidence": "street",
+  "label": "Butcher Row",
+  "kind": "highway/unclassified"
+ },
+ "Bread street hill, London": null,
+ "Spa fields, London": {
+  "lat": 51.5254999,
+  "lon": -0.1083277,
+  "confidence": "exact",
+  "label": "Spa Fields",
+  "kind": "leisure/park"
+ },
+ "King street, Tower hill, London": null,
+ "Narrow street, Limehouse, London": {
+  "lat": 51.5091633,
+  "lon": -0.0298156,
+  "confidence": "street",
+  "label": "Narrow Street",
+  "kind": "highway/tertiary"
+ },
+ "St. Giles, London": {
+  "lat": 51.5154723,
+  "lon": -0.1284181,
+  "confidence": "area",
+  "label": "St Giles",
+  "kind": "place/neighbourhood"
+ },
+ "Lamb street, Spitalfields, London": {
+  "lat": 51.5203045,
+  "lon": -0.0767382,
+  "confidence": "street",
+  "label": "Lamb Street",
+  "kind": "highway/pedestrian"
+ },
+ "Laystall street, London": {
+  "lat": 51.5220847,
+  "lon": -0.1110242,
+  "confidence": "street",
+  "label": "Laystall Street",
+  "kind": "highway/residential"
+ },
+ "Green street, London": {
+  "lat": 51.5426765,
+  "lon": 0.0325233,
+  "confidence": "street",
+  "label": "Green Street",
+  "kind": "highway/secondary"
+ },
+ "Sackville street, London": {
+  "lat": 51.5095561,
+  "lon": -0.138307,
+  "confidence": "street",
+  "label": "Sackville Street",
+  "kind": "highway/residential"
+ },
+ "Stoke Damarell, county of Devon, London": null,
+ "Cornwall, London": {
+  "lat": 51.496838,
+  "lon": -0.1858844,
+  "confidence": "exact",
+  "label": "Cornwall Gardens",
+  "kind": "leisure/garden"
+ },
+ "New Compton street, London": {
+  "lat": 51.5149737,
+  "lon": -0.1276557,
+  "confidence": "street",
+  "label": "New Compton Street",
+  "kind": "highway/residential"
+ },
+ "Mary le bone, London": null,
+ "Tooley street, London": {
+  "lat": 51.5018968,
+  "lon": -0.076809,
+  "confidence": "street",
+  "label": "Tooley Street",
+  "kind": "highway/primary"
+ },
+ "Duke street, Aldgate, London": {
+  "lat": 51.513604,
+  "lon": -0.0737842,
+  "confidence": "exact",
+  "label": "Duke of Somerset",
+  "kind": "amenity/pub"
+ },
+ "Manchester square, London": {
+  "lat": 51.5167494,
+  "lon": -0.1526737,
+  "confidence": "exact",
+  "label": "Manchester Square",
+  "kind": "leisure/garden"
+ },
+ "Camden Town, London": {
+  "lat": 51.5392533,
+  "lon": -0.142757,
+  "confidence": "area",
+  "label": "Camden Town",
+  "kind": "place/town"
+ },
+ "George street, Spitalfields, London": {
+  "lat": 51.5170347,
+  "lon": -0.0639271,
+  "confidence": "exact",
+  "label": "London Action Resource Centre",
+  "kind": "amenity/community_centre"
+ },
+ "Great Portland street, London": {
+  "lat": 51.5238146,
+  "lon": -0.1437048,
+  "confidence": "exact",
+  "label": "Great Portland Street",
+  "kind": "railway/station"
+ },
+ "Twister's alley, Bunhill row, London": null,
+ "Hungerford street, London": {
+  "lat": 51.514458,
+  "lon": -0.0579022,
+  "confidence": "street",
+  "label": "Hungerford Street",
+  "kind": "highway/service"
+ },
+ "Wigmore street, London": {
+  "lat": 51.5158056,
+  "lon": -0.1520596,
+  "confidence": "street",
+  "label": "Wigmore Street",
+  "kind": "highway/primary"
+ },
+ "Leman street, Goodman's fields, London": null,
+ "York street, London": {
+  "lat": 51.5203685,
+  "lon": -0.1599342,
+  "confidence": "street",
+  "label": "York Street",
+  "kind": "highway/unclassified"
+ },
+ "the King's arms, Maynard street, London": null,
+ "Belton street, Long acre, London": null,
+ "Sloane street, Knightsbridge, London": null,
+ "Cleveland street, London": {
+  "lat": 51.5198641,
+  "lon": -0.1380083,
+  "confidence": "street",
+  "label": "Cleveland Street",
+  "kind": "highway/tertiary"
+ },
+ "Fieldgate street, Whitechapel, London": {
+  "lat": 51.517029,
+  "lon": -0.0645906,
+  "confidence": "street",
+  "label": "Fieldgate Street",
+  "kind": "highway/tertiary"
+ },
+ "High street, Shoreditch, London": {
+  "lat": 51.5232497,
+  "lon": -0.0760735,
+  "confidence": "exact",
+  "label": "Shoreditch High Street",
+  "kind": "railway/stop"
+ },
+ "Dog row, Bethnal green, London": null,
+ "White Lion street, London": {
+  "lat": 51.5327944,
+  "lon": -0.1078608,
+  "confidence": "street",
+  "label": "White Lion Street",
+  "kind": "highway/trunk"
+ },
+ "London Dock, London": {
+  "lat": 51.508279,
+  "lon": -0.0652353,
+  "confidence": "exact",
+  "label": "London Dock",
+  "kind": "landuse/residential"
+ },
+ "Mile End road, London": {
+  "lat": 51.521,
+  "lon": -0.0501451,
+  "confidence": "street",
+  "label": "Mile End Road",
+  "kind": "highway/trunk"
+ },
+ "Duke street, Grosvenor square, London": null,
+ "New Tothill street, London": null,
+ "Goswell street road, London": {
+  "lat": 51.5240703,
+  "lon": -0.0991843,
+  "confidence": "street",
+  "label": "Goswell Road / Great Sutton Street",
+  "kind": "highway/bus_stop"
+ },
+ "Earl street, London": {
+  "lat": 51.5206874,
+  "lon": -0.0843988,
+  "confidence": "street",
+  "label": "Earl Street",
+  "kind": "highway/unclassified"
+ },
+ "Camden street, Camden town, London": {
+  "lat": 51.5405722,
+  "lon": -0.1399419,
+  "confidence": "street",
+  "label": "Camden Street",
+  "kind": "highway/primary"
+ },
+ "George street, St. Giles's, London": null,
+ "High street, Poplar, London": {
+  "lat": 51.5088955,
+  "lon": -0.0145519,
+  "confidence": "street",
+  "label": "Poplar High Street",
+  "kind": "highway/secondary"
+ },
+ "St. Paul, Covent garden, London": {
+  "lat": 51.5115563,
+  "lon": -0.1237151,
+  "confidence": "exact",
+  "label": "St Paul's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Eagle street, Red Lion square, London": null,
+ "High street, Marylebone, London": {
+  "lat": 51.5214045,
+  "lon": -0.151953,
+  "confidence": "street",
+  "label": "Marylebone High Street",
+  "kind": "highway/tertiary"
+ },
+ "Marylebone street, London": {
+  "lat": 51.5193613,
+  "lon": -0.1509551,
+  "confidence": "street",
+  "label": "Marylebone Street",
+  "kind": "highway/residential"
+ },
+ "Royal Hospital row, Chelsea, London": null,
+ "Christchurch, London": {
+  "lat": 51.5131907,
+  "lon": -0.3051405,
+  "confidence": "street",
+  "label": "Christchurch",
+  "kind": "highway/bus_stop"
+ },
+ "Church street, Shoreditch, London": {
+  "lat": 51.5205182,
+  "lon": -0.0849426,
+  "confidence": "exact",
+  "label": "Wilson Street Chapel",
+  "kind": "amenity/place_of_worship"
+ },
+ "Wellington street, London": {
+  "lat": 51.5123716,
+  "lon": -0.1208715,
+  "confidence": "street",
+  "label": "Wellington Street",
+  "kind": "highway/unclassified"
+ },
+ "Devonshire street, Lisson grove, London": null,
+ "High street, Portland town, London": null,
+ "Lisson street, London": {
+  "lat": 51.5218736,
+  "lon": -0.1684738,
+  "confidence": "street",
+  "label": "Lisson Street",
+  "kind": "highway/pedestrian"
+ },
+ "Bexhill, London": {
+  "lat": 51.6135912,
+  "lon": -0.1298378,
+  "confidence": "street",
+  "label": "Bexhill Road",
+  "kind": "highway/residential"
+ },
+ "St. Katharine's Docks, London": null,
+ "Queen street, Grosvenor square, London": null,
+ "Blackheath, London": {
+  "lat": 51.470342,
+  "lon": 0.0058096,
+  "confidence": "exact",
+  "label": "Blackheath",
+  "kind": "leisure/park"
+ },
+ "Birchin lane, London": {
+  "lat": 51.5128718,
+  "lon": -0.0863778,
+  "confidence": "street",
+  "label": "Birchin Lane",
+  "kind": "highway/pedestrian"
+ },
+ "St. Martins Lane, London": {
+  "lat": 51.5105435,
+  "lon": -0.1263409,
+  "confidence": "exact",
+  "label": "St Martins Lane Hotel",
+  "kind": "tourism/hotel"
+ },
+ "Shooe lane, London": null,
+ "St. James's Square, London": {
+  "lat": 51.5077001,
+  "lon": -0.1347727,
+  "confidence": "street",
+  "label": "St James's Square",
+  "kind": "highway/residential"
+ },
+ "St. Bartholomew the Great, London": {
+  "lat": 51.5188876,
+  "lon": -0.0995637,
+  "confidence": "exact",
+  "label": "St Bartholomew-The Great",
+  "kind": "amenity/place_of_worship"
+ },
+ "the Tower, London": {
+  "lat": 51.4849941,
+  "lon": -0.0652644,
+  "confidence": "exact",
+  "label": "The Tower",
+  "kind": "building/apartments"
+ },
+ "Spittle fields, London": null,
+ "Knights bridge, London": {
+  "lat": 51.5486154,
+  "lon": -0.0181742,
+  "confidence": "street",
+  "label": "Knights' Bridge",
+  "kind": "highway/pedestrian"
+ },
+ "St. Botolph Bishopsgate, London": {
+  "lat": 51.5145583,
+  "lon": -0.0743654,
+  "confidence": "exact",
+  "label": "City of London",
+  "kind": "tourism/artwork"
+ },
+ "St. Paul's Shadwell, London": {
+  "lat": 51.5094251,
+  "lon": -0.0520268,
+  "confidence": "exact",
+  "label": "St Paul's Shadwell",
+  "kind": "amenity/place_of_worship"
+ },
+ "Bristol Cawsey, London": null,
+ "Christ Church, London": {
+  "lat": 51.5302582,
+  "lon": -0.1443371,
+  "confidence": "exact",
+  "label": "St. George's Cathedral",
+  "kind": "amenity/place_of_worship"
+ },
+ "St. Andrew Undershaft, London": {
+  "lat": 51.5138,
+  "lon": -0.0810645,
+  "confidence": "exact",
+  "label": "Saint Andrew Undershaft",
+  "kind": "amenity/place_of_worship"
+ },
+ "Tottenham High Cross, London": {
+  "lat": 51.5890314,
+  "lon": -0.0702475,
+  "confidence": "exact",
+  "label": "Tottenham High Cross",
+  "kind": "historic/monument"
+ },
+ "Salisbury court, London": {
+  "lat": 51.513476,
+  "lon": -0.1061365,
+  "confidence": "street",
+  "label": "Salisbury Court",
+  "kind": "highway/residential"
+ },
+ "Leadenhall Market, London": {
+  "lat": 51.5127276,
+  "lon": -0.0833953,
+  "confidence": "exact",
+  "label": "Leadenhall Market",
+  "kind": "amenity/marketplace"
+ },
+ "Leaden hall street, London": null,
+ "Bow Church, London": {
+  "lat": 51.5274411,
+  "lon": -0.0206424,
+  "confidence": "exact",
+  "label": "Bow Church",
+  "kind": "railway/station"
+ },
+ "Walbrook, London": {
+  "lat": 51.5108988,
+  "lon": -0.0911624,
+  "confidence": "exact",
+  "label": "Walbrook",
+  "kind": "waterway/stream"
+ },
+ "Stepney Fields, London": null,
+ "Monmouth Street in Spittle Fields, London": null,
+ "Rag Fair, London": null,
+ "Haberdashers Almshouses at Hoxton, London": null,
+ "Richmond, London": {
+  "lat": 51.4405529,
+  "lon": -0.3076394,
+  "confidence": "area",
+  "label": "London Borough of Richmond upon Thames",
+  "kind": "boundary/administrative"
+ },
+ "Smallberry Green, London": {
+  "lat": 51.4754954,
+  "lon": -0.3278172,
+  "confidence": "exact",
+  "label": "The Smallberry Green Primary School",
+  "kind": "amenity/school"
+ },
+ "Westminster Abbey, London": {
+  "lat": 51.499399,
+  "lon": -0.127391,
+  "confidence": "exact",
+  "label": "Westminster Abbey",
+  "kind": "amenity/place_of_worship"
+ },
+ "Windsor Court, London": {
+  "lat": 51.6356027,
+  "lon": -0.133739,
+  "confidence": "street",
+  "label": "Windsor Court",
+  "kind": "highway/residential"
+ },
+ "Botolph Wharf, London": null,
+ "Field near Stepney Meeting House, London": null,
+ "Kingstand Road, London": null,
+ "Milford lane, London": {
+  "lat": 51.5119958,
+  "lon": -0.1126936,
+  "confidence": "street",
+  "label": "Milford Lane",
+  "kind": "highway/residential"
+ },
+ "Somerset House, London": {
+  "lat": 51.5116948,
+  "lon": -0.117442,
+  "confidence": "exact",
+  "label": "The Courtauld Institute of Art",
+  "kind": "amenity/university"
+ },
+ "Woolston in Berkshire, London": null,
+ "St. Sepulchre's, London": {
+  "lat": 51.5166687,
+  "lon": -0.1022311,
+  "confidence": "exact",
+  "label": "St. Sepulchre's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "St. Sepulchres's, London": null,
+ "St. Dunstan in the West, London": {
+  "lat": 51.5142357,
+  "lon": -0.1102086,
+  "confidence": "exact",
+  "label": "St Dunstan-in-the-West",
+  "kind": "amenity/place_of_worship"
+ },
+ "Endfield, London": null,
+ "Belton street, London": {
+  "lat": 51.4573281,
+  "lon": -0.194199,
+  "confidence": "exact",
+  "label": "Belton & Slade",
+  "kind": "shop/hardware"
+ },
+ "Fish street Hill, London": {
+  "lat": 51.5105788,
+  "lon": -0.0858309,
+  "confidence": "street",
+  "label": "Fish Street Hill",
+  "kind": "highway/pedestrian"
+ },
+ "Hockley in the Hole, London": null,
+ "Blackboy alley, London": null,
+ "the Savoy, London": {
+  "lat": 51.5105658,
+  "lon": -0.1198932,
+  "confidence": "exact",
+  "label": "The King’s Chapel of the Savoy",
+  "kind": "amenity/place_of_worship"
+ },
+ "Nicholas lane, London": {
+  "lat": 51.5122922,
+  "lon": -0.0869614,
+  "confidence": "street",
+  "label": "Nicholas Lane",
+  "kind": "highway/unclassified"
+ },
+ "Garlick hill, London": {
+  "lat": 51.5120692,
+  "lon": -0.0937957,
+  "confidence": "street",
+  "label": "Garlick Hill",
+  "kind": "highway/residential"
+ },
+ "River Thames, London": {
+  "lat": 51.5113794,
+  "lon": -0.1173806,
+  "confidence": "exact",
+  "label": "George III and the River Thames",
+  "kind": "historic/memorial"
+ },
+ "Russel court, London": {
+  "lat": 51.4973154,
+  "lon": -0.2079579,
+  "confidence": "exact",
+  "label": "Russel Court",
+  "kind": "tourism/hotel"
+ },
+ "Silver street, London": {
+  "lat": 51.6152781,
+  "lon": -0.0669005,
+  "confidence": "exact",
+  "label": "Silver Street",
+  "kind": "railway/station"
+ },
+ "Budge row, London": null,
+ "North street, Poplar, London": {
+  "lat": 51.5105925,
+  "lon": -0.0167017,
+  "confidence": "exact",
+  "label": "War Memorial to the Children Of Upper North Street School",
+  "kind": "historic/memorial"
+ },
+ "Seacoal lane, London": {
+  "lat": 51.5153412,
+  "lon": -0.1027107,
+  "confidence": "street",
+  "label": "Limeburner Lane",
+  "kind": "highway/unclassified"
+ },
+ "Paul's wharf, London": {
+  "lat": 51.5175781,
+  "lon": -0.0294325,
+  "confidence": "exact",
+  "label": "St Paul's Bow Common",
+  "kind": "amenity/place_of_worship"
+ },
+ "Borough, London": {
+  "lat": 51.5011444,
+  "lon": -0.0932926,
+  "confidence": "exact",
+  "label": "Borough",
+  "kind": "railway/station"
+ },
+ "Bridge street, Westminster, London": {
+  "lat": 51.5009803,
+  "lon": -0.1253109,
+  "confidence": "street",
+  "label": "Bridge Street",
+  "kind": "highway/primary"
+ },
+ "Pennington street, London": {
+  "lat": 51.5087997,
+  "lon": -0.0608223,
+  "confidence": "street",
+  "label": "Pennington Street",
+  "kind": "highway/unclassified"
+ },
+ "Ivy lane, London": {
+  "lat": 51.4651492,
+  "lon": -0.3806318,
+  "confidence": "street",
+  "label": "Ivy Lane",
+  "kind": "highway/residential"
+ },
+ "Billingsgate market, London": {
+  "lat": 51.5063986,
+  "lon": -0.0145182,
+  "confidence": "exact",
+  "label": "Billingsgate Market",
+  "kind": "shop/seafood"
+ },
+ "the Fox and Crown upon Highgate hill, London": null,
+ "Grosvenor street, London": {
+  "lat": 51.5117203,
+  "lon": -0.1471611,
+  "confidence": "street",
+  "label": "Grosvenor Street",
+  "kind": "highway/tertiary"
+ },
+ "Milbank, London": {
+  "lat": 51.5206444,
+  "lon": -0.0875064,
+  "confidence": "exact",
+  "label": "itsu",
+  "kind": "amenity/fast_food"
+ },
+ "Wheeler street, Spitalfields, London": {
+  "lat": 51.5225476,
+  "lon": -0.0735314,
+  "confidence": "exact",
+  "label": "Wheeler Street Junction",
+  "kind": "railway/junction"
+ },
+ "Milk street, Cheapside, London": null,
+ "Covent Garden theatre, London": {
+  "lat": 51.5100038,
+  "lon": -0.1262319,
+  "confidence": "exact",
+  "label": "London Coliseum",
+  "kind": "amenity/theatre"
+ },
+ "Pinner, London": {
+  "lat": 51.5968712,
+  "lon": -0.3770142,
+  "confidence": "area",
+  "label": "Pinner",
+  "kind": "place/suburb"
+ },
+ "James street, Bedford row, London": null,
+ "Shoe maker row, London": null,
+ "Bell alley, Goswell street, London": null,
+ "Wigmore street, Cavendish square, London": null,
+ "Portman street, London": {
+  "lat": 51.5139897,
+  "lon": -0.1560707,
+  "confidence": "street",
+  "label": "Portman Street",
+  "kind": "highway/primary"
+ },
+ "Woodstock street, London": {
+  "lat": 51.5140812,
+  "lon": -0.147327,
+  "confidence": "street",
+  "label": "Woodstock Street",
+  "kind": "highway/residential"
+ },
+ "Featherstone buildings, London": null,
+ "Winchmore hill, London": {
+  "lat": 51.6333948,
+  "lon": -0.1033617,
+  "confidence": "area",
+  "label": "Winchmore Hill",
+  "kind": "place/quarter"
+ },
+ "Buckeridge street, St. Giles's, London": null,
+ "Berner's street, London": null,
+ "White's yard, Rosemary lane, London": null,
+ "Short's gardens, London": {
+  "lat": 51.514622,
+  "lon": -0.1253522,
+  "confidence": "street",
+  "label": "Short's Gardens",
+  "kind": "highway/unclassified"
+ },
+ "General Post office, London": {
+  "lat": 51.5163582,
+  "lon": -0.0988351,
+  "confidence": "exact",
+  "label": "General Post Office King Edward's Building",
+  "kind": "building/yes"
+ },
+ "Star court, London": {
+  "lat": 51.4930988,
+  "lon": -0.1927501,
+  "confidence": "exact",
+  "label": "Eastern Star Chinese Takeaway",
+  "kind": "amenity/fast_food"
+ },
+ "Crown street, St. Giles's, London": {
+  "lat": 51.5139755,
+  "lon": -0.1249853,
+  "confidence": "exact",
+  "label": "The Crown and Anchor",
+  "kind": "amenity/pub"
+ },
+ "Harrow wheel common, country of Middlesex, London": null,
+ "Harmondsworth, London": {
+  "lat": 51.4889317,
+  "lon": -0.4755435,
+  "confidence": "area",
+  "label": "Harmondsworth",
+  "kind": "place/suburb"
+ },
+ "St. Leonard's, Shoreditch, London": {
+  "lat": 51.5338625,
+  "lon": -0.078608,
+  "confidence": "exact",
+  "label": "St Leonard's Hospital",
+  "kind": "amenity/clinic"
+ },
+ "Compton street, Clerkenwell, London": {
+  "lat": 51.5248088,
+  "lon": -0.1022058,
+  "confidence": "street",
+  "label": "Compton Street",
+  "kind": "highway/residential"
+ },
+ "Manchester street, London": {
+  "lat": 51.5180291,
+  "lon": -0.153691,
+  "confidence": "street",
+  "label": "Manchester Street",
+  "kind": "highway/residential"
+ },
+ "Lower street, Islington, London": {
+  "lat": 51.5270082,
+  "lon": -0.1035284,
+  "confidence": "street",
+  "label": "Wyclif Street",
+  "kind": "highway/residential"
+ },
+ "Bruton street, London": {
+  "lat": 51.5100801,
+  "lon": -0.1455156,
+  "confidence": "street",
+  "label": "Bruton Street",
+  "kind": "highway/tertiary"
+ },
+ "Union street, Shadwell, London": null,
+ "Spring gardens, London": {
+  "lat": 51.4874494,
+  "lon": -0.1208106,
+  "confidence": "exact",
+  "label": "Vauxhall Pleasure Gardens",
+  "kind": "leisure/park"
+ },
+ "Booth street, Spitalfields, London": null,
+ "Great Windmill street, London": {
+  "lat": 51.511401,
+  "lon": -0.1343368,
+  "confidence": "street",
+  "label": "Great Windmill Street",
+  "kind": "highway/residential"
+ },
+ "Great Queen street, Lincoln's Inn fields, London": null,
+ "Jewry street, London": {
+  "lat": 51.5133914,
+  "lon": -0.076707,
+  "confidence": "street",
+  "label": "Jewry Street",
+  "kind": "highway/unclassified"
+ },
+ "Dean street, Westminster, London": {
+  "lat": 51.5139045,
+  "lon": -0.1326445,
+  "confidence": "street",
+  "label": "Dean Street",
+  "kind": "highway/residential"
+ },
+ "Essex street, London": {
+  "lat": 51.5125466,
+  "lon": -0.1127507,
+  "confidence": "street",
+  "label": "Essex Street",
+  "kind": "highway/residential"
+ },
+ "Denmark street, St. Giles's, London": null,
+ "Whitechapel High street, London": {
+  "lat": 51.515777,
+  "lon": -0.0704437,
+  "confidence": "street",
+  "label": "Whitechapel High Street",
+  "kind": "highway/trunk"
+ },
+ "Great Peter street, Westminster, London": {
+  "lat": 51.4969131,
+  "lon": -0.1294676,
+  "confidence": "street",
+  "label": "Great Peter Street",
+  "kind": "highway/residential"
+ },
+ "Little Pulteney street, London": {
+  "lat": 51.5122326,
+  "lon": -0.1341616,
+  "confidence": "street",
+  "label": "Brewer Street",
+  "kind": "highway/residential"
+ },
+ "Brydges street, Covent garden, London": null,
+ "Charlotte street, Bloomsbury, London": {
+  "lat": 51.5195068,
+  "lon": -0.1358199,
+  "confidence": "street",
+  "label": "Charlotte Street",
+  "kind": "highway/residential"
+ },
+ "Duck lane, Westminster, London": {
+  "lat": 51.5136858,
+  "lon": -0.1345735,
+  "confidence": "street",
+  "label": "Duck Lane",
+  "kind": "highway/unclassified"
+ },
+ "Clare court, Drury lane, London": null,
+ "New way, Westminster, London": null,
+ "Aylesbury street, London": {
+  "lat": 51.561058,
+  "lon": -0.2588228,
+  "confidence": "street",
+  "label": "Aylesbury Street",
+  "kind": "highway/residential"
+ },
+ "Great Russell street, Bloomsbury, London": {
+  "lat": 51.5174456,
+  "lon": -0.1292096,
+  "confidence": "street",
+  "label": "Great Russell Street",
+  "kind": "highway/tertiary"
+ },
+ "Bedford street, Covent garden, London": {
+  "lat": 51.5097417,
+  "lon": -0.1234292,
+  "confidence": "street",
+  "label": "Bedford Street",
+  "kind": "highway/unclassified"
+ },
+ "St. Margaret's, Westminster, London": {
+  "lat": 51.4998839,
+  "lon": -0.1267229,
+  "confidence": "exact",
+  "label": "St Margaret's Church",
+  "kind": "amenity/place_of_worship"
+ },
+ "Montague square, London": {
+  "lat": 51.4773149,
+  "lon": -0.0533717,
+  "confidence": "exact",
+  "label": "Montague Square",
+  "kind": "leisure/park"
+ },
+ "South Molton street, London": {
+  "lat": 51.5136655,
+  "lon": -0.1478244,
+  "confidence": "street",
+  "label": "South Molton Street",
+  "kind": "highway/pedestrian"
+ },
+ "Gray's Inn square, London": {
+  "lat": 51.5197524,
+  "lon": -0.1128495,
+  "confidence": "street",
+  "label": "Gray's Inn Square",
+  "kind": "highway/service"
+ },
+ "Hounslow barracks, London": {
+  "lat": 51.4688196,
+  "lon": -0.3900941,
+  "confidence": "exact",
+  "label": "Hounslow Cavalry Barracks",
+  "kind": "historic/barracks"
+ },
+ "White's row, Spitalfields, London": {
+  "lat": 51.5183506,
+  "lon": -0.0745232,
+  "confidence": "street",
+  "label": "White's Row",
+  "kind": "highway/residential"
+ }
+}
