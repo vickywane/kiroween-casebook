@@ -1,13 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { BeforeYouBegin } from "@/components/BeforeYouBegin";
 import { LocationPermission } from "@/components/LocationPermission";
 import { LocationBlocked } from "@/components/LocationBlocked";
-import { InstallSheet } from "@/components/InstallSheet";
-import { CityDetected } from "@/components/CityDetected";
 import { detectCity, getCity, loadCity, saveCity, type City } from "@/lib/cities";
 import { savePosition, updateProfile, useProfile } from "@/lib/profile-cache";
 
@@ -20,17 +18,20 @@ const SherlockMap = dynamic(
   { ssr: false, loading: () => <MapSkeleton /> },
 );
 
-type Step = "welcome" | "before" | "permission" | "blocked" | "city" | "app";
+/**
+ * Onboarding:
+ *   mobile:  Welcome → Before you begin → Location → map
+ *   desktop: Welcome (rules and location buttons on one screen) → map
+ * A denied location shows the "blocked" screen. A granted one opens the map
+ * straight away, already set to the detected city; there is no city screen.
+ */
+type Step = "welcome" | "before" | "permission" | "blocked" | "app";
 
 export default function Home() {
   // Cached onboarding answers (null until storage can be read on the client).
   const profile = useProfile();
   const [step, setStep] = useState<Step | null>(null);
-  const [installEvent, setInstallEvent] = useState<Event | null>(null);
-  const [showInstall, setShowInstall] = useState(false);
   const [city, setCity] = useState<City | null>(null);
-  const [detected, setDetected] = useState<City | null>(null);
-  const [openCityMenu, setOpenCityMenu] = useState(false);
   const current: Step | null =
     step ?? (profile ? (profile.onboarded ? "app" : "welcome") : null);
 
@@ -40,35 +41,10 @@ export default function Home() {
   };
 
   /** Finish onboarding: cache it so later visits open straight on the map. */
-  const enterApp = (opts?: {
-    cityMenu?: boolean;
-    location?: "granted" | "denied" | "skipped";
-  }) => {
-    updateProfile({
-      onboarded: true,
-      ...(opts?.location ? { location: opts.location } : {}),
-    });
-    setOpenCityMenu(!!opts?.cityMenu);
+  const enterApp = (location?: "granted" | "denied" | "skipped") => {
+    updateProfile({ onboarded: true, ...(location ? { location } : {}) });
     setStep("app");
   };
-
-  useEffect(() => {
-    const onPrompt = (e: Event) => {
-      e.preventDefault();
-      setInstallEvent(e);
-    };
-    window.addEventListener("beforeinstallprompt", onPrompt);
-    return () => window.removeEventListener("beforeinstallprompt", onPrompt);
-  }, []);
-
-  // Offer "Add to home screen" once, a few seconds after the map opens.
-  useEffect(() => {
-    if (current !== "app") return;
-    const standalone = window.matchMedia("(display-mode: standalone)").matches;
-    if (standalone || localStorage.getItem("casebook.install-dismissed")) return;
-    const t = setTimeout(() => setShowInstall(true), 6000);
-    return () => clearTimeout(t);
-  }, [current]);
 
   const requestLocation = () => {
     if (!navigator.geolocation) {
@@ -81,9 +57,8 @@ export default function Home() {
         const p: [number, number] = [pos.coords.latitude, pos.coords.longitude];
         const match = detectCity(p);
         savePosition(p, match?.id ?? null);
-        setDetected(match);
         if (match?.available) chooseCity(match);
-        setStep("city");
+        enterApp("granted");
       },
       (err) => {
         if (err.code === err.PERMISSION_DENIED) {
@@ -100,7 +75,6 @@ export default function Home() {
   // Returning users skip onboarding. Until storage is readable (server render
   // and hydration) show the loading screen instead of flashing the welcome.
   if (profile === null || current === null) return <MapSkeleton />;
-  const cachedDetected = detected ?? getCity(profile.detectedCityId) ?? null;
 
   return (
     <div className="h-full w-full overflow-hidden bg-white">
@@ -108,52 +82,25 @@ export default function Home() {
         <WelcomeScreen
           onBegin={() => setStep("before")}
           onAllow={requestLocation}
-          onSearch={() => enterApp({ location: "skipped" })}
+          onSearch={() => enterApp("skipped")}
           onHowWeHandle={() => setStep("before")}
         />
       )}
       {current === "before" && (
-        <BeforeYouBegin
-          onBack={() => setStep("welcome")}
-          onContinue={() => setStep("permission")}
-        />
+        <BeforeYouBegin onBack={() => setStep("welcome")} onContinue={() => setStep("permission")} />
       )}
       {current === "permission" && (
-        <LocationPermission
-          onAllow={requestLocation}
-          onSearch={() => enterApp({ location: "skipped" })}
-        />
+        <LocationPermission onAllow={requestLocation} onSearch={() => enterApp("skipped")} />
       )}
       {current === "blocked" && (
-        <LocationBlocked
-          onSearch={() => enterApp({ location: "denied" })}
-          onRetry={requestLocation}
-        />
-      )}
-      {current === "city" && (
-        <CityDetected
-          detected={detected}
-          onContinue={(c) => {
-            chooseCity(c);
-            enterApp();
-          }}
-        />
+        <LocationBlocked onSearch={() => enterApp("denied")} onRetry={requestLocation} />
       )}
       {current === "app" && (
         <SherlockMap
           city={city ?? loadCity()}
-          detectedCity={cachedDetected}
+          detectedCity={getCity(profile.detectedCityId) ?? null}
           onCityChange={chooseCity}
-          initialCityMenuOpen={openCityMenu}
-        />
-      )}
-      {showInstall && (
-        <InstallSheet
-          installEvent={installEvent}
-          onClose={() => {
-            localStorage.setItem("casebook.install-dismissed", "1");
-            setShowInstall(false);
-          }}
+          initialCityMenuOpen={false}
         />
       )}
     </div>

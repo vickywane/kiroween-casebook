@@ -17,7 +17,7 @@ import { detectCity, type City } from "@/lib/cities";
 import { loadProfile, savePosition, updateProfile } from "@/lib/profile-cache";
 import { CityMenu } from "./CityMenu";
 import { buildMapIconHtml } from "@/lib/crime-icons";
-import { LayerControls, type LayerFilter } from "./LayerControls";
+import { LayerControls } from "./LayerControls";
 import { HistoricCasePanel } from "./HistoricCasePanel";
 import { RecentCasePanel } from "./RecentCasePanel";
 import { ComparePanel } from "./ComparePanel";
@@ -252,7 +252,6 @@ export function SherlockMap({
   const [tab, setTab] = useState<Tab>("map");
   /** police.uk month on the map; null = latest. */
   const [policeMonth, setPoliceMonth] = useState<string | null>(null);
-  const [filter, setFilter] = useState<LayerFilter>("both");
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [radius, setRadius] = useState(500);
   const [loading, setLoading] = useState(true);
@@ -507,11 +506,12 @@ export function SherlockMap({
     localStorage.setItem("casebook.savedCases", JSON.stringify(nextStore));
   };
 
-  const showHistoric = settings.historic && filter !== "recent";
-  const showRecentCases = settings.recent && filter !== "historic";
+  // Historic and recent layers always show together; Settings can still hide each.
+  const showHistoric = settings.historic;
+  const showRecentCases = settings.recent;
   // Map marker layers (consumed by the unchanged map JSX below)
   const historicalOn = showHistoric;
-  const recentOn = settings.stats && filter !== "historic";
+  const recentOn = settings.stats;
 
   const ref: [number, number] = userPos ?? FLEET_STREET;
   const outsideLondon = userPos !== null && !isInLondon(userPos);
@@ -775,13 +775,10 @@ export function SherlockMap({
       {tab === "map" && (!panel || !sidebarOpen) && (
         <LayerControls
           floatAlways={!sidebarOpen}
-          value={filter}
-          onChange={setFilter}
           months={areaData.areas[0]?.months}
           month={dataMonth}
           onMonthChange={setPoliceMonth}
           area={area}
-          onOpenSettings={() => setTab("settings")}
           onOpenCities={() => setCityMenuOpen(true)}
         />
       )}
@@ -823,14 +820,11 @@ export function SherlockMap({
           <div className="mb-4 hidden md:block">
             <LayerControls
               inline
-              value={filter}
-              onChange={setFilter}
               months={areaData.areas[0]?.months}
               month={dataMonth}
               onMonthChange={setPoliceMonth}
               area={area}
-              onOpenSettings={() => setTab("settings")}
-              onOpenCities={() => setCityMenuOpen(true)}
+                  onOpenCities={() => setCityMenuOpen(true)}
             />
           </div>
           <NearbyList {...listProps("row")} variant="row" />
