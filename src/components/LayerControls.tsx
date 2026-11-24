@@ -1,53 +1,64 @@
 "use client";
 
-import { Building2, CalendarDays, Layers, Menu, Scale, Search, SlidersHorizontal } from "lucide-react";
-
-export type LayerFilter = "historic" | "recent" | "both";
+import { useEffect, useRef, useState } from "react";
+import { CalendarDays, Menu, Search, SlidersHorizontal, X } from "lucide-react";
+import { InstallButton } from "./InstallButton";
 
 interface Props {
-  value: LayerFilter;
-  onChange: (v: LayerFilter) => void;
   area: string;
-  onOpenSettings: () => void;
   /** Opens the city sidebar. Hidden on desktop, where the top bar has its own switcher. */
   onOpenCities: () => void;
   /** Render in normal flow inside a panel (tablet/desktop). */
   inline?: boolean;
+  /** Float over the map on every screen size (used while the sidebar is hidden). */
+  floatAlways?: boolean;
   /** police.uk months available, oldest first, and the one shown. */
   months?: string[];
   month?: string | null;
   onMonthChange?: (m: string) => void;
 }
 
-function monthShort(m: string) {
+function monthLong(m: string) {
   const [y, mo] = m.split("-").map(Number);
-  return new Date(Date.UTC(y, mo - 1, 1)).toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" });
+  return new Date(Date.UTC(y, mo - 1, 1)).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
 }
 
-const OPTIONS: { id: LayerFilter; label: string; icon: React.ReactNode }[] = [
-  { id: "historic", label: "Historic", icon: <Building2 className="h-4 w-4" /> },
-  { id: "recent", label: "Recent", icon: <Scale className="h-4 w-4" /> },
-  { id: "both", label: "Both", icon: <Layers className="h-4 w-4" /> },
-];
-
-/** Top-of-map controls: current area pill + Historic / Recent / Both. */
+/** Top-of-map controls: current area pill and the filter menu. */
 export function LayerControls({
-  value,
-  onChange,
   area,
-  onOpenSettings,
   onOpenCities,
   inline = false,
+  floatAlways = false,
   months,
   month,
   onMonthChange,
 }: Props) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // Close on a click outside the menu or on Escape.
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const shown = month ?? months?.[months.length - 1] ?? null;
+
   return (
     <div
       className={
         inline
           ? "flex flex-col gap-3"
-          : "pointer-events-none absolute inset-x-0 top-0 z-[1000] flex flex-col gap-3 p-4 md:hidden"
+          : `pointer-events-none absolute inset-x-0 top-0 z-[1000] flex flex-col gap-3 p-4 ${floatAlways ? "" : "md:hidden"}`
       }
     >
       <div className="pointer-events-auto flex items-center gap-3">
@@ -59,70 +70,76 @@ export function LayerControls({
           <Menu className="h-5 w-5" />
         </button>
         <div
-          className="flex h-12 flex-1 items-center gap-3 rounded-full bg-white px-4 shadow-md"
+          className="flex h-12 min-w-0 flex-1 items-center gap-3 rounded-full bg-white px-4 shadow-md"
           role="status"
           aria-label="Current area"
         >
-          <Search className="h-4 w-4" />
+          <Search className="h-4 w-4 shrink-0" />
           <span className="truncate text-[15px]">{area}</span>
         </div>
-        <button
-          onClick={onOpenSettings}
-          aria-label="Layer settings"
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md"
-        >
-          <SlidersHorizontal className="h-5 w-5" />
-        </button>
-      </div>
 
-      <div className="pointer-events-auto flex flex-wrap items-center gap-2">
-      <div
-        role="radiogroup"
-        aria-label="Layers"
-        className="pointer-events-auto flex w-fit gap-1 rounded-full p-1 shadow-md backdrop-blur"
-        style={{ background: inline ? "var(--cb-stone)" : "rgba(255,255,255,.9)" }}
-      >
-        {OPTIONS.map((o) => {
-          const active = value === o.id;
-          return (
-            <button
-              key={o.id}
-              role="radio"
-              aria-checked={active}
-              onClick={() => onChange(o.id)}
-              className="flex h-9 items-center gap-2 rounded-full px-4 text-sm font-medium"
-              style={
-                active
-                  ? { background: "#fff", boxShadow: "0 1px 3px rgba(0,0,0,.18)", color: "var(--cb-ink)" }
-                  : { color: "var(--cb-muted)" }
-              }
-            >
-              {o.icon}
-              {o.label}
-            </button>
-          );
-        })}
-      </div>
-      {months && months.length > 0 && value !== "historic" && (
-        <label
-          className="flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium shadow-md"
-          style={{ background: inline ? "var(--cb-stone)" : "rgba(255,255,255,.9)", color: "var(--cb-ink)" }}
-        >
-          <span className="sr-only">police.uk month</span>
-          <CalendarDays className="h-4 w-4" />
-          <select
-            value={month ?? months[months.length - 1]}
-            onChange={(e) => onMonthChange?.(e.target.value)}
-            className="bg-transparent outline-none"
+        {/* Desktop has it in the top navbar. */}
+        <InstallButton className="lg:hidden [&>button]:h-12 [&>button]:w-12 [&>button]:border-0 [&>button]:shadow-md" />
+        <div ref={wrapRef} className="relative">
+          <button
+            onClick={() => setOpen((o) => !o)}
+            aria-label="Filters"
+            aria-haspopup="dialog"
+            aria-expanded={open}
+            className="flex h-12 w-12 items-center justify-center rounded-full shadow-md transition-colors"
+            style={open ? { background: "var(--cb-ink)", color: "#fff" } : { background: "#fff", color: "var(--cb-ink)" }}
           >
-            {[...months].reverse().map((m) => (
-              <option key={m} value={m}>
-                {monthShort(m)}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
+            <SlidersHorizontal className="h-5 w-5" />
+          </button>
+
+          {open && (
+            <div
+              role="dialog"
+              aria-label="Filters"
+              className="absolute right-0 top-14 z-[1100] w-[280px] rounded-2xl border bg-white p-4 shadow-xl"
+              style={{ borderColor: "var(--cb-border)", color: "var(--cb-ink)" }}
+            >
+              <div className="flex items-center justify-between">
+                <p className="font-semibold">Filters</p>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close filters"
+                  className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-[var(--cb-stone)]"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <label className="mt-4 block">
+                <span className="flex items-center gap-2 text-sm font-medium">
+                  <CalendarDays className="h-4 w-4" />
+                  police.uk month
+                </span>
+                {months && months.length > 0 ? (
+                  <select
+                    value={shown ?? undefined}
+                    onChange={(e) => onMonthChange?.(e.target.value)}
+                    className="mt-2 h-11 w-full rounded-xl border bg-white px-3 text-[15px] outline-none"
+                    style={{ borderColor: "var(--cb-border)" }}
+                  >
+                    {[...months].reverse().map((m) => (
+                      <option key={m} value={m}>
+                        {monthLong(m)}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <span className="mt-2 block text-sm" style={{ color: "var(--cb-muted)" }}>
+                    Loading months…
+                  </span>
+                )}
+                <span className="mt-2 block text-xs" style={{ color: "var(--cb-muted)" }}>
+                  Recent crime counts for this month. Old Bailey cases are always shown.
+                </span>
+              </label>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

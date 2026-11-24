@@ -12,6 +12,8 @@
  * Key layout (single table):
  *   street count         PK CELL#<geohash6>            SK CRIME#<month>#<category>#<id>
  *   neighbourhood total  PK NBHD#<force>#<code>         SK <month>#<category>
+ *   Old Bailey charge    PK CELL#<geohash6>            SK CASE#<year>#<charge id>
+ *   Compare figures      PK STREET#<street key>        SK COMPARE#STREET | COMPARE#MILE
  *   build info           PK META                        SK BUILD
  */
 import { createHash } from "node:crypto";
@@ -27,6 +29,7 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { encodeGeohash } from "../src/lib/geohash";
+import { buildCompare, type PoliceRow } from "./build-compare";
 
 const { values: args } = parseArgs({
   options: {
@@ -73,6 +76,39 @@ const rows = db
      FROM recent_area_counts`,
   )
   .all() as Row[];
+
+interface CaseDbRow {
+  id: string;
+  trial_id: string;
+  year: number;
+  date: string;
+  offence_category: string;
+  offence_group: string;
+  offence_sub: string;
+  verdict: string;
+  verdict_category: string;
+  punishment: string | null;
+  defendant_name: string | null;
+  victim_name: string | null;
+  location_raw: string;
+  location_label: string;
+  street_key: string;
+  lat: number;
+  lon: number;
+  geocode_confidence: string;
+  geocode_source: string;
+  summary: string;
+  testimony_excerpt: string;
+  is_violent: number;
+  source_url: string;
+  licence: string;
+  attribution_text: string;
+}
+const hasCases = !!db.prepare("SELECT 1 FROM sqlite_master WHERE name = 'historical_cases'").get();
+const caseRows = (hasCases ? db.prepare("SELECT * FROM historical_cases").all() : []) as CaseDbRow[];
+const policeForCompare = db
+  .prepare("SELECT category, lat, lon, location_name, count, month FROM recent_area_counts WHERE level = 'street'")
+  .all() as PoliceRow[];
 db.close();
 
 const versions = new Set(rows.map((r) => r.transform_version));
@@ -109,6 +145,66 @@ const items = rows.map(toItem);
 const keys = new Set(items.map((i) => `${i.PK}|${i.SK}`));
 if (keys.size !== items.length) fail(`${items.length - keys.size} duplicate keys`);
 
+// ── Old Bailey cases ──────────────────────────────────────────────────────────
+// Same rules as .kiro/hooks/validate-case-record.md. A violation stops the load.
+const NAMES_BEFORE_YEAR = new Date().getFullYear() - 100;
+function toCaseItem(c: CaseDbRow): Item {
+  if (!c.verdict) fail(`${c.id}: verdict is empty`);
+  if (!c.source_url) fail(`${c.id}: source_url is empty`);
+  if (c.year >= NAMES_BEFORE_YEAR && (c.defendant_name || c.victim_name)) fail(`${c.id}: a name on a case under 100 years old`);
+  if (c.verdict_category !== "guilty" && c.defendant_name) fail(`${c.id}: a defendant name without a guilty verdict`);
+  const item: Item = {
+    PK: `CELL#${encodeGeohash(c.lat, c.lon)}`,
+    SK: `CASE#${String(c.year).padStart(4, "0")}#${c.id}`,
+    id: c.id,
+    trial_id: c.trial_id,
+    year: c.year,
+    date: c.date,
+    offence_category: c.offence_category,
+    offence_group: c.offence_group,
+    offence_sub: c.offence_sub,
+    verdict: c.verdict,
+    verdict_category: c.verdict_category,
+    location_raw: c.location_raw,
+    location_label: c.location_label,
+    street_key: c.street_key,
+    lat: c.lat,
+    lon: c.lon,
+    geocode_confidence: c.geocode_confidence,
+    geocode_source: c.geocode_source,
+    summary: c.summary,
+    testimony_excerpt: c.testimony_excerpt,
+    is_violent: c.is_violent,
+    source_url: c.source_url,
+    licence: c.licence,
+  };
+  if (c.punishment) item.punishment = c.punishment;
+  if (c.defendant_name) item.defendant_name = c.defendant_name;
+  if (c.victim_name) item.victim_name = c.victim_name;
+  return item;
+}
+const caseItems = caseRows.map(toCaseItem);
+items.push(...caseItems);
+const caseAttribution = [...new Set(caseRows.map((c) => c.attribution_text))].join(" | ");
+
+// ── Compare (one item per street and scope) ───────────────────────────────────
+const compare = buildCompare(caseRows, policeForCompare);
+for (const s of compare) {
+  for (const scope of ["street", "mile"] as const) {
+    items.push({
+      PK: `STREET#${s.key}`,
+      SK: `COMPARE#${scope.toUpperCase()}`,
+      key: s.key,
+      name: s.name,
+      lat: s.lat,
+      lon: s.lon,
+      months: s.months.join(","),
+      figures: JSON.stringify(s[scope]),
+    });
+  }
+}
+console.log(`✓ ${caseItems.length} Old Bailey cases, ${compare.length} streets with Compare figures`);
+
 const attribution = [...new Set(rows.map((r) => r.attribution_text))];
 const months = [...new Set(rows.map((r) => r.month))].sort();
 items.push({
@@ -117,8 +213,10 @@ items.push({
   db_sha256: dbSha,
   transform_version: transformVersion,
   items: items.length,
+  cases: caseItems.length,
   months: months.join(","),
   attribution: attribution.join(" | "),
+  attribution_cases: caseAttribution,
   loaded_at: new Date().toISOString(),
 });
 
@@ -184,12 +282,24 @@ async function writeAll() {
 async function verify() {
   // Spot-check one cell and the META item read back as written.
   const sample = items.find((i) => String(i.PK).startsWith("CELL#"))!;
-  const res = await doc.send(
-    new QueryCommand({ TableName: tableName, KeyConditionExpression: "PK = :pk", ExpressionAttributeValues: { ":pk": sample.PK } }),
-  );
+  let count = 0;
+  let ExclusiveStartKey: Record<string, unknown> | undefined;
+  do {
+    const res = await doc.send(
+      new QueryCommand({
+        TableName: tableName,
+        KeyConditionExpression: "PK = :pk",
+        ExpressionAttributeValues: { ":pk": sample.PK },
+        Select: "COUNT",
+        ExclusiveStartKey,
+      }),
+    );
+    count += res.Count ?? 0;
+    ExclusiveStartKey = res.LastEvaluatedKey;
+  } while (ExclusiveStartKey);
   const expected = items.filter((i) => i.PK === sample.PK).length;
-  if (res.Count !== expected) fail(`cell ${sample.PK}: read ${res.Count}, expected ${expected}`);
-  console.log(`✓ verified ${sample.PK}: ${res.Count} items`);
+  if (count !== expected) fail(`cell ${sample.PK}: read ${count}, expected ${expected}`);
+  console.log(`✓ verified ${sample.PK}: ${count} items`);
 }
 
 async function main() {

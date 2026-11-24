@@ -127,12 +127,12 @@ export function HistoricCasePanel({
           style={{ background: "var(--cb-ink)" }}
         >
           <p className="cb-mono text-[11px] uppercase tracking-[0.14em] text-white/70">
-            Plain-English summary · AI
+            The charge
           </p>
           <p className="mt-3 text-lg leading-relaxed">{c.summary}</p>
           <p className="mt-3 text-sm text-white/75">
-            Written by AI (Amazon Bedrock) from the trial record. Check it
-            against the testimony below.
+            The charge as the court recorded it, shortened. Read it against the
+            testimony below.
           </p>
         </section>
 
@@ -188,7 +188,7 @@ export function HistoricCasePanel({
           <span className="flex-1">
             <Eyebrow>Source</Eyebrow>
             <span className="block text-sm">
-              Old Bailey Proceedings Online, {c.ref?.toLowerCase() ?? c.id} (CC BY 4.0)
+              Old Bailey Proceedings Online, {c.ref?.toLowerCase() ?? c.id} (CC BY-NC 4.0, non-commercial use)
             </span>
           </span>
           <ExternalLink className="h-4 w-4" style={{ color: "var(--cb-crimson)" }} />

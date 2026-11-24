@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Playfair_Display, IBM_Plex_Mono } from "next/font/google";
+// Map styles live here, not in the map component: CSS imported by the
+// dynamically loaded map (ssr: false) ships as its own chunk, which Next's
+// dev server drops on Fast Refresh. Without it popups lose their white card
+// and absolute positioning (they render away from the pin).
+import "leaflet/dist/leaflet.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
 
 const inter = Inter({

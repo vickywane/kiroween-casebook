@@ -53,7 +53,7 @@ flowchart LR
 | Source | Strategy | Refresh | Licence |
 |---|---|---|---|
 | police.uk street-level crime and outcomes (Metropolitan Police + City of London Police) | Full ETL, upsert by crime ID, aggregate to area counts | Monthly, after each release | Open Government Licence v3.0 |
-| Old Bailey Proceedings, 1674–1913 | Full ETL from the XML dump; API for single-trial refetches | One-off; rebuild when transform code changes | Unconfirmed: the project docs say CC BY 4.0, but the Old Bailey licence page suggests commercial use needs permission. Confirm before any commercial use |
+| Old Bailey Proceedings, 1674–1913 | Full ETL from the XML dump; API for single-trial refetches | One-off; rebuild when transform code changes | CC BY-NC 4.0 (confirmed in the figshare record and the dump's `licence.txt`). Non-commercial use only, credit required. Sexual offences, infanticide, concealing a birth and abortion trials are left out of the published data |
 | MoJ Outcomes by Offence | ETL per release, stored as aggregates tagged with the release | Quarterly | Open Government Licence v3.0 |
 | London Datastore: MPS Recorded Crime, Geographic Breakdown | ETL per release, stored as aggregates | Monthly | Open Government Licence (check version on the dataset page) |
 | Find Case Law (The National Archives) | **Metadata only** (citation, URL, court, date). Judgment text is fetched on demand and cached briefly | On demand | Open Justice Licence v2.0. Bulk processing or AI summarising of judgments needs TNA's free computational-analysis licence first |

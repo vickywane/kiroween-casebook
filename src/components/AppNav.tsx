@@ -12,6 +12,7 @@ import {
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { City } from "@/lib/cities";
 import { Logo } from "./ui";
+import { InstallButton } from "./InstallButton";
 
 export type Tab = "map" | "nearby" | "compare" | "saved" | "settings";
 
@@ -50,15 +51,23 @@ export function BottomNav({
     MOBILE_TABS.map((t) => t.label.length * 9),
   );
 
+  // Re-measure whenever a label's size changes. A one-off measure on mount
+  // reads 0 if the nav is hidden then (lg:hidden on a wide window that is
+  // later narrowed), which squeezed the active pill to its icon. Zero
+  // readings keep the previous width.
   useLayoutEffect(() => {
     const measure = () =>
-      setLabelW(
-        MOBILE_TABS.map((_, i) =>
-          Math.ceil(measureRefs.current[i]?.getBoundingClientRect().width ?? 0),
-        ),
+      setLabelW((prev) =>
+        MOBILE_TABS.map((_, i) => {
+          const w = Math.ceil(measureRefs.current[i]?.getBoundingClientRect().width ?? 0);
+          return w > 0 ? w : prev[i];
+        }),
       );
     measure();
     void document.fonts?.ready.then(measure);
+    const ro = new ResizeObserver(measure);
+    for (const el of measureRefs.current) if (el) ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   const activeIdx = Math.max(
@@ -141,6 +150,25 @@ export function TopNav({
   city: City;
   onOpenCities: () => void;
 }) {
+  const navRef = useRef<HTMLElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const activeIdx = DESKTOP_TABS.findIndex((t) => tab === t.id || (t.id === "map" && tab === "nearby"));
+  const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
+  // Same sliding highlight as the mobile nav, measured from the real buttons
+  // so it follows font loading and the header appearing at lg width.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = tabRefs.current[activeIdx];
+      if (!el || el.offsetWidth === 0) return;
+      setPill({ left: el.offsetLeft, width: el.offsetWidth });
+    };
+    measure();
+    if (!navRef.current) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(navRef.current);
+    return () => ro.disconnect();
+  }, [activeIdx]);
+
   return (
     <header
       className="relative z-[1100] hidden h-16 shrink-0 items-center border-b bg-white px-7 lg:flex"
@@ -158,23 +186,34 @@ export function TopNav({
         <ChevronDown className="h-4 w-4" style={{ color: "var(--cb-muted)" }} />
       </button>
       <nav
+        ref={navRef}
         aria-label="Main"
         className="absolute left-1/2 flex -translate-x-1/2 gap-1 rounded-full p-1"
         style={{ background: "var(--cb-stone)" }}
       >
-        {DESKTOP_TABS.map((t) => {
-          const active = tab === t.id || (t.id === "map" && tab === "nearby");
+        {activeIdx >= 0 && pill && (
+          <span
+            aria-hidden="true"
+            className="absolute top-1 h-10 rounded-full transition-[left,width] duration-300 ease-[cubic-bezier(.4,0,.2,1)] motion-reduce:transition-none"
+            style={{ left: pill.left, width: pill.width, background: "var(--cb-ink)" }}
+          />
+        )}
+        {DESKTOP_TABS.map((t, i) => {
+          const active = i === activeIdx;
           return (
             <button
               key={t.id}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
               onClick={() => onChange(t.id)}
               aria-current={active ? "page" : undefined}
-              className="flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium"
-              style={
-                active
-                  ? { background: "var(--cb-ink)", color: "#fff" }
-                  : { color: "var(--cb-muted)" }
-              }
+              className="relative z-10 flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors duration-300 motion-reduce:transition-none"
+              style={{
+                color: active ? "#fff" : "var(--cb-muted)",
+                // Until the highlight is measured, paint it on the button.
+                background: active && !pill ? "var(--cb-ink)" : undefined,
+              }}
             >
               {t.icon}
               {t.label}
@@ -182,6 +221,7 @@ export function TopNav({
           );
         })}
       </nav>
+      <InstallButton className="ml-auto" />
     </header>
   );
 }

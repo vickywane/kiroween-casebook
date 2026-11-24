@@ -28,7 +28,7 @@ This is a Next.js web app for the Kiroween 2026 hackathon. It shows historical a
 
 ## Data sources
 
-- Old Bailey Online XML: CC BY 4.0, credit required.
+- Old Bailey Online XML: CC BY-NC 4.0 (non-commercial), credit required.
 - police.uk / data.police.uk: Open Government Licence.
 - Wikidata: CC0.
 - NLS historical map tiles: free for non-commercial use, credit required.
