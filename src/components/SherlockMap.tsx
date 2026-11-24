@@ -400,11 +400,15 @@ export function SherlockMap({
     if (map.getZoom() > z) map.easeTo({ zoom: z, duration: 600 });
   };
 
-  /** Close the pinned card (close icon or a click on empty map) and zoom out. */
-  const closePinned = () => {
+  /**
+   * Close the pinned card (close icon or a click on empty map) and zoom out.
+   * The close icon also closes the case-details panel.
+   */
+  const closePinned = (opts?: { closePanel?: boolean }) => {
     if (!pinnedRef.current) return;
     setPinned(null);
     setHovered(null);
+    if (opts?.closePanel) setPanel(null);
     zoomOutToDefault();
   };
 
@@ -638,7 +642,7 @@ export function SherlockMap({
                         // Close icon. Our own unmounts also fire "remove", so
                         // only act if this card is still the pinned one.
                         remove: () => {
-                          if (pinnedRef.current?.id === p.id) closePinned();
+                          if (pinnedRef.current?.id === p.id) closePinned({ closePanel: true });
                         },
                       }
                     : undefined
