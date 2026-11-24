@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { aggregateMonth, boundaryToPoly, suppressCount, type CrimeBatch, type PoliceCrime } from "./transform";
+import {
+  aggregateMonth, boundaryToPoly, pointInPolygon,
+  type AreaCountRow, type CrimeBatch, type PoliceCrime,
+} from "./transform";
 
 let nextId = 1;
 function crime(category: string, streetId: number, overrides: Partial<PoliceCrime> = {}): PoliceCrime {
@@ -16,13 +19,23 @@ function crime(category: string, streetId: number, overrides: Partial<PoliceCrim
   };
 }
 
-function batch(neighbourhood: string, crimes: PoliceCrime[]): CrimeBatch {
+/** A box around the default crime point (51.515, -0.105). */
+const BOX: [number, number][] = [[51.51, -0.11], [51.51, -0.10], [51.52, -0.10], [51.52, -0.11]];
+/** A box that doesn't contain the default crime point. */
+const FAR_BOX: [number, number][] = [[51.50, -0.09], [51.50, -0.08], [51.51, -0.08], [51.51, -0.09]];
+
+function at(lat: number, lon: number, streetId: number): Partial<PoliceCrime> {
+  return { location: { latitude: String(lat), longitude: String(lon), street: { id: streetId, name: `On or near Street ${streetId}` } } };
+}
+
+function batch(neighbourhood: string, crimes: PoliceCrime[], boundary: [number, number][] = BOX): CrimeBatch {
   return {
     force: "city-of-london",
     neighbourhood,
     neighbourhoodName: neighbourhood.toUpperCase(),
     month: "2026-09",
     centroid: { lat: 51.514, lon: -0.1 },
+    boundary,
     crimes,
     retrievedAt: "2026-11-23T00:00:00.000Z",
     sha256: "abc",
@@ -30,24 +43,8 @@ function batch(neighbourhood: string, crimes: PoliceCrime[]): CrimeBatch {
   };
 }
 
-describe("suppressCount", () => {
-  it("hides counts of 1 and 2", () => {
-    assert.equal(suppressCount(1), null);
-    assert.equal(suppressCount(2), null);
-  });
-  it("keeps counts of 3 and above", () => {
-    assert.equal(suppressCount(3), 3);
-    assert.equal(suppressCount(147), 147);
-  });
-  it("rejects zero, negatives and fractions", () => {
-    assert.throws(() => suppressCount(0));
-    assert.throws(() => suppressCount(-1));
-    assert.throws(() => suppressCount(2.5));
-  });
-});
-
 describe("aggregateMonth", () => {
-  it("counts per street and per neighbourhood, suppressing small counts", () => {
+  it("counts per street and per neighbourhood, including counts of 1 and 2", () => {
     const { rows } = aggregateMonth(
       [batch("fle", [crime("burglary", 1), crime("burglary", 1), crime("burglary", 1), crime("robbery", 2)])],
       "test",
@@ -57,24 +54,50 @@ describe("aggregateMonth", () => {
     const nbhdBurglary = rows.find((r) => r.level === "neighbourhood" && r.category === "burglary");
     const nbhdRobbery = rows.find((r) => r.level === "neighbourhood" && r.category === "robbery");
     assert.equal(street1?.count, 3);
-    assert.equal(street2?.count, null, "a single robbery on a street must be suppressed");
+    assert.equal(street2?.count, 1, "a single robbery on a street is shown as 1");
     assert.equal(nbhdBurglary?.count, 3);
-    assert.equal(nbhdRobbery?.count, null, "suppression also applies at neighbourhood level");
+    assert.equal(nbhdRobbery?.count, 1);
   });
 
-  it("never emits a count below 3", () => {
+  it("street rows add up to the neighbourhood total", () => {
     const crimes = Array.from({ length: 50 }, (_, i) => crime(i % 2 ? "shoplifting" : "other-theft", i % 7));
     const { rows } = aggregateMonth([batch("fle", crimes)], "test");
-    for (const r of rows) assert.ok(r.count === null || r.count >= 3, `${r.id} has count ${r.count}`);
+    for (const cat of ["shoplifting", "other-theft"]) {
+      const streets = rows.filter((r) => r.level === "street" && r.category === cat).reduce((a, r) => a + r.count, 0);
+      assert.equal(rows.find((r) => r.level === "neighbourhood" && r.category === cat)?.count, streets);
+    }
   });
 
-  it("de-duplicates crimes returned by two neighbourhood polygons", () => {
+  it("de-duplicates crimes returned by two overlapping neighbourhood polygons", () => {
     const shared = [crime("burglary", 9), crime("burglary", 9), crime("burglary", 9)];
     const { rows, duplicates } = aggregateMonth([batch("fle", shared), batch("ban", shared)], "test");
     assert.equal(duplicates, 3);
     const street = rows.filter((r) => r.level === "street");
     assert.equal(street.length, 1);
     assert.equal(street[0].count, 3, "border crimes must not be double counted");
+    assert.equal(street[0].neighbourhood, "ban", "overlaps go to the lowest neighbourhood id, whatever the batch order");
+  });
+
+  it("counts a border crime only in the neighbourhood whose boundary contains it", () => {
+    const border = [1, 2, 3].map(() => crime("burglary", 9));
+    // "aaa" is processed first but its boundary doesn't contain the point.
+    const { rows, outside, unowned } = aggregateMonth([batch("aaa", border, FAR_BOX), batch("zzz", border)], "test");
+    assert.equal(outside, 3);
+    assert.equal(unowned, 0);
+    assert.ok(rows.every((r) => r.neighbourhood === "zzz"));
+    assert.equal(rows.find((r) => r.level === "street")?.count, 3);
+  });
+
+  it("gives the same rows for a neighbourhood whether it is ingested alone or with its neighbours", () => {
+    const border = [1, 2, 3].map(() => crime("burglary", 9));
+    const inner = [1, 2, 3].map(() => crime("robbery", 10, at(51.505, -0.085, 10)));
+    const full = aggregateMonth([batch("aaa", [...border, ...inner], FAR_BOX), batch("zzz", border)], "test");
+    const zzzOnly = aggregateMonth([batch("zzz", border)], "test");
+    const aaaOnly = aggregateMonth([batch("aaa", [...border, ...inner], FAR_BOX)], "test");
+    const ids = (rows: AreaCountRow[], n: string) => rows.filter((r) => r.neighbourhood === n).map((r) => `${r.id}=${r.count}`).sort();
+    assert.deepEqual(ids(zzzOnly.rows, "zzz"), ids(full.rows, "zzz"));
+    assert.deepEqual(ids(aaaOnly.rows, "aaa"), ids(full.rows, "aaa"));
+    assert.equal(aaaOnly.unowned, 3, "a subset run reports crimes it leaves to neighbours");
   });
 
   it("attributes BTP crimes to British Transport Police", () => {
@@ -103,6 +126,13 @@ describe("aggregateMonth", () => {
       assert.equal(r.transform_version, "abc1234");
       assert.ok(r.retrieved_at);
     }
+  });
+});
+
+describe("pointInPolygon", () => {
+  it("tells inside from outside", () => {
+    assert.equal(pointInPolygon(51.515, -0.105, BOX), true);
+    assert.equal(pointInPolygon(51.515, -0.105, FAR_BOX), false);
   });
 });
 

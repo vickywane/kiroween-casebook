@@ -16,6 +16,7 @@ import {
 } from "@/lib/mock-data";
 import { FLEET_STREET, formatMetres, isInLondon, metresBetween } from "@/lib/geo";
 import { detectCity, type City } from "@/lib/cities";
+import { loadProfile, savePosition, updateProfile } from "@/lib/profile-cache";
 import { CityMenu } from "./CityMenu";
 import { buildMapIconHtml } from "@/lib/crime-icons";
 import { LayerControls, type LayerFilter } from "./LayerControls";
@@ -25,6 +26,8 @@ import { ComparePanel } from "./ComparePanel";
 import { SettingsPanel, type Settings } from "./SettingsPanel";
 import { BottomNav, TopNav, type Tab } from "./AppNav";
 import { NearbyList, StatsChip } from "./NearbyList";
+import { useAreaData } from "@/lib/useAreaData";
+import { allStreets, countWithin, monthLabel, monthOf, onNearestStreet, toMarkers } from "@/lib/area-stats";
 import { OfflineScreen } from "./OfflineScreen";
 import { HistoricCaseCard } from "./CaseCard";
 
@@ -252,6 +255,8 @@ export function SherlockMap({
 }) {
   const [cityMenuOpen, setCityMenuOpen] = useState(initialCityMenuOpen);
   const [tab, setTab] = useState<Tab>("map");
+  /** police.uk month on the map; null = latest. */
+  const [policeMonth, setPoliceMonth] = useState<string | null>(null);
   const [filter, setFilter] = useState<LayerFilter>("both");
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [radius, setRadius] = useState(500);
@@ -265,7 +270,10 @@ export function SherlockMap({
       return [];
     }
   });
-  const [userPos, setUserPos] = useState<[number, number] | null>(null);
+  // Start from the cached position so nearby cases show before GPS answers.
+  const [userPos, setUserPos] = useState<[number, number] | null>(
+    () => loadProfile().lastPos,
+  );
   const [panel, setPanel] = useState<Panel>(null);
   const [libreMap, setLibreMap] = useState<maplibregl.Map | null>(null);
 
@@ -322,8 +330,15 @@ export function SherlockMap({
   useEffect(() => {
     if (!navigator.geolocation) return;
     watchRef.current = navigator.geolocation.watchPosition(
-      (pos) => setUserPos([pos.coords.latitude, pos.coords.longitude]),
-      () => {},
+      (pos) => {
+        const p: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+        setUserPos(p);
+        // Keep the cache fresh (throttled inside savePosition).
+        savePosition(p, detectCity(p)?.id ?? null);
+      },
+      (err) => {
+        if (err.code === err.PERMISSION_DENIED) updateProfile({ location: "denied" });
+      },
       { enableHighAccuracy: true, maximumAge: 10_000 },
     );
     return () => {
@@ -365,6 +380,24 @@ export function SherlockMap({
   const ref: [number, number] = userPos ?? FLEET_STREET;
   const outsideLondon = userPos !== null && !isInLondon(userPos);
   const fmt = (m: number) => formatMetres(m, settings.units);
+
+  // ── police.uk data (DynamoDB via /api/area, cached per map square) ──────────
+  const areaData = useAreaData(ref, policeMonth);
+  const streets = allStreets(areaData.areas);
+  const dataMonth = monthOf(areaData.areas);
+  const recentMarkers = toMarkers(streets, dataMonth);
+  const violent = countWithin(streets, ref, "violent-crime");
+  const streetRobbery = onNearestStreet(streets, ref, "robbery");
+  const radiusUnit = settings.units === "mi" ? "1 mi" : "1.6 km";
+  const violentLabel = violent
+    ? `${violent} violent ${violent === 1 ? "offence" : "offences"} · ${radiusUnit} · police.uk`
+    : null;
+  const stats = {
+    month: monthLabel(dataMonth),
+    radius: settings.units === "mi" ? "1 mile" : "1.6 km",
+    violent: violent ? String(violent) : "None recorded",
+    street: streetRobbery,
+  };
   const detected = userPos ? detectCity(userPos) : detectedCity;
 
   const historicNearby = MOCK_HISTORICAL_CASES.map((c) => ({
@@ -397,7 +430,8 @@ export function SherlockMap({
     loading,
     outsideLondon,
     nearestLabel: Number.isFinite(nearestM) ? fmt(nearestM) : null,
-    showStats: settings.stats,
+    showStats: settings.stats && areaData.areas.length > 0,
+    stats,
     onWiden: () => setRadius(2000),
     onNearest: () => setRadius(Math.ceil(nearestM / 500) * 500 + 500),
     onOpenHistoric: (c: HistoricalCase) => {
@@ -486,7 +520,7 @@ export function SherlockMap({
             ))}
 
           {recentOn &&
-            MOCK_RECENT_COUNTS.map((r) => (
+            recentMarkers.map((r) => (
               <Marker
                 key={r.id}
                 position={[r.lat, r.lon]}
@@ -496,8 +530,7 @@ export function SherlockMap({
                 }}
               >
                 <Popup>
-                  {r.category_label} ·{" "}
-                  {r.count !== null ? r.count : "a small number"}
+                  {r.category_label} · {r.count}
                 </Popup>
               </Marker>
             ))}
@@ -523,15 +556,18 @@ export function SherlockMap({
         <LayerControls
           value={filter}
           onChange={setFilter}
+          months={areaData.areas[0]?.months}
+          month={dataMonth}
+          onMonthChange={setPoliceMonth}
           area={area}
           onOpenSettings={() => setTab("settings")}
           onOpenCities={() => setCityMenuOpen(true)}
         />
       )}
 
-      {tab === "map" && !panel && settings.stats && !outsideLondon && !loading && (
+      {tab === "map" && !panel && settings.stats && !outsideLondon && !loading && violentLabel && (
         <div className="pointer-events-none absolute left-1/2 top-[120px] z-[1000] hidden -translate-x-1/2 md:block lg:left-[calc(50%+220px)]">
-          <StatsChip label="47 violent offences · 1 mi · police.uk" />
+          <StatsChip label={violentLabel} />
         </div>
       )}
 
@@ -552,6 +588,9 @@ export function SherlockMap({
               inline
               value={filter}
               onChange={setFilter}
+              months={areaData.areas[0]?.months}
+              month={dataMonth}
+              onMonthChange={setPoliceMonth}
               area={area}
               onOpenSettings={() => setTab("settings")}
               onOpenCities={() => setCityMenuOpen(true)}
@@ -606,7 +645,6 @@ export function SherlockMap({
               street="Fleet Street, London"
               wide={wide}
               onToggleWide={setWide}
-              tooFew={!wide}
             />
           )}
           {tab === "settings" && <SettingsPanel value={settings} onChange={setSettings} />}

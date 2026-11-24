@@ -9,6 +9,9 @@ export type DB = Database.Database;
  * .kiro/steering/tone-and-data-rules.md are repeated here as constraints, so a
  * row that breaks them cannot be written even if the transform has a bug.
  */
+/** Bump when a table definition changes; generated tables are rebuilt on mismatch. */
+const SCHEMA_VERSION = 3;
+
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS recent_area_counts (
   id                TEXT PRIMARY KEY,
@@ -18,8 +21,7 @@ CREATE TABLE IF NOT EXISTS recent_area_counts (
   lat               REAL NOT NULL CHECK (lat BETWEEN -90 AND 90),
   lon               REAL NOT NULL CHECK (lon BETWEEN -180 AND 180),
   location_name     TEXT,
-  -- Small-count suppression: raw counts of 1 or 2 are stored as NULL.
-  count             INTEGER CHECK (count IS NULL OR count >= 3),
+  count             INTEGER NOT NULL CHECK (count >= 1),
   force             TEXT NOT NULL,
   neighbourhood     TEXT,
   source            TEXT NOT NULL,
@@ -51,6 +53,12 @@ export function openDb(path: string): DB {
   // Keep the published artefact a single self-contained file.
   db.pragma("journal_mode = DELETE");
   db.pragma("foreign_keys = ON");
+  // recent_area_counts is rebuilt from data/raw, so an old layout is dropped
+  // rather than migrated. Re-run the ingest (with --offline) to refill it.
+  if (db.pragma("user_version", { simple: true }) !== SCHEMA_VERSION) {
+    db.exec("DROP TABLE IF EXISTS recent_area_counts");
+    db.pragma(`user_version = ${SCHEMA_VERSION}`);
+  }
   db.exec(SCHEMA);
   return db;
 }

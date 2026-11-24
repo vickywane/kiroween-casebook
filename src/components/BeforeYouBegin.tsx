@@ -18,7 +18,7 @@ const ITEMS: { icon: ReactNode; title: string; body: string }[] = [
   {
     icon: <BarChart3 className="h-5 w-5" />,
     title: "Area counts, not addresses",
-    body: "police.uk data is shown as counts within an area. A count of 1 or 2 on a street shows as “a small number”.",
+    body: "police.uk data is shown as counts within an area, never as exact addresses.",
   },
   {
     icon: <Check className="h-5 w-5" />,

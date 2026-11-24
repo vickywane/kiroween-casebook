@@ -30,8 +30,8 @@ export function LocationPermission({
           Allow location while you walk
         </h1>
         <p className="mt-3 text-base leading-relaxed" style={{ color: "var(--cb-muted)" }}>
-          Casebook reads your location only while this page is open, to find
-          cases near you. It isn&apos;t stored or shared.
+          Casebook uses your location to find cases near you. It is saved only
+          on this device, so you skip setup next time. It isn&apos;t shared.
         </p>
         <div
           className="mt-4 flex items-start gap-3 rounded-xl px-4 py-3 text-sm"

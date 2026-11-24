@@ -25,7 +25,6 @@ This is a Next.js web app for the Kiroween 2026 hackathon. It shows historical a
 - Never query the database from a Client Component. Use API routes.
 - Two-tone rule: historical layer gets casebook styling; recent layer is plain and factual.
 - Every case record must have a non-null `verdict` and `source_url`.
-- Suppress police.uk counts of 1 or 2 (set to null, show "a small number").
 
 ## Data sources
 

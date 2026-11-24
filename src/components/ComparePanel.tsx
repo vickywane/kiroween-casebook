@@ -12,46 +12,15 @@ interface Props {
   /** Wider (1 mile) vs street-only comparison. */
   wide: boolean;
   onToggleWide: (wide: boolean) => void;
-  /** Too few records: show the suppressed state (E6). */
-  tooFew?: boolean;
 }
 
 /**
- * ComparePanel — M7 / D3 / E6 (Compare). Historic figures use crimson, recent use
+ * ComparePanel — M7 / D3 (Compare). Historic figures use crimson, recent use
  * blue. Bars show each category's share of its own period, never one
- * against the other. Street counts of 1 or 2 show as "a small number".
+ * against the other.
  */
-export function ComparePanel({ street, wide, onToggleWide, tooFew = false }: Props) {
+export function ComparePanel({ street, wide, onToggleWide }: Props) {
   const maxDecade = Math.max(...MOCK_DECADES.map((d) => d.count));
-
-  if (tooFew) {
-    return (
-      <div className="px-5 pb-28 pt-6 md:px-6">
-        <Eyebrow tone="crimson">Compare</Eyebrow>
-        <h1 className="cb-serif mt-2 text-[32px] font-bold">{street}</h1>
-        <Card className="mt-4 p-4">
-          <Eyebrow tone="crimson">Then · 1780s</Eyebrow>
-          <p className="cb-serif mt-2 text-5xl font-bold">14</p>
-          <p className="text-[15px]">highway robberies tried at the Old Bailey from this street</p>
-        </Card>
-        <Card className="mt-3 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--cb-blue)" }}>
-            Now · Last 12 months
-          </p>
-          <p className="mt-2 text-xl font-semibold">A small number</p>
-          <p className="mt-1 text-sm" style={{ color: "var(--cb-muted)" }}>
-            Fewer than 5 recent records near here, so we don&apos;t show the
-            exact number or a comparison. Small counts can point to real people.
-          </p>
-        </Card>
-        <div className="mt-3">
-          <SecondaryButton onClick={() => onToggleWide(true)}>
-            Compare a wider area (1 mile)
-          </SecondaryButton>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="px-5 pb-28 pt-6 md:px-6 lg:px-10">
@@ -156,10 +125,6 @@ export function ComparePanel({ street, wide, onToggleWide, tooFew = false }: Pro
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-sm" style={{ color: "var(--cb-muted)" }}>
-              Burglary today: a small number. Counts of 1 or 2 on a street are
-              not shown.
-            </p>
           </Card>
 
           <div className="rounded-2xl p-4" style={{ background: "var(--cb-stone)" }}>

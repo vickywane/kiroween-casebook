@@ -1,8 +1,9 @@
 "use client";
 
-import { MapPin } from "lucide-react";
+import { ArrowLeft, MapPin } from "lucide-react";
+import { useState } from "react";
 import { DEFAULT_CITY, type City } from "@/lib/cities";
-import { CityRow } from "./CityMenu";
+import { CityList, CityRow } from "./CityMenu";
 import { MapArt } from "./MapArt";
 import { PrimaryButton, TextButton } from "./ui";
 
@@ -13,14 +14,13 @@ import { PrimaryButton, TextButton } from "./ui";
 export function CityDetected({
   detected,
   onContinue,
-  onChooseCity,
 }: {
   /** City matched from the GPS fix; null when it matches none we know. */
   detected: City | null;
   /** Enter the app with the given city selected. */
   onContinue: (city: City) => void;
-  onChooseCity: () => void;
 }) {
+  const [choosing, setChoosing] = useState(false);
   const supported = detected?.available ? detected : null;
   const start = supported ?? DEFAULT_CITY;
 
@@ -43,6 +43,22 @@ export function CityDetected({
         <MapArt className="h-full w-full" />
       </div>
       <div className="absolute inset-x-0 bottom-0 mx-auto max-w-[520px] rounded-t-3xl bg-white px-6 pb-8 pt-6 shadow-[0_-8px_30px_rgba(0,0,0,.12)]">
+        {choosing ? (
+          <>
+            <button
+              type="button"
+              onClick={() => setChoosing(false)}
+              className="flex items-center gap-2 text-sm font-semibold"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back
+            </button>
+            <h1 className="cb-serif mt-3 text-[24px] font-bold leading-tight">Choose a city</h1>
+            <div className="mt-3 flex max-h-[55vh] flex-col gap-3 overflow-y-auto">
+              <CityList city={start} detected={detected} onSelect={(c) => onContinue(c)} />
+            </div>
+          </>
+        ) : (
+          <>
         <span
           className="flex h-14 w-14 items-center justify-center rounded-full"
           style={{ background: "var(--cb-note-bg)", color: "var(--cb-crimson)" }}
@@ -68,13 +84,15 @@ export function CityDetected({
           <PrimaryButton onClick={() => onContinue(start)}>
             {supported ? `Open the ${start.name} casebook` : `Explore ${start.name} instead`}
           </PrimaryButton>
-          <TextButton onClick={onChooseCity}>
+          <TextButton onClick={() => setChoosing(true)}>
             {supported ? "Choose a different city" : "See all cities"}
           </TextButton>
         </div>
         <p className="mt-2 text-center text-[13px]" style={{ color: "var(--cb-muted)" }}>
-          Your location isn&apos;t stored or shared.
+          Your location is saved only on this device. It isn&apos;t shared.
         </p>
+          </>
+        )}
       </div>
     </div>
   );

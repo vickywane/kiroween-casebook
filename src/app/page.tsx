@@ -8,7 +8,8 @@ import { LocationPermission } from "@/components/LocationPermission";
 import { LocationBlocked } from "@/components/LocationBlocked";
 import { InstallSheet } from "@/components/InstallSheet";
 import { CityDetected } from "@/components/CityDetected";
-import { detectCity, loadCity, saveCity, type City } from "@/lib/cities";
+import { detectCity, getCity, loadCity, saveCity, type City } from "@/lib/cities";
+import { savePosition, updateProfile, useProfile } from "@/lib/profile-cache";
 
 /**
  * Leaflet must only run on the client — SSR would throw because it accesses
@@ -22,19 +23,31 @@ const SherlockMap = dynamic(
 type Step = "welcome" | "before" | "permission" | "blocked" | "city" | "app";
 
 export default function Home() {
-  const [step, setStep] = useState<Step>("welcome");
+  // Cached onboarding answers (null until storage can be read on the client).
+  const profile = useProfile();
+  const [step, setStep] = useState<Step | null>(null);
   const [installEvent, setInstallEvent] = useState<Event | null>(null);
   const [showInstall, setShowInstall] = useState(false);
   const [city, setCity] = useState<City | null>(null);
   const [detected, setDetected] = useState<City | null>(null);
   const [openCityMenu, setOpenCityMenu] = useState(false);
+  const current: Step | null =
+    step ?? (profile ? (profile.onboarded ? "app" : "welcome") : null);
 
   const chooseCity = (c: City) => {
     saveCity(c);
     setCity(c);
   };
 
-  const enterApp = (opts?: { cityMenu?: boolean }) => {
+  /** Finish onboarding: cache it so later visits open straight on the map. */
+  const enterApp = (opts?: {
+    cityMenu?: boolean;
+    location?: "granted" | "denied" | "skipped";
+  }) => {
+    updateProfile({
+      onboarded: true,
+      ...(opts?.location ? { location: opts.location } : {}),
+    });
     setOpenCityMenu(!!opts?.cityMenu);
     setStep("app");
   };
@@ -50,12 +63,12 @@ export default function Home() {
 
   // Offer "Add to home screen" once, a few seconds after the map opens.
   useEffect(() => {
-    if (step !== "app") return;
+    if (current !== "app") return;
     const standalone = window.matchMedia("(display-mode: standalone)").matches;
     if (standalone || localStorage.getItem("casebook.install-dismissed")) return;
     const t = setTimeout(() => setShowInstall(true), 6000);
     return () => clearTimeout(t);
-  }, [step]);
+  }, [current]);
 
   const requestLocation = () => {
     if (!navigator.geolocation) {
@@ -65,53 +78,71 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         // Matching happens on-device; the position never leaves the browser.
-        const match = detectCity([pos.coords.latitude, pos.coords.longitude]);
+        const p: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+        const match = detectCity(p);
+        savePosition(p, match?.id ?? null);
         setDetected(match);
         if (match?.available) chooseCity(match);
         setStep("city");
       },
-      (err) => setStep(err.code === err.PERMISSION_DENIED ? "blocked" : "app"),
+      (err) => {
+        if (err.code === err.PERMISSION_DENIED) {
+          updateProfile({ location: "denied" });
+          setStep("blocked");
+        } else {
+          enterApp();
+        }
+      },
       { timeout: 10_000 },
     );
   };
 
+  // Returning users skip onboarding. Until storage is readable (server render
+  // and hydration) show the loading screen instead of flashing the welcome.
+  if (profile === null || current === null) return <MapSkeleton />;
+  const cachedDetected = detected ?? getCity(profile.detectedCityId) ?? null;
+
   return (
     <div className="h-full w-full overflow-hidden bg-white">
-      {step === "welcome" && (
+      {current === "welcome" && (
         <WelcomeScreen
           onBegin={() => setStep("before")}
           onAllow={requestLocation}
-          onSearch={() => setStep("app")}
+          onSearch={() => enterApp({ location: "skipped" })}
           onHowWeHandle={() => setStep("before")}
         />
       )}
-      {step === "before" && (
+      {current === "before" && (
         <BeforeYouBegin
           onBack={() => setStep("welcome")}
           onContinue={() => setStep("permission")}
         />
       )}
-      {step === "permission" && (
-        <LocationPermission onAllow={requestLocation} onSearch={() => setStep("app")} />
+      {current === "permission" && (
+        <LocationPermission
+          onAllow={requestLocation}
+          onSearch={() => enterApp({ location: "skipped" })}
+        />
       )}
-      {step === "blocked" && (
-        <LocationBlocked onSearch={() => setStep("app")} onRetry={requestLocation} />
+      {current === "blocked" && (
+        <LocationBlocked
+          onSearch={() => enterApp({ location: "denied" })}
+          onRetry={requestLocation}
+        />
       )}
-      {step === "city" && (
+      {current === "city" && (
         <CityDetected
           detected={detected}
           onContinue={(c) => {
             chooseCity(c);
             enterApp();
           }}
-          onChooseCity={() => enterApp({ cityMenu: true })}
         />
       )}
-      {step === "app" && (
+      {current === "app" && (
         <SherlockMap
-          // The app step is only reached after a click, so localStorage is available here.
           city={city ?? loadCity()}
-          detectedCity={detected}
+          detectedCity={cachedDetected}
           onCityChange={chooseCity}
           initialCityMenuOpen={openCityMenu}
         />

@@ -1,7 +1,6 @@
 /**
  * Mock data used during development.
  * All historical cases are pre-1913 (Old Bailey ends 1913), so names are safe to show.
- * Counts < 3 are suppressed per the data rules.
  */
 
 export type GeocodeConfidence = "exact" | "street" | "area";
@@ -38,9 +37,12 @@ export interface RecentAreaCount {
   month: string;
   lat: number;
   lon: number;
-  /** null means "a small number" (1–2, suppressed) */
-  count: number | null;
+  count: number;
   force: string;
+  /** Street name, for police.uk points. */
+  place?: string;
+  /** Every category recorded at this point (police.uk). */
+  breakdown?: { label: string; count: number }[];
 }
 
 export interface ThenAndNowRow {
@@ -278,7 +280,7 @@ export const MOCK_RECENT_COUNTS: RecentAreaCount[] = [
     month: "2024-10",
     lat: 51.5115,
     lon: -0.12,
-    count: null, // suppressed: was 2
+    count: 2,
     force: "Metropolitan Police",
   },
   {
@@ -394,12 +396,11 @@ export const MOCK_DECADES: { label: string; count: number }[] = [
 export const MOCK_CATEGORY_COMPARE: {
   label: string;
   then: number;
-  now: number | null;
+  now: number;
 }[] = [
   { label: "Theft", then: 61, now: 212 },
   { label: "Robbery", then: 14, now: 9 },
   { label: "Violence", then: 8, now: 47 },
   { label: "Fraud & forgery", then: 6, now: 38 },
-  // now: null means fewer than 3 on a street, shown as "a small number"
-  { label: "Burglary", then: 11, now: null },
+  { label: "Burglary", then: 11, now: 2 },
 ];

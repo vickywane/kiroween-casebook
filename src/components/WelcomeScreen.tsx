@@ -129,12 +129,12 @@ export function WelcomeScreen({ onBegin, onAllow, onSearch, onHowWeHandle }: Pro
               <ContentNote />
             </div>
             <div className="mt-6 flex gap-3">
-              <PrimaryButton onClick={onAllow}>Allow location &amp; begin</PrimaryButton>
+              <PrimaryButton onClick={onAllow}>Allow location</PrimaryButton>
               <SecondaryButton onClick={onSearch}>Search a place</SecondaryButton>
             </div>
             <p className="mt-4 text-sm" style={{ color: "var(--cb-muted)" }}>
-              Location is read only while this page is open. It isn&apos;t
-              stored or shared.
+              Your location is saved only on this device. It isn&apos;t
+              shared. Clear it any time in Settings.
             </p>
           </div>
         </div>

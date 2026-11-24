@@ -7,8 +7,10 @@ import {
   Map as MapIcon,
   Navigation,
   Scale,
+  RotateCcw,
   ShieldAlert,
 } from "lucide-react";
+import { clearProfile } from "@/lib/profile-cache";
 import type { ReactNode } from "react";
 import { Card, Eyebrow } from "./ui";
 
@@ -112,6 +114,27 @@ export function SettingsPanel({ value, onChange }: Props) {
               ))}
             </span>
           } />
+      </Card>
+
+      <div className="mt-6"><Eyebrow>Privacy</Eyebrow></div>
+      <Card className="mt-2">
+        <button
+          onClick={() => {
+            clearProfile();
+            window.location.reload();
+          }}
+          className="flex w-full items-center gap-3 px-4 py-3 text-left"
+        >
+          <RotateCcw className="h-5 w-5 shrink-0" />
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-semibold leading-tight">
+              Forget my location and city
+            </span>
+            <span className="text-sm" style={{ color: "var(--cb-muted)" }}>
+              Clears what this device saved and restarts setup
+            </span>
+          </span>
+        </button>
       </Card>
 
       <div className="mt-6"><Eyebrow>About the data</Eyebrow></div>

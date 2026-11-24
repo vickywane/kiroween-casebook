@@ -1,6 +1,6 @@
 /**
  * Pure transform for police.uk street-level crimes: raw API batches in,
- * suppressed area counts out. No I/O here, so it can be unit tested.
+ * area counts out. No I/O here, so it can be unit tested.
  */
 
 export const LICENCE = "Open Government Licence v3.0";
@@ -28,6 +28,8 @@ export interface CrimeBatch {
   neighbourhoodName: string;
   month: string;
   centroid: { lat: number; lon: number };
+  /** The neighbourhood boundary used as the query polygon, as [lat, lon] pairs. */
+  boundary: [number, number][];
   crimes: PoliceCrime[];
   retrievedAt: string;
   sha256: string;
@@ -42,7 +44,7 @@ export interface AreaCountRow {
   lat: number;
   lon: number;
   location_name: string | null;
-  count: number | null;
+  count: number;
   force: string;
   neighbourhood: string | null;
   source: string;
@@ -60,14 +62,15 @@ export interface Reject {
   reason: string;
 }
 
-/**
- * Small-count suppression (steering rule): never show a count of 1 or 2.
- * Applied at every level, which is stricter than the steering rule requires
- * for wider areas but matches the data-ingestion spec.
- */
-export function suppressCount(n: number): number | null {
-  if (!Number.isInteger(n) || n < 1) throw new Error(`Invalid count: ${n}`);
-  return n <= 2 ? null : n;
+/** Ray-casting point-in-polygon test on [lat, lon] pairs. */
+export function pointInPolygon(lat: number, lon: number, polygon: [number, number][]): boolean {
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const [yi, xi] = polygon[i];
+    const [yj, xj] = polygon[j];
+    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
 }
 
 /** BTP crimes inside a force's area are recorded by British Transport Police. */
@@ -76,22 +79,34 @@ export function forceFor(crime: PoliceCrime, batchForce: string): string {
 }
 
 /**
- * Aggregates all neighbourhood batches for one force and month.
- * Crimes are de-duplicated by police.uk crime ID first, because a street on a
- * neighbourhood border can be returned by two neighbourhood polygons.
+ * Aggregates neighbourhood batches for one force and month.
+ *
+ * Each crime belongs to the neighbourhood whose boundary contains its point,
+ * not to whichever polygon query happened to return it. police.uk also returns
+ * crimes just outside a polygon, so a border street can come back from two
+ * queries. Owning by point means a neighbourhood's rows depend only on its own
+ * boundary and crimes, so re-running a subset of neighbourhoods gives the same
+ * rows as a full run. Crimes outside their batch's boundary are counted in
+ * `outside` and left to the neighbour that owns them.
+ *
+ * Crimes are also de-duplicated by police.uk crime ID, in case two boundaries
+ * overlap; batches are processed in neighbourhood-ID order so the owner is stable.
  */
 export function aggregateMonth(
   batches: CrimeBatch[],
   transformVersion: string,
-): { rows: AreaCountRow[]; rejects: Reject[]; crimesSeen: number; duplicates: number } {
-  if (batches.length === 0) return { rows: [], rejects: [], crimesSeen: 0, duplicates: 0 };
+): { rows: AreaCountRow[]; rejects: Reject[]; crimesSeen: number; duplicates: number; outside: number; unowned: number } {
+  if (batches.length === 0) return { rows: [], rejects: [], crimesSeen: 0, duplicates: 0, outside: 0, unowned: 0 };
   const month = batches[0].month;
   if (batches.some((b) => b.month !== month)) throw new Error("aggregateMonth expects batches from one month");
+  batches = [...batches].sort((a, b) => (a.neighbourhood < b.neighbourhood ? -1 : a.neighbourhood > b.neighbourhood ? 1 : 0));
 
   const seen = new Set<number>();
+  const outsideIds = new Set<number>();
   const rejects: Reject[] = [];
   let crimesSeen = 0;
   let duplicates = 0;
+  let outside = 0;
 
   type Group = { count: number; lat: number; lon: number; name: string | null; batch: CrimeBatch; force: string; category: string; key: string };
   const street = new Map<string, Group>();
@@ -104,6 +119,20 @@ export function aggregateMonth(
         duplicates++;
         continue;
       }
+
+      const lat = Number(crime.location?.latitude);
+      const lon = Number(crime.location?.longitude);
+      const streetId = crime.location?.street?.id;
+      if (!crime.location || !Number.isFinite(lat) || !Number.isFinite(lon) || streetId === undefined) {
+        seen.add(crime.id);
+        rejects.push({ crimeId: crime.id, reason: "missing or invalid location" });
+        continue;
+      }
+      if (!pointInPolygon(lat, lon, batch.boundary)) {
+        outside++;
+        outsideIds.add(crime.id);
+        continue;
+      }
       seen.add(crime.id);
 
       if (crime.month !== month) {
@@ -114,13 +143,6 @@ export function aggregateMonth(
         rejects.push({ crimeId: crime.id, reason: "missing category" });
         continue;
       }
-      const lat = Number(crime.location?.latitude);
-      const lon = Number(crime.location?.longitude);
-      const streetId = crime.location?.street?.id;
-      if (!crime.location || !Number.isFinite(lat) || !Number.isFinite(lon) || streetId === undefined) {
-        rejects.push({ crimeId: crime.id, reason: "missing or invalid location" });
-        continue;
-      }
 
       const force = forceFor(crime, batch.force);
 
@@ -129,7 +151,7 @@ export function aggregateMonth(
       if (s) s.count++;
       else
         street.set(sKey, {
-          count: 1, lat, lon, name: crime.location.street.name ?? null, batch, force,
+          count: 1, lat, lon, name: crime.location!.street.name ?? null, batch, force,
           category: crime.category, key: `${force}:${streetId}`,
         });
 
@@ -144,6 +166,22 @@ export function aggregateMonth(
     }
   }
 
+  // Crimes no loaded boundary contains. In a run over a subset of
+  // neighbourhoods these belong to neighbours; in a full run they are lost.
+  const unowned = [...outsideIds].filter((id) => !seen.has(id)).length;
+
+  // Street rows of a neighbourhood must add up to its total.
+  const streetSums = new Map<string, number>();
+  for (const g of street.values()) {
+    const key = `${g.force}:${g.batch.neighbourhood}:${g.category}`;
+    streetSums.set(key, (streetSums.get(key) ?? 0) + g.count);
+  }
+  for (const g of nbhd.values()) {
+    if (streetSums.get(`${g.force}:${g.batch.neighbourhood}:${g.category}`) !== g.count) {
+      throw new Error(`Street rows don't add up to the total for ${g.key}:${g.category}`);
+    }
+  }
+
   const toRow = (level: AreaCountRow["level"], g: Group): AreaCountRow => ({
     id: `policeuk:${level}:${month}:${g.key}:${g.category}`,
     level,
@@ -152,7 +190,7 @@ export function aggregateMonth(
     lat: g.lat,
     lon: g.lon,
     location_name: g.name,
-    count: suppressCount(g.count),
+    count: g.count,
     force: g.force,
     neighbourhood: g.batch.neighbourhood,
     source: "policeuk",
@@ -169,12 +207,13 @@ export function aggregateMonth(
     ...[...street.values()].map((g) => toRow("street", g)),
     ...[...nbhd.values()].map((g) => toRow("neighbourhood", g)),
   ];
-  return { rows, rejects, crimesSeen, duplicates };
+  return { rows, rejects, crimesSeen, duplicates, outside, unowned };
 }
 
 /** Converts a police.uk boundary into the "lat,lng:lat,lng" poly format and its centroid. */
 export function boundaryToPoly(points: { latitude: string; longitude: string }[]): {
   poly: string;
+  boundary: [number, number][];
   centroid: { lat: number; lon: number };
 } {
   if (points.length < 3) throw new Error("Boundary needs at least 3 points");
@@ -186,6 +225,7 @@ export function boundaryToPoly(points: { latitude: string; longitude: string }[]
   }
   return {
     poly: points.map((p) => `${p.latitude},${p.longitude}`).join(":"),
+    boundary: points.map((p) => [Number(p.latitude), Number(p.longitude)]),
     centroid: { lat: lat / points.length, lon: lon / points.length },
   };
 }
