@@ -30,6 +30,7 @@ import { useAreaData } from "@/lib/useAreaData";
 import { allStreets, countWithin, monthLabel, monthOf, onNearestStreet, toMarkers } from "@/lib/area-stats";
 import { OfflineScreen } from "./OfflineScreen";
 import { HistoricCaseCard } from "./CaseCard";
+import { HistoricPopup, RecentPopup } from "./MarkerPopup";
 
 // ── Leaflet icon fix ──────────────────────────────────────────────────────────
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)
@@ -377,6 +378,59 @@ export function SherlockMap({
     });
   };
 
+  // ── Marker preview cards: hover to peek, click to pin ──────────────────────
+  type Preview =
+    | { id: string; lat: number; lon: number; kind: "historic"; c: HistoricalCase }
+    | { id: string; lat: number; lon: number; kind: "recent"; r: RecentAreaCount };
+  const [hovered, setHovered] = useState<Preview | null>(null);
+  const [pinned, setPinnedState] = useState<Preview | null>(null);
+  // Mirror of `pinned` for Leaflet/MapLibre event handlers, which run outside
+  // React's render cycle and must see the latest value synchronously.
+  const pinnedRef = useRef<Preview | null>(null);
+  const setPinned = (p: Preview | null) => {
+    pinnedRef.current = p;
+    setPinnedState(p);
+  };
+
+  /** Back to the default zoom, keeping the current centre. */
+  const zoomOutToDefault = () => {
+    const map = libreMapRef.current;
+    if (!map) return;
+    const z = toLibreZoom(DEFAULT_ZOOM);
+    if (map.getZoom() > z) map.easeTo({ zoom: z, duration: 600 });
+  };
+
+  /** Close the pinned card (close icon or a click on empty map) and zoom out. */
+  const closePinned = () => {
+    if (!pinnedRef.current) return;
+    setPinned(null);
+    setHovered(null);
+    zoomOutToDefault();
+  };
+
+  const previewHandlers = (p: Preview, open: () => void) => ({
+    mouseover: () => setHovered(p),
+    mouseout: () => setHovered((h) => (h?.id === p.id ? null : h)),
+    click: () => {
+      setPinned(p);
+      focusPoint(p.lat, p.lon);
+      open();
+    },
+  });
+
+  // A click on the map itself (not a marker) closes the pinned card. Marker
+  // clicks never reach MapLibre: the Leaflet marker layer sits above it.
+  useEffect(() => {
+    if (!libreMap) return;
+    const onClick = () => closePinned();
+    libreMap.on("click", onClick);
+    return () => {
+      libreMap.off("click", onClick);
+    };
+    // closePinned only reads refs and stable setters.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [libreMap]);
+
   // ── Casebook UI state (does not touch the map) ──────────────────────────────
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 900);
@@ -539,17 +593,11 @@ export function SherlockMap({
                 key={c.id}
                 position={[c.lat, c.lon]}
                 icon={getHistoricalIcon(c.offence_category)}
-                eventHandlers={{
-                  click: () => {
-                    focusPoint(c.lat, c.lon);
-                    setPanel({ type: "historic", data: c });
-                  },
-                }}
-              >
-                <Popup>
-                  <strong>{c.offence_category}</strong> · {c.year}
-                </Popup>
-              </Marker>
+                eventHandlers={previewHandlers(
+                  { id: `h:${c.id}`, lat: c.lat, lon: c.lon, kind: "historic", c },
+                  () => setPanel({ type: "historic", data: c }),
+                )}
+              />
             ))}
 
           {recentOn &&
@@ -558,18 +606,52 @@ export function SherlockMap({
                 key={r.id}
                 position={[r.lat, r.lon]}
                 icon={getRecentIcon(r.category)}
-                eventHandlers={{
-                  click: () => {
-                    focusPoint(r.lat, r.lon);
-                    setPanel({ type: "recent", data: r });
-                  },
-                }}
-              >
-                <Popup>
-                  {r.category_label} · {r.count}
-                </Popup>
-              </Marker>
+                eventHandlers={previewHandlers(
+                  { id: `r:${r.id}`, lat: r.lat, lon: r.lon, kind: "recent", r },
+                  () => setPanel({ type: "recent", data: r }),
+                )}
+              />
             ))}
+
+          {/* Preview cards. Standalone popups so React decides when they show:
+              the hovered one closes on mouse-out, the pinned one stays until
+              its close icon or a click on the map. */}
+          {[pinned, hovered && hovered.id !== pinned?.id ? hovered : null].map((p) => {
+            if (!p) return null;
+            const isPinned = p.id === pinned?.id;
+            return (
+              <Popup
+                key={`${isPinned ? "pin" : "hover"}:${p.id}`}
+                position={[p.lat, p.lon]}
+                className={`cb-popup${p.kind === "recent" ? " cb-popup--recent" : ""}${isPinned ? "" : " cb-popup--peek"}`}
+                // Tip touches the top of the 30 px pin (centre-anchored).
+                offset={[0, -8]}
+                maxWidth={340}
+                minWidth={300}
+                autoPan={false}
+                autoClose={false}
+                closeOnClick={false}
+                closeButton={isPinned}
+                eventHandlers={
+                  isPinned
+                    ? {
+                        // Close icon. Our own unmounts also fire "remove", so
+                        // only act if this card is still the pinned one.
+                        remove: () => {
+                          if (pinnedRef.current?.id === p.id) closePinned();
+                        },
+                      }
+                    : undefined
+                }
+              >
+                {p.kind === "historic" ? (
+                  <HistoricPopup c={p.c} distance={`${distanceOf(p.lat, p.lon)} from you`} />
+                ) : (
+                  <RecentPopup r={p.r} distance={distanceOf(p.lat, p.lon)} />
+                )}
+              </Popup>
+            );
+          })}
         </MapContainer>
       </div>
 
@@ -584,6 +666,43 @@ export function SherlockMap({
         .leaflet-marker-icon.leaflet-interactive,
         .leaflet-popup {
           pointer-events: auto;
+        }
+        /* Marker preview cards (MarkerPopup.tsx) */
+        .cb-popup .leaflet-popup-content-wrapper {
+          border-radius: 14px;
+          padding: 0;
+          box-shadow: 0 10px 30px rgba(0,0,0,.35);
+        }
+        .cb-popup .leaflet-popup-content {
+          margin: 14px 16px 20px;
+          line-height: 1.4;
+          font-family: var(--font-inter), system-ui, sans-serif;
+        }
+        /* Hover peek: never catches the mouse, so it can't flicker. */
+        .cb-popup--peek { pointer-events: none !important; }
+        .cb-popup .leaflet-popup-content p { margin: 0; }
+        .cb-popup:not(.cb-popup--recent) .leaflet-popup-content-wrapper {
+          border-top: 3px solid var(--cb-crimson);
+        }
+        .cb-popup .leaflet-popup-tip { box-shadow: none; }
+        /* Below desktop the case sheet covers most of the map and the tapped
+           point sits ~100-130 px from the top, so the card would be clipped.
+           The sheet already shows the same details there. */
+        @media (max-width: 1023px) {
+          .cb-popup { display: none; }
+        }
+        .cb-popup a.leaflet-popup-close-button {
+          top: 8px;
+          right: 8px;
+          width: 24px;
+          height: 24px;
+          border-radius: 9999px;
+          font: 18px/22px system-ui, sans-serif;
+          color: var(--cb-muted);
+        }
+        .cb-popup a.leaflet-popup-close-button:hover {
+          background: var(--cb-stone);
+          color: var(--cb-ink);
         }
       `}</style>
 
