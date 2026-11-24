@@ -46,5 +46,6 @@ next-env.d.ts
 # ETL data (raw downloads, reports and the built database are generated)
 /data/raw/
 /data/reports/
+/data/exports/
 /data/*.db
 /data/*.db-journal

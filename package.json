@@ -14,6 +14,7 @@
     "ingest:police": "tsx scripts/ingest-police.ts",
     "ingest": "yarn ingest:police",
     "load:dynamo": "tsx scripts/load-dynamo.ts",
+    "export:cases": "tsx scripts/export-cases.ts",
     "test:etl": "tsx --test \"scripts/**/*.test.ts\""
   },
   "dependencies": {

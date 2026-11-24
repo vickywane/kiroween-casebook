@@ -94,6 +94,8 @@ const userIcon = L.divIcon({
 // ── Constants ─────────────────────────────────────────────────────────────────
 const DEFAULT_CENTRE: [number, number] = [51.5074, -0.1278];
 const DEFAULT_ZOOM = 16;
+/** Leaflet zoom used when a point is tapped: individual buildings visible. */
+const STREET_ZOOM = 18;
 
 // ── Landmark labels ───────────────────────────────────────────────────────────
 // Alidade Smooth Dark ships with no business POIs (shops, cafés, etc.) — only
@@ -347,6 +349,34 @@ export function SherlockMap({
     };
   }, []);
 
+  // ── Zoom to a tapped point ──────────────────────────────────────────────────
+  /**
+   * Fly to street level so the point sits in the middle of the map area the
+   * case panel leaves visible: right of the 520 px side panel on desktop,
+   * above the bottom sheet (top at 190 px / 260 px) on phone and tablet.
+   * Uses `offset`, not `padding`, because padding would persist and shift
+   * MapLibre's centre away from the Leaflet marker layer synced to it.
+   * Non-essential, so it jumps instead of flying under reduced motion.
+   */
+  const focusPoint = (lat: number, lon: number) => {
+    const map = libreMapRef.current;
+    if (!map) return;
+    const el = map.getContainer();
+    const w = el.clientWidth;
+    const h = el.clientHeight;
+    const desktop = window.matchMedia("(min-width: 1024px)").matches;
+    const sheetTop = window.matchMedia("(min-width: 768px)").matches ? 260 : 190;
+    const offset: [number, number] = desktop
+      ? [Math.min(520, w / 2) / 2, 0]
+      : [0, Math.min(sheetTop, h) / 2 - h / 2];
+    map.flyTo({
+      center: [lon, lat],
+      zoom: Math.max(map.getZoom(), toLibreZoom(STREET_ZOOM)),
+      offset,
+      speed: 1.4,
+    });
+  };
+
   // ── Casebook UI state (does not touch the map) ──────────────────────────────
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 900);
@@ -510,7 +540,10 @@ export function SherlockMap({
                 position={[c.lat, c.lon]}
                 icon={getHistoricalIcon(c.offence_category)}
                 eventHandlers={{
-                  click: () => setPanel({ type: "historic", data: c }),
+                  click: () => {
+                    focusPoint(c.lat, c.lon);
+                    setPanel({ type: "historic", data: c });
+                  },
                 }}
               >
                 <Popup>
@@ -526,7 +559,10 @@ export function SherlockMap({
                 position={[r.lat, r.lon]}
                 icon={getRecentIcon(r.category)}
                 eventHandlers={{
-                  click: () => setPanel({ type: "recent", data: r }),
+                  click: () => {
+                    focusPoint(r.lat, r.lon);
+                    setPanel({ type: "recent", data: r });
+                  },
                 }}
               >
                 <Popup>
